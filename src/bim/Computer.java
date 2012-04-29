@@ -2,8 +2,9 @@ package bim;
 
 /**
  * @version 1.0
- * @author hanynowsky
- * CLass to compute the Body Mass Index using the international Formula
+ * @author hanynowsky 
+ * CLass to compute the Body Mass Index using the
+ * international Formula
  */
 public class Computer {
 
