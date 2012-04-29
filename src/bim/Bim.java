@@ -404,7 +404,7 @@ public class Bim extends javax.swing.JFrame {
             java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
             desktop.browse(new URI("https://launchpad.net/~hanynowsky"));
         } catch (IOException | URISyntaxException ex) {
-            Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);//
         }
     }//GEN-LAST:event_goToWebSite
 
