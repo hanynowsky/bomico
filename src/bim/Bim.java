@@ -192,7 +192,7 @@ public class Bim extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jTextArea1.setRows(2);
         jTextArea1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 102, 102), new java.awt.Color(102, 102, 102), new java.awt.Color(102, 102, 102), new java.awt.Color(102, 102, 102)));
         jScrollPane1.setViewportView(jTextArea1);
@@ -381,6 +381,7 @@ public class Bim extends javax.swing.JFrame {
             System.out.println(String.valueOf(bimo));
             System.out.println(res);
             System.err.println("BIM is: " + df.format(c.getResult()));
+          // jLabel11.setText( String.valueOf(jSlider3.getValue()));
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
