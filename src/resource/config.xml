@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <laf>
+        <metal>javax.swing.plaf.metal.MetalLookAndFeel</metal>
+        <gtk>com.sun.java.swing.plaf.gtk.GTKLookAndFeel</gtk>
+    </laf>
+</configuration>
