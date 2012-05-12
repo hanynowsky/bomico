@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.heresylabs.jlafchooser.JLAFChooser;
+import org.java.ayatana.ApplicationMenu;
 
 /**
  * @version 1.0
@@ -29,7 +30,7 @@ public class Bim extends javax.swing.JFrame {
      */
     public Bim() {
         initComponents();
-
+        ApplicationMenu.tryInstall(this);
     }
 
     /**
@@ -82,7 +83,6 @@ public class Bim extends javax.swing.JFrame {
         jDialog1.setTitle("BOMICO");
         jDialog1.setMinimumSize(new java.awt.Dimension(400, 300));
         jDialog1.setModal(true);
-        jDialog1.setPreferredSize(new java.awt.Dimension(420, 375));
         jDialog1.setResizable(false);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/icon.png"))); // NOI18N
@@ -173,10 +173,10 @@ public class Bim extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setForeground(new java.awt.Color(238, 238, 238));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setText("Weight");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setText("Height");
 
         jSlider3.setFont(new java.awt.Font("Ubuntu Light", 1, 12)); // NOI18N
@@ -213,7 +213,7 @@ public class Bim extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setEditable(false);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Liberation Mono", 1, 14)); // NOI18N
         jTextArea1.setRows(2);
         jTextArea1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 102, 102), new java.awt.Color(102, 102, 102), new java.awt.Color(102, 102, 102), new java.awt.Color(102, 102, 102)));
         jTextArea1.setMargin(new java.awt.Insets(1, 1, 1, 1));
@@ -259,7 +259,7 @@ public class Bim extends javax.swing.JFrame {
         jSlider1.setToolTipText("Age Value");
         jSlider1.setValue(30);
 
-        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel14.setText("Age");
 
         jTextField2.setEditable(false);
@@ -356,7 +356,8 @@ public class Bim extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(223, 223, 223));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Calculate BMI");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/114.png"))); // NOI18N
+        jButton1.setToolTipText("Calculate BMI");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -614,6 +615,11 @@ public class Bim extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
+/**
+ * Class to allow existing the GUI
+ *
+ * @author Hanynowsky <hanynowsky@gmail.com>
+ */
 class ExitListener extends WindowAdapter {
 
     @Override
