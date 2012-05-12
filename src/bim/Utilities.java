@@ -1,7 +1,10 @@
 package bim;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,8 +32,8 @@ public class Utilities {
     private String vendor = "Otika";
     private String title = "Bomico";
     private String build = "21";
-    private String metallaf;
-    private String gtklaf;
+    protected static String metallaf = "javax.swing.plaf.metal.MetalLookAndFeel";
+    protected static String gtklaf = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
     int i;
 
     /**
@@ -80,7 +83,7 @@ public class Utilities {
     }
 
     public void setGtklaf(String gtklaf) {
-        this.gtklaf = gtklaf;
+        Utilities.gtklaf = gtklaf;
     }
 
     public String getMetallaf() {
@@ -88,7 +91,7 @@ public class Utilities {
     }
 
     public void setMetallaf(String metallaf) {
-        this.metallaf = metallaf;
+        Utilities.metallaf = metallaf;
     }
 
     public String getAppInfos() {
@@ -113,10 +116,24 @@ public class Utilities {
         System.out.println(dateFormat.format(cal.getTime()));
         try {
             /**
-             * Creates the file if it does not exist
+             * A second way to get the file path but uncomplete
              */
-            // String xmluri = getClass().getResource("/resource/followup.xml").getFile();
-            File xmlFile = new File("src/resource/followup.xml");
+            URL url = getClass().getResource("/resource/followup.xml");
+            File file = new File(url.getFile());
+            file.setWritable(true);
+            String path = this.getClass().getResource("/resource/followup.xml").getPath();
+
+            // The XML file to write into
+
+            String pathname = getClass().getResource("/resource/followup.xml") + "";
+            FileInputStream fis = new FileInputStream(path);
+            File xmlFile = new File("src" + File.separator + "resource" + File.separator + "followup.xml");
+            System.out.println(xmlFile.toURI());
+            System.out.println(path);
+            System.out.println("");
+            if (!xmlFile.exists()) {
+                xmlFile.createNewFile();
+            };
             //Create the documentBuilderFactory
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             //Create the documentBuilder
