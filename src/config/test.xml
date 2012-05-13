@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<followup>
+    <bmi id="1">
+        <value>20</value>
+        <year>2012</year>
+        <month>05</month>
+        <day>11</day>
+        <time>11:20:03</time>
+    </bmi>
+    <bmi id="1">
+        <value>19</value>
+        <year>2012</year>
+        <month>05</month>
+        <day>13</day>
+        <time>18:40:58</time>
+    </bmi>
+    <bmi id="1">
+        <value>19</value>
+        <year>2012</year>
+        <month>05</month>
+        <day>13</day>
+        <time>18:41:02</time>
+    </bmi>
+    <bmi id="2">
+        <value>19</value>
+        <year>2012</year>
+        <month>05</month>
+        <day>13</day>
+        <time>18:41:05</time>
+    </bmi>
+</followup>

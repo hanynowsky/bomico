@@ -1,6 +1,7 @@
 package test;
 
 import bim.Utilities;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -8,8 +9,11 @@ import bim.Utilities;
  */
 public class Test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException {
         System.out.println("Testing executed");
+
         new Utilities().appendinXML("19");
+
+      
     }
 }

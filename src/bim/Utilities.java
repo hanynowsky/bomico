@@ -1,9 +1,7 @@
 package bim;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -99,7 +97,7 @@ public class Utilities {
         return infos;
     }
 
-    public void appendinXML(String bmival) {
+    public void appendinXML(String bmival) throws URISyntaxException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         DateFormat monthFormat = new SimpleDateFormat("MM");
@@ -115,42 +113,54 @@ public class Utilities {
         Calendar cal = Calendar.getInstance();
         System.out.println(dateFormat.format(cal.getTime()));
         try {
-            /**
-             * A second way to get the file path but uncomplete
+            /*
+             * InputStream input =
+             * Utilities.class.getResourceAsStream("/config/followup.xml");
+             * ClassLoader classLoader =
+             * Thread.currentThread().getContextClassLoader(); URL aurl =
+             * classLoader.getResource("/config/followup.xml"); URL url =
+             * getClass().getResource("/config/followup.xml"); File xFile = new
+             * File(url.toURI()); System.out.println("---");
+             * System.out.println(xFile.getPath());
+             * System.out.println(xFile.getAbsolutePath());
+             * System.out.println(xFile.getCanonicalPath());
+             * System.out.println("---");
              */
-            URL url = getClass().getResource("/resource/followup.xml");
-            File file = new File(url.getFile());
-            file.setWritable(true);
-            String path = this.getClass().getResource("/resource/followup.xml").getPath();
 
-            // The XML file to write into
+            String p = System.getProperty("user.home");
+            String localpath = p + File.separator + ".bomico"
+                    + File.separator + "config" + File.separator + "followup.xml";
+            System.out.println(localpath);
+            File xmlFile = new File(localpath);
+            // File f = new File("/home/hanine/.bomico/test.txt");
+            try {
+                if (!xmlFile.exists()) {
+                    new File(p + "/.bomico/config").mkdirs();
 
-            String pathname = getClass().getResource("/resource/followup.xml") + "";
-            FileInputStream fis = new FileInputStream(path);
-            File xmlFile = new File("src" + File.separator + "resource" + File.separator + "followup.xml");
-            System.out.println(xmlFile.toURI());
-            System.out.println(path);
-            System.out.println("");
-            if (!xmlFile.exists()) {
-                xmlFile.createNewFile();
-            };
-            //Create the documentBuilderFactory
+                    xmlFile.createNewFile();
+                    FileWriter fstream = new FileWriter(xmlFile, true);
+                    try (BufferedWriter out = new BufferedWriter(fstream)) {
+                        String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><followup><bmi id=\"1\"><value>20</value><year>2012</year><month>05</month><day>11</day><time>11:20:03</time></bmi></followup>";
+                        out.write(xmlString);
+                    }
+                    System.out.println("Followup.xml File Created");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            //Create the documentBuilder
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            //Create the Document  by parsing the file
-            Document document = documentBuilder.parse(xmlFile);
+            Document document = documentBuilder.parse(xmlFile); // xmlFile
             //Get the root element of the xml Document;
             Element documentElement = document.getDocumentElement();
             System.out.println("documentElement:" + documentElement.toString());
-            //Get childNodes of the rootElement
-            //Create a textNode element
             Element valueNode = document.createElement("value");
             Element yearNode = document.createElement("year");
             Element monthNode = document.createElement("month");
             Element dayNode = document.createElement("day");
             Element timeNode = document.createElement("time");
-            //  Text value = document.createTextNode("2");
+            //Text value = document.createTextNode("2");
             valueNode.setTextContent(bmival);
             yearNode.setTextContent(year);
             monthNode.setTextContent(month);
@@ -188,13 +198,23 @@ public class Utilities {
             tFormer.setOutputProperty(OutputKeys.METHOD, "xml");
             //s  Write the document back to the file
             Source source = new DOMSource(document);
-            Result result = new StreamResult(xmlFile);
+
+            Result result = new StreamResult(xmlFile); // xmlFile
             tFormer.transform(source, result);
+
+
 
 
         } catch (TransformerException | SAXException | IOException | ParserConfigurationException ex) {
             Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Info appended in XML");
+    }
+
+    /**
+     * Read XML data
+     */
+    public void readXML() {
+        // TODO
     }
 }
