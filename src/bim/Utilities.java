@@ -1,8 +1,9 @@
 package bim;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,17 +23,28 @@ import org.xml.sax.SAXException;
 
 /**
  * @version 1.0
- * @author hanynowsky
+ * @author Hanynowsky
  */
 public class Utilities {
 
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    DateFormat monthFormat = new SimpleDateFormat("MM");
+    DateFormat yearFormat = new SimpleDateFormat("yyyy");
+    DateFormat dayFormat = new SimpleDateFormat("dd");
+    Date date = new Date();
+    String year = yearFormat.format(date).toString();
+    String month = monthFormat.format(date).toString();
+    String day = dayFormat.format(date).toString();
+    String time = timeFormat.format(date).toString();
+    Calendar cal = Calendar.getInstance();
     private String version = "1.0";
     private String vendor = "Otika";
     private String title = "Bomico";
     private String build = "21";
     protected static String metallaf = "javax.swing.plaf.metal.MetalLookAndFeel";
     protected static String gtklaf = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
-    int i;
+    int i = 0;
 
     /**
      * Creates a new instance of this object class
@@ -97,20 +109,8 @@ public class Utilities {
         return infos;
     }
 
-    public void appendinXML(String bmival) throws URISyntaxException {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-        DateFormat monthFormat = new SimpleDateFormat("MM");
-        DateFormat yearFormat = new SimpleDateFormat("yyyy");
-        DateFormat dayFormat = new SimpleDateFormat("dd");
-        Date date = new Date();
-        String year = yearFormat.format(date).toString();
-        String month = monthFormat.format(date).toString();
-        String day = dayFormat.format(date).toString();
-        String time = timeFormat.format(date).toString();
+    public void appendinXML(String bmival) {
 
-        //get current date time with Calendar()
-        Calendar cal = Calendar.getInstance();
         System.out.println(dateFormat.format(cal.getTime()));
         try {
             /*
@@ -136,14 +136,15 @@ public class Utilities {
             try {
                 if (!xmlFile.exists()) {
                     new File(p + "/.bomico/config").mkdirs();
-
                     xmlFile.createNewFile();
                     FileWriter fstream = new FileWriter(xmlFile, true);
                     try (BufferedWriter out = new BufferedWriter(fstream)) {
-                        String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><followup><bmi id=\"1\"><value>20</value><year>2012</year><month>05</month><day>11</day><time>11:20:03</time></bmi></followup>";
+                        String xmlString = "<?xml version=\"1.0\" "
+                                + "encoding=\"UTF-8\" standalone=\"no\"?>"
+                                + "<followup></followup>";
                         out.write(xmlString);
                     }
-                    System.out.println("Followup.xml File Created");
+                    System.out.println("- Followup.xml File Created");
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,17 +172,28 @@ public class Utilities {
 
             try {
 
+                int idv = document.getLastChild().getChildNodes().getLength();
+                String iv;
                 if (document.getLastChild() != null) {
-                    int idv = document.getLastChild().getChildNodes().getLength();
-                    i = (idv + 1) / 2;
-                    String iv = String.valueOf(i);
+
+                    if (idv == 0) {
+                        i = 1;
+                    } else {
+                        i = idv + 1; // i = (idv + 1) / 2;
+                    }
+                    iv = String.valueOf(i);
+
                     nodeElement.setAttribute("id", iv);
-                    System.out.println("XML Document Child nodes length is: " + document.getLastChild().getChildNodes().getLength());
+                    System.out.println("- XML Document Child nodes length is: " + idv);
+                    System.out.println("- Added Element is " + iv);
+                    System.out.println("- Last Child is: " + document.getLastChild().getLocalName());
+                    System.out.println("- Doc URI: " + document.getDocumentURI());
+                    System.out.println("- Doc Element: " + document.getDocumentElement());
                 } else {
-                    System.out.println("Something is wrong with XML parsing/Appending : " + document.getLastChild().getChildNodes().getLength());
+                    System.err.println("- Something is wrong with XML parsing/Appending : " + idv);
                 }
             } catch (NumberFormatException | DOMException e) {
-                System.out.println(e);
+                System.err.println(e);
             }
 
             //append textNode to Node element;
@@ -196,19 +208,16 @@ public class Utilities {
             Transformer tFormer = TransformerFactory.newInstance().newTransformer();
             //  Set output file to xml
             tFormer.setOutputProperty(OutputKeys.METHOD, "xml");
-            //s  Write the document back to the file
+            // Write the document back to the file
             Source source = new DOMSource(document);
-
             Result result = new StreamResult(xmlFile); // xmlFile
             tFormer.transform(source, result);
-
-
-
 
         } catch (TransformerException | SAXException | IOException | ParserConfigurationException ex) {
             Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Info appended in XML");
+
+        System.out.println("- Success: Info appended in XML");
     }
 
     /**
