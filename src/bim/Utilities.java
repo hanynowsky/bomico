@@ -1,15 +1,13 @@
 package bim;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,6 +25,8 @@ import org.xml.sax.SAXException;
  */
 public class Utilities {
 
+    String p = System.getProperty("user.home");
+    String separator = File.separator;
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
     DateFormat monthFormat = new SimpleDateFormat("MM");
@@ -38,12 +38,15 @@ public class Utilities {
     String day = dayFormat.format(date).toString();
     String time = timeFormat.format(date).toString();
     Calendar cal = Calendar.getInstance();
-    private String version = "1.0";
-    private String vendor = "Otika";
-    private String title = "Bomico";
-    private String build = "21";
+    private String version;
+    private String vendor;
+    private String title;
+    private String build;
     protected static String metallaf = "javax.swing.plaf.metal.MetalLookAndFeel";
     protected static String gtklaf = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+    protected static String nimbuslaf = "javax.swing.plaf.nimbus.NimbusLookAndFeel";
+    protected static String motiflaf = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
+    protected static String laf = UIManager.getSystemLookAndFeelClassName();
     int i = 0;
 
     /**
@@ -52,40 +55,50 @@ public class Utilities {
     public Utilities() {
     }
 
+    public static String getMotiflaf() {
+        return motiflaf;
+    }
+
+    public static void setMotiflaf(String motiflaf) {
+        Utilities.motiflaf = motiflaf;
+    }
+
+    public static String getNimbuslaf() {
+        return nimbuslaf;
+    }
+
+    public static void setNimbuslaf(String nimbuslaf) {
+        Utilities.nimbuslaf = nimbuslaf;
+    }
+
+    public static String getLaf() {
+        return laf;
+    }
+
+    public static void setLaf(String laf) {
+        Utilities.laf = laf;
+    }
+
     public String getVendor() {
-        vendor = Bim.class.getPackage().getImplementationVendor();
+        // vendor = Bim.class.getPackage().getImplementationVendor();
+        vendor = "Otika";
         return vendor;
     }
 
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
-    }
-
     public String getBuild() {
-
+        build = "20";
         return build;
     }
 
-    public void setBuild(String build) {
-        this.build = build;
-    }
-
     public String getTitle() {
-        title = Bim.class.getPackage().getImplementationTitle();
+        title = "Bomico";
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getVersion() {
-        version = Bim.class.getPackage().getImplementationVersion();
+        // version = Bim.class.getPackage().getImplementationVersion();
+        version = "1.0";
         return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
     }
 
     public String getGtklaf() {
@@ -105,11 +118,17 @@ public class Utilities {
     }
 
     public String getAppInfos() {
-        String infos = getVersion() + " \n " + getTitle() + " \n " + getVendor() + "\n" + getBuild();
+        String infos = "Version: "+getVersion() +"\n"+"Application: " 
+                +getTitle() +"\n"+"Vendor: " + getVendor() +"\n"
+                +"Build: "+ getBuild()+"\n"+"User Home: "+p+"\n"+"User Directory: "
+                +System.getProperty("user.dir")
+                +"\n"+"System: "+System.getProperty("os.name")+" "+System.getProperty("os.version")
+                +" "+System.getProperty("os.arch")+"\n"+"Java: "+System.getProperty("java.version")
+                +" "+System.getProperty("java.vendor");
         return infos;
     }
 
-    public void appendinXML(String bmival) {
+    public void appendInXML(String bmival) {
 
         System.out.println(dateFormat.format(cal.getTime()));
         try {
@@ -127,15 +146,14 @@ public class Utilities {
              * System.out.println("---");
              */
 
-            String p = System.getProperty("user.home");
-            String localpath = p + File.separator + ".bomico"
-                    + File.separator + "config" + File.separator + "followup.xml";
+
+            String localpath = p + separator + ".bomico"
+                    + separator + "config" + separator + "followup.xml";
             System.out.println(localpath);
             File xmlFile = new File(localpath);
-            // File f = new File("/home/hanine/.bomico/test.txt");
             try {
                 if (!xmlFile.exists()) {
-                    new File(p + "/.bomico/config").mkdirs();
+                    new File(p + separator + ".bomico" + separator + "config").mkdirs();
                     xmlFile.createNewFile();
                     FileWriter fstream = new FileWriter(xmlFile, true);
                     try (BufferedWriter out = new BufferedWriter(fstream)) {
@@ -226,4 +244,29 @@ public class Utilities {
     public void readXML() {
         // TODO
     }
-}
+
+    public void pasteSplashFile() {
+        InputStream is = getClass().getResourceAsStream("/resource/Bomico.png");
+        File splash = new File(p + separator + ".bomico" + separator + "splash" + separator + "Bomico.png");
+        if (!splash.exists()) {
+            try {
+                new File(p + separator + ".bomico" + separator + "splash").mkdirs();
+                splash.createNewFile();
+                try (OutputStream output = new FileOutputStream(splash)) {
+                    int read = 0; // Assigned value is never used?
+                    byte[] bytes = new byte[1024];
+
+                    while ((read = is.read(bytes)) != -1) {
+                        output.write(bytes, 0, read);
+                    }
+                    is.close();
+                    output.flush();
+                }
+
+                System.out.println("New Splash file created!");
+            } catch (IOException ex) {
+                Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+} // END OF CLASS

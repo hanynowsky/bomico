@@ -4,5 +4,13 @@
     <laf>
         <metal>javax.swing.plaf.metal.MetalLookAndFeel</metal>
         <gtk>com.sun.java.swing.plaf.gtk.GTKLookAndFeel</gtk>
+        <nimbus>javax.swing.plaf.nimbus.NimbusLookAndFeel</nimbus>
+        <motif>com.sun.java.swing.plaf.motif.MotifLookAndFeel</motif>
     </laf>
+    <implementation>
+        <version>1.0</version>
+        <build>20</build>
+        <vendor>OTIKA</vendor>
+        <title>BOMICO</title>
+    </implementation>
 </configuration>
