@@ -20,6 +20,26 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
+ * * Compute the Body Mass Index Copyright (C) 2012 - OTIKA –
+ * hanynowsky@gmail.com
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see http://www.gnu.org/licenses/.
+ *
+ * Bomico - Copyright (C) 2012 <OTIKA – hanynowsky@gmail.com> This program comes
+ * with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to
+ * redistribute it under certain conditions.
+ *
  * @version 1.0
  * @author Hanynowsky
  */
@@ -118,13 +138,14 @@ public class Utilities {
     }
 
     public String getAppInfos() {
-        String infos = "Version: "+getVersion() +"\n"+"Application: " 
-                +getTitle() +"\n"+"Vendor: " + getVendor() +"\n"
-                +"Build: "+ getBuild()+"\n"+"User Home: "+p+"\n"+"User Directory: "
-                +System.getProperty("user.dir")
-                +"\n"+"System: "+System.getProperty("os.name")+" "+System.getProperty("os.version")
-                +" "+System.getProperty("os.arch")+"\n"+"Java: "+System.getProperty("java.version")
-                +" "+System.getProperty("java.vendor");
+
+        String infos = "<html><b>Version</b>: " + getVersion() + "<html><br></br>" + "<html><b>Application:</b> "
+                + getTitle() + "<html><br></br>" + "<html><b>Vendor:</b> " + getVendor() + "<html><br></br>"
+                + "<html><b>Build:</b> " + getBuild() + "<html><br></br>" + "<html><b>User Home:</b> " + p + "<html><br></br>"
+                + "<html><b>User Directory:</b> " + System.getProperty("user.dir")
+                + "<html><br></br>" + "<html><b>System:</b> " + System.getProperty("os.name") + " " + System.getProperty("os.version")
+                + " " + System.getProperty("os.arch") + "<html><br></br>" + "<html><b>Java:</b> " + System.getProperty("java.version")
+                + " " + System.getProperty("java.vendor");
         return infos;
     }
 

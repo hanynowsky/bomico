@@ -2,6 +2,7 @@ package test;
 
 import bim.Utilities;
 import java.net.URISyntaxException;
+import javax.swing.UIManager;
 
 /**
  *
@@ -11,6 +12,9 @@ public class Test {
 
     public static void main(String[] args) throws URISyntaxException {
         System.out.println("Testing executed");
+        System.out.println(UIManager.getDefaults().getFont("Button.font"));
+        // UIManager.put("TextField.font", new FontUIResource( yourFontHere ));
+        
 
         // new Utilities().appendInXML("19");
         //new Utilities().pasteSplashFile();
