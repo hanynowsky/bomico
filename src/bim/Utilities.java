@@ -14,9 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 /**
@@ -262,10 +260,75 @@ public class Utilities {
     /**
      * Read XML data
      */
-    public void readXML() {
-        // TODO
+    public void readXML(String v, String y, String m, String d, String t) {
+
+        try {
+            File xFile = new File(p + separator + ".bomico"
+                    + separator + "config" + separator + "followup.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(xFile);
+            doc.getDocumentElement().normalize();
+
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList nList = doc.getElementsByTagName("bmi");
+            System.out.println("Getting Sub Root -----------------------" + nList.item(0));
+
+
+            for (i = 0; i < nList.getLength(); i++) {
+                Node nNode = nList.item(i);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) nNode;
+
+                    NodeList valueList = element.getElementsByTagName("value");
+                    Element valueElement = (Element) valueList.item(0);
+                    NodeList textvalueList = valueElement.getChildNodes();
+                    System.out.println(v + ((Node) textvalueList.item(0)).getNodeValue().trim());
+
+                    NodeList yearList = element.getElementsByTagName("year");
+                    Element yearElement = (Element) yearList.item(0);
+                    NodeList textyearList = yearElement.getChildNodes();
+                    System.out.println(y + ((Node) textyearList.item(0)).getNodeValue().trim());
+
+                    NodeList monthList = element.getElementsByTagName("month");
+                    Element monthElement = (Element) monthList.item(0);
+                    NodeList textmonthList = monthElement.getChildNodes();
+                    System.out.println(m + ((Node) textmonthList.item(0)).getNodeValue().trim());
+
+                    NodeList dayList = element.getElementsByTagName("day");
+                    Element dayElement = (Element) dayList.item(0);
+                    NodeList textdayList = dayElement.getChildNodes();
+                    System.out.println(d + ((Node) textdayList.item(0)).getNodeValue().trim());
+
+                    NodeList timeList = element.getElementsByTagName("time");
+                    Element timeElement = (Element) timeList.item(0);
+                    NodeList texttimeList = timeElement.getChildNodes();
+                    System.out.println(t + ((Node) texttimeList.item(0)).getNodeValue().trim());
+
+                    System.out.println("\n------------------\n");
+
+                    /**
+                     * System.out.println("First Name : " +
+                     * getTagValue("firstname", element));
+                     * System.out.println("Last Name : " +
+                     * getTagValue("lastname", element));
+                     * System.out.println("Nick Name : " +
+                     * getTagValue("nickname", element));
+                     * System.out.println("Salary : " + getTagValue("salary",
+                     * element));
+                     */
+                }
+            }
+        } catch (SAXException | IOException | ParserConfigurationException ex) {
+            Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }
 
+    /**
+     * Copy Splash Picture in local folder
+     */
     public void pasteSplashFile() {
         InputStream is = getClass().getResourceAsStream("/resource/Bomico.png");
         File splash = new File(p + separator + ".bomico" + separator + "splash" + separator + "Bomico.png");

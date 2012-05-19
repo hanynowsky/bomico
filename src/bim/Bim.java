@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -96,6 +95,7 @@ public class Bim extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
+        jButton10 = new javax.swing.JButton();
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
@@ -140,19 +140,20 @@ public class Bim extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         jDialog1.setTitle("BOMICO");
         jDialog1.setMinimumSize(new java.awt.Dimension(410, 430));
         jDialog1.setModal(true);
+        jDialog1.setPreferredSize(new java.awt.Dimension(400, 430));
         jDialog1.setResizable(false);
         jDialog1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -193,7 +194,7 @@ public class Bim extends javax.swing.JFrame {
         jTextPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
         jTextPane1.setContentType("text/html");
         jTextPane1.setEditable(false);
-        jTextPane1.setFont(new java.awt.Font("Liberation Mono", 0, 12)); // NOI18N
+        jTextPane1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jTextPane1.setText(new Utilities().getAppInfos()
 
         );
@@ -233,66 +234,26 @@ public class Bim extends javax.swing.JFrame {
         });
         jDialog1.getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, -1, -1));
 
-        jDialog2.setMinimumSize(new java.awt.Dimension(400, 346));
+        jDialog2.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialog2.setMinimumSize(new java.awt.Dimension(400, 400));
+        jDialog2.setPreferredSize(new java.awt.Dimension(400, 450));
 
         jTable1.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "BIM", "Day", "Month", "Year", "Time"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable1.setModel(new Tmodel());
         jScrollPane3.setViewportView(jTable1);
 
-        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("BIM Follow-up");
+
+        jButton10.setBackground(new java.awt.Color(223, 223, 223));
+        jButton10.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        jButton10.setText("Close");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
         jDialog2.getContentPane().setLayout(jDialog2Layout);
@@ -300,10 +261,15 @@ public class Bim extends javax.swing.JFrame {
             jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addGroup(jDialog2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                    .addComponent(jSeparator10))
+                .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialog2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                            .addComponent(jSeparator10)))
+                    .addGroup(jDialog2Layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(jButton10)))
                 .addContainerGap())
         );
         jDialog2Layout.setVerticalGroup(
@@ -314,7 +280,9 @@ public class Bim extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(jButton10)
                 .addContainerGap())
         );
 
@@ -450,6 +418,9 @@ public class Bim extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -499,15 +470,12 @@ public class Bim extends javax.swing.JFrame {
                                 .addGap(12, 12, 12)
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(252, 252, 252)
-                                .addComponent(jButton2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(265, 265, 265)
+                                .addComponent(jButton2)))
+                        .addGap(0, 4, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -619,6 +587,7 @@ public class Bim extends javax.swing.JFrame {
 
         jButton9.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/33.png"))); // NOI18N
+        jButton9.setToolTipText("<html><font face=\"SansSerif\" size=\"3\">Save BMI</font>");
         jButton9.setEnabled(false);
         jButton9.setFocusable(false);
         jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -646,6 +615,7 @@ public class Bim extends javax.swing.JFrame {
         getContentPane().add(jToolBar1);
         jToolBar1.setBounds(0, 0, 654, 48);
 
+        jMenu1.setForeground(new java.awt.Color(153, 153, 153));
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
 
@@ -673,32 +643,7 @@ public class Bim extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu3.setText("About");
-        jMenu3.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jMenuItem1.setText("About");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                displayAbout(evt);
-            }
-        });
-        jMenu3.add(jMenuItem1);
-        jMenu3.add(jSeparator3);
-
-        jMenuItem3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jMenuItem3.setText("Clean");
-        jMenuItem3.setName("Clean");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem3);
-
-        jMenuBar1.add(jMenu3);
-
+        jMenu2.setForeground(new java.awt.Color(153, 153, 153));
         jMenu2.setText("Laf");
         jMenu2.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
 
@@ -740,6 +685,33 @@ public class Bim extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setForeground(new java.awt.Color(153, 153, 153));
+        jMenu3.setText("About");
+        jMenu3.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jMenuItem1.setText("About");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayAbout(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+        jMenu3.add(jSeparator3);
+
+        jMenuItem3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jMenuItem3.setText("Clean");
+        jMenuItem3.setName("Clean");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         getAccessibleContext().setAccessibleDescription("Application for computing the Body Mass Index.");
@@ -768,24 +740,24 @@ public class Bim extends javax.swing.JFrame {
         jTextField2.setText(bmi);
         jButton9.setEnabled(true);
         System.out.println("Health Status - You are: " + c.getHealth());
-
+        
         Color greencolor = new Color(0, 153, 51);
         Color redcolor = new Color(204, 0, 0);
-
+        
         if (18.5 < res & res < 25) {
             jTextField2.setForeground(greencolor);
             System.out.println("Normal BMI");
         } else {
             jTextField2.setForeground(redcolor);
         }
-
+        
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (evt.getSource() == jButton1) {
             computation();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     private void displayAbout(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayAbout
         if (evt.getSource() == jMenuItem1) {
             jDialog1.setVisible(true);
@@ -793,14 +765,14 @@ public class Bim extends javax.swing.JFrame {
             System.out.println("About Dialog opened");
         };
     }//GEN-LAST:event_displayAbout
-
+    
     private void menuExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExit
         if (evt.getSource() == jMenuItem2) {
             this.addWindowListener(new ExitListener());
             System.exit(0);
         };
     }//GEN-LAST:event_menuExit
-
+    
     private void goToWebSite(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goToWebSite
         try {
             java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
@@ -809,64 +781,63 @@ public class Bim extends javax.swing.JFrame {
             Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);//
         }
     }//GEN-LAST:event_goToWebSite
-
+    
     private void jSlider3StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider3StateChanged
         if (evt.getSource() == jSlider3) {
             jLabel11.setText("(" + String.valueOf(jSlider3.getValue()) + " Kg)");
         };
     }//GEN-LAST:event_jSlider3StateChanged
-
+    
     private void jSlider4StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider4StateChanged
         if (evt.getSource() == jSlider4) {
             jLabel12.setText("(" + String.valueOf(jSlider4.getValue()) + " Cm)");
             System.out.println("You moved the slider");
         };
     }//GEN-LAST:event_jSlider4StateChanged
-
+    
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         if (evt.getSource() == jMenuItem3) {
             System.gc();
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
+    
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         if (evt.getSource() == jMenuItem4) {
             // JLAFChooser.showDialogLAF(null, null, true);
             JLAFChooser.showDialogLAF(null, null, true);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
-
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
+        
         System.out.println("Computation");
         if (evt.getSource() == jButton2) {
             computation();
-
+            
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (evt.getSource() == jButton3) {
             this.addWindowListener(new ExitListener());
             System.exit(0);
         };
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (evt.getSource() == jButton4) {
             jDialog1.setVisible(true);
-
             System.out.println("About Dialog opened");
         };
     }//GEN-LAST:event_jButton4ActionPerformed
-
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         if (evt.getSource() == jButton5) {
             jDialog1.dispose();
             jTextPane1.setText(new Utilities().getAppInfos());
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-
+    
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         if (evt.getSource() == jMenuItem5) {
             try {
@@ -874,13 +845,14 @@ public class Bim extends javax.swing.JFrame {
                 UIManager.setLookAndFeel(Utilities.metallaf);
                 SwingUtilities.updateComponentTreeUI(this);
                 SwingUtilities.updateComponentTreeUI(jDialog1);
+                SwingUtilities.updateComponentTreeUI(jDialog2);
                 System.out.println("LAF changed to Metal");
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
-
+    
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         if (evt.getSource() == jMenuItem6) {
             try {
@@ -890,30 +862,32 @@ public class Bim extends javax.swing.JFrame {
                 //   SwingUtilities.updateComponentTreeUI(Bim.this);
                 SwingUtilities.updateComponentTreeUI(this);
                 SwingUtilities.updateComponentTreeUI(jDialog1);
+                SwingUtilities.updateComponentTreeUI(jDialog2);
                 System.out.println("LAF changed to GTK");
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-
+    
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         if (evt.getSource() == jMenuItem7) {
             try {
-                //UIManager.put("nimbusBase", new Color(204, 204, 204));
-                // UIManager.put("nimbusBlueGrey", new Color(100, 100, 100));
-                // UIManager.put("control", new Color(50, 100, 60));
+                // UIManager.put("nimbusBase", new Color(233, 233, 233));
+                //UIManager.put("nimbusBlueGrey", new Color(233, 233, 233));
+                UIManager.put("control", new Color(242, 241, 240));
                 Utilities.setLaf(Utilities.nimbuslaf);
                 UIManager.setLookAndFeel(Utilities.nimbuslaf);
                 SwingUtilities.updateComponentTreeUI(this);
                 SwingUtilities.updateComponentTreeUI(jDialog1);
+                SwingUtilities.updateComponentTreeUI(jDialog2);
                 System.out.println("LAF changed to Nimbus");
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
-
+    
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         if (evt.getSource() == jMenuItem8) {
             try {
@@ -921,13 +895,14 @@ public class Bim extends javax.swing.JFrame {
                 UIManager.setLookAndFeel(Utilities.motiflaf);
                 SwingUtilities.updateComponentTreeUI(this);
                 SwingUtilities.updateComponentTreeUI(jDialog1);
+                SwingUtilities.updateComponentTreeUI(jDialog2);
                 System.out.println("LAF changed to Motif");
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
-
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         if (evt.getSource() == jButton6) {
             try {
@@ -940,7 +915,7 @@ public class Bim extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
-
+    
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         if (evt.getSource() == jButton7) {
             try {
@@ -950,24 +925,36 @@ public class Bim extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton7ActionPerformed
-
+    
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         if (evt.getSource() == jButton8) {
+            jTable1.setModel(new Tmodel());
             jDialog2.setVisible(true);
+
+            //jTable1.setValueAt(object, row, column);
+
         }
     }//GEN-LAST:event_jButton8ActionPerformed
-
+    
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         if (evt.getSource() == jButton9) {
             if (res != 0) {
                 DecimalFormat df = new DecimalFormat("#.##");
                 new Utilities().appendInXML(df.format(res));
+                jButton9.setEnabled(false);
                 System.out.println("BMI saved on file");
             } else {
                 System.out.println("Cannot save. BMI = 0");
             }
         }
     }//GEN-LAST:event_jButton9ActionPerformed
+    
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        jDialog2.repaint();
+        jTable1.updateUI();
+        jTable1.repaint();
+        jDialog2.dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1013,9 +1000,9 @@ public class Bim extends javax.swing.JFrame {
         /*
          * Create and display the form
          */
-
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override // The override annotation was added manually
             public void run() {
                 Bim bim = new Bim();
@@ -1030,6 +1017,7 @@ public class Bim extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1103,12 +1091,12 @@ public class Bim extends javax.swing.JFrame {
 }
 
 /**
- * Class to allow existing the GUI
+ * Class to allow exiting the GUI
  *
  * @author Hanynowsky <hanynowsky@gmail.com>
  */
 class ExitListener extends WindowAdapter {
-
+    
     @Override
     public void windowClosing(WindowEvent event) {
         System.exit(0);
