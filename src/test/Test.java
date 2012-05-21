@@ -1,7 +1,5 @@
 package test;
 
-import bim.Tmodel;
-import bim.Utilities;
 import java.net.URISyntaxException;
 
 /**

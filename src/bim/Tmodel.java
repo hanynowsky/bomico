@@ -55,10 +55,14 @@ public final class Tmodel extends AbstractTableModel {
     private ArrayList columnNames;
 
     public Tmodel() {
-
+        int j = 0;
         try {
-            File xFile = new File(p + separator + ".bomico"
-                    + separator + "config" + separator + "followup.xml");
+            // new File(p + separator + "bomico" + separator + "config" + separator + "followup.xml");
+
+            File xFile = Utilities.getXmlFile();
+            if (!xFile.exists()) {
+                new Utilities().createFile();
+            }
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xFile);
@@ -67,8 +71,10 @@ public final class Tmodel extends AbstractTableModel {
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("bmi");
             System.out.println("Getting Sub Root -----------------------" + nList.item(0));
+             System.out.println("nList length is  -----------------------" + nList.getLength()); 
 
             columnNames = new ArrayList();
+            columnNames.add("User");
             columnNames.add("BMI");
             columnNames.add("Year");
             columnNames.add("Month");
@@ -76,7 +82,7 @@ public final class Tmodel extends AbstractTableModel {
             columnNames.add("Time");
 
             data = new ArrayList();
-            
+
 // TODO Wrap the following code in another loop to shorten the code
 
             for (i = 0; i < nList.getLength(); i++) {
@@ -84,42 +90,59 @@ public final class Tmodel extends AbstractTableModel {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) nNode;
 
+                    NodeList userList = element.getElementsByTagName("user");
+                    Element userElement = (Element) userList.item(0);
+                    NodeList textuserList = userElement.getChildNodes();
+                    data.add(0, ((Node) textuserList.item(0)).getNodeValue().trim());
+                    // System.out.println("User is " + ((Node) textuserList.item(0)).getNodeValue().trim());
+
                     NodeList valueList = element.getElementsByTagName("value");
                     Element valueElement = (Element) valueList.item(0);
                     NodeList textvalueList = valueElement.getChildNodes();
-                    data.add(0, ((Node) textvalueList.item(0)).getNodeValue().trim());
+                    data.add(1, ((Node) textvalueList.item(0)).getNodeValue().trim());
                     //setValueAt(((Node) textvalueList.item(0)).getNodeValue().trim(), i, 0);
-                    System.out.println("Value is " + ((Node) textvalueList.item(0)).getNodeValue().trim());
+                    // System.out.println("Value is " + ((Node) textvalueList.item(0)).getNodeValue().trim());
 
                     NodeList yearList = element.getElementsByTagName("year");
                     Element yearElement = (Element) yearList.item(0);
                     NodeList textyearList = yearElement.getChildNodes();
-                    data.add(1, ((Node) textyearList.item(0)).getNodeValue().trim());
-                    System.out.println("Year is " + ((Node) textyearList.item(0)).getNodeValue().trim());
+                    data.add(2, ((Node) textyearList.item(0)).getNodeValue().trim());
+                    //  System.out.println("Year is " + ((Node) textyearList.item(0)).getNodeValue().trim());
 
                     NodeList monthList = element.getElementsByTagName("month");
                     Element monthElement = (Element) monthList.item(0);
                     NodeList textmonthList = monthElement.getChildNodes();
-                    data.add(2, ((Node) textmonthList.item(0)).getNodeValue().trim());
-                    System.out.println("Month is " + ((Node) textmonthList.item(0)).getNodeValue().trim());
+                    data.add(3, ((Node) textmonthList.item(0)).getNodeValue().trim());
+                    //  System.out.println("Month is " + ((Node) textmonthList.item(0)).getNodeValue().trim());
 
                     NodeList dayList = element.getElementsByTagName("day");
                     Element dayElement = (Element) dayList.item(0);
                     NodeList textdayList = dayElement.getChildNodes();
-                    data.add(3, ((Node) textdayList.item(0)).getNodeValue().trim());
-                    System.out.println("Day is " + ((Node) textdayList.item(0)).getNodeValue().trim());
+                    data.add(4, ((Node) textdayList.item(0)).getNodeValue().trim());
+                    //   System.out.println("Day is " + ((Node) textdayList.item(0)).getNodeValue().trim());
 
                     NodeList timeList = element.getElementsByTagName("time");
                     Element timeElement = (Element) timeList.item(0);
                     NodeList texttimeList = timeElement.getChildNodes();
-                    data.add(4, ((Node) texttimeList.item(0)).getNodeValue().trim());
-                    System.out.println("Time is " + ((Node) texttimeList.item(0)).getNodeValue().trim());
+                    data.add(5, ((Node) texttimeList.item(0)).getNodeValue().trim());
+                    //   System.out.println("Time is " + ((Node) texttimeList.item(0)).getNodeValue().trim());
 
-                    System.out.println("\n------------------\n");
-                    System.out.println("Latest BMI Value is " + ((Node) textvalueList.item(0)).getNodeValue().trim());
+                    j = i; // increment J to use later for system printing
 
                 }
             }
+            if (Utilities.getXmlFile().exists()) {
+                if (nList.getLength() != 0 && nList.getLength() != -1) {
+                    System.out.println("\n------------------\n");
+                    Node nNode = nList.item(j);
+                    Element element = (Element) nNode;
+                    NodeList valueList = element.getElementsByTagName("value");
+                    Element valueElement = (Element) valueList.item(0);
+                    NodeList textvalueList = valueElement.getChildNodes();
+                    System.out.println("Last recorded BMI Value is " + ((Node) textvalueList.item(0)).getNodeValue().trim() + "\n");
+                }
+            }
+
         } catch (SAXException | IOException | ParserConfigurationException ex) {
             Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -154,14 +177,17 @@ public final class Tmodel extends AbstractTableModel {
      */
     @Override
     public boolean isCellEditable(int row, int col) {
-
-        if (col != 5 && row != 5) {
+// please modify the int value if the number of columns changes
+        if (col != 6 && row != 6) {
             return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * @test
+     */
     public void test() {
 
         System.out.println("row count is " + getRowCount());

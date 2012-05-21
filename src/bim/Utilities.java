@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
  */
 public class Utilities {
 
-    String p = System.getProperty("user.home");
+    static String p = System.getProperty("user.home");
     String separator = File.separator;
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -66,11 +66,24 @@ public class Utilities {
     protected static String motiflaf = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
     protected static String laf = UIManager.getSystemLookAndFeelClassName();
     int i = 0;
+    static String localpath;
+    static File xmlFile;
 
     /**
      * Creates a new instance of this object class
      */
     public Utilities() {
+    }
+
+    public static String getLocalpath() {
+        localpath = p + File.separator + "bomico"
+                + File.separator + "config" + File.separator + "followup.xml";
+        return localpath;
+    }
+
+    public static File getXmlFile() {
+        xmlFile = new File(getLocalpath());
+        return xmlFile;
     }
 
     public static String getMotiflaf() {
@@ -147,6 +160,25 @@ public class Utilities {
         return infos;
     }
 
+    public void createFile() {
+        try {
+            if (!xmlFile.exists()) {
+                new File(p + separator + "bomico" + separator + "config").mkdirs();
+                xmlFile.createNewFile();
+                FileWriter fstream = new FileWriter(xmlFile, true);
+                try (BufferedWriter out = new BufferedWriter(fstream)) {
+                    String xmlString = "<?xml version=\"1.0\" "
+                            + "encoding=\"UTF-8\" standalone=\"no\"?>"
+                            + "<followup></followup>";
+                    out.write(xmlString);
+                }
+                System.out.println("- Followup.xml File Created in " + localpath);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void appendInXML(String bmival) {
 
         System.out.println(dateFormat.format(cal.getTime()));
@@ -165,27 +197,7 @@ public class Utilities {
              * System.out.println("---");
              */
 
-
-            String localpath = p + separator + ".bomico"
-                    + separator + "config" + separator + "followup.xml";
-            System.out.println(localpath);
-            File xmlFile = new File(localpath);
-            try {
-                if (!xmlFile.exists()) {
-                    new File(p + separator + ".bomico" + separator + "config").mkdirs();
-                    xmlFile.createNewFile();
-                    FileWriter fstream = new FileWriter(xmlFile, true);
-                    try (BufferedWriter out = new BufferedWriter(fstream)) {
-                        String xmlString = "<?xml version=\"1.0\" "
-                                + "encoding=\"UTF-8\" standalone=\"no\"?>"
-                                + "<followup></followup>";
-                        out.write(xmlString);
-                    }
-                    System.out.println("- Followup.xml File Created");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            createFile(); // Check if the file exists, if not create it.
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -193,12 +205,14 @@ public class Utilities {
             //Get the root element of the xml Document;
             Element documentElement = document.getDocumentElement();
             System.out.println("documentElement:" + documentElement.toString());
+            Element userNode = document.createElement("user");
             Element valueNode = document.createElement("value");
             Element yearNode = document.createElement("year");
             Element monthNode = document.createElement("month");
             Element dayNode = document.createElement("day");
             Element timeNode = document.createElement("time");
             //Text value = document.createTextNode("2");
+            userNode.setTextContent(System.getProperty("user.name"));
             valueNode.setTextContent(bmival);
             yearNode.setTextContent(year);
             monthNode.setTextContent(month);
@@ -234,6 +248,7 @@ public class Utilities {
             }
 
             //append textNode to Node element;
+            nodeElement.appendChild(userNode);
             nodeElement.appendChild(valueNode);
             nodeElement.appendChild(yearNode);
             nodeElement.appendChild(monthNode);
@@ -263,7 +278,7 @@ public class Utilities {
     public void readXML(String v, String y, String m, String d, String t) {
 
         try {
-            File xFile = new File(p + separator + ".bomico"
+            File xFile = new File(p + separator + "bomico"
                     + separator + "config" + separator + "followup.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -279,6 +294,11 @@ public class Utilities {
                 Node nNode = nList.item(i);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) nNode;
+
+                    NodeList userList = element.getElementsByTagName("user");
+                    Element userElement = (Element) userList.item(0);
+                    NodeList textuserList = userElement.getChildNodes();
+                    System.out.println(v + ((Node) textuserList.item(0)).getNodeValue().trim());
 
                     NodeList valueList = element.getElementsByTagName("value");
                     Element valueElement = (Element) valueList.item(0);
@@ -331,10 +351,10 @@ public class Utilities {
      */
     public void pasteSplashFile() {
         InputStream is = getClass().getResourceAsStream("/resource/Bomico.png");
-        File splash = new File(p + separator + ".bomico" + separator + "splash" + separator + "Bomico.png");
+        File splash = new File(p + separator + "bomico" + separator + "splash" + separator + "Bomico.png");
         if (!splash.exists()) {
             try {
-                new File(p + separator + ".bomico" + separator + "splash").mkdirs();
+                new File(p + separator + "bomico" + separator + "splash").mkdirs();
                 splash.createNewFile();
                 try (OutputStream output = new FileOutputStream(splash)) {
                     int read = 0; // Assigned value is never used?
@@ -354,3 +374,4 @@ public class Utilities {
         }
     }
 } // END OF CLASS
+
