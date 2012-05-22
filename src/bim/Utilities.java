@@ -1,5 +1,6 @@
 package bim;
 
+import java.awt.*;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,6 +8,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -372,6 +375,49 @@ public class Utilities {
                 Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    // Center on screen ( absolute true/false (exact center or 25% upper left) )
+    public void centerOnScreen(final Component c, final boolean absolute) {
+        final int width = c.getWidth();
+        final int height = c.getHeight();
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width / 2) - (width / 2);
+        int y = (screenSize.height / 2) - (height / 2);
+        if (!absolute) {
+            x /= 2;
+            y /= 2;
+        }
+        c.setLocation(x, y);
+    }
+
+// Center on parent ( absolute true/false (exact center or 25% upper left) )
+    public void centerOnParent(final Window child, final boolean absolute) {
+        child.pack();
+        boolean useChildsOwner = child.getOwner() != null ? ((child.getOwner() instanceof JFrame) || (child.getOwner() instanceof JDialog)) : false;
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final Dimension parentSize = useChildsOwner ? child.getOwner().getSize() : screenSize;
+        final Point parentLocationOnScreen = useChildsOwner ? child.getOwner().getLocationOnScreen() : new Point(0, 0);
+        final Dimension childSize = child.getSize();
+        childSize.width = Math.min(childSize.width, screenSize.width);
+        childSize.height = Math.min(childSize.height, screenSize.height);
+        child.setSize(childSize);
+        int x;
+        int y;
+        if ((child.getOwner() != null) && child.getOwner().isShowing()) {
+            x = (parentSize.width - childSize.width) / 2;
+            y = (parentSize.height - childSize.height) / 2;
+            x += parentLocationOnScreen.x;
+            y += parentLocationOnScreen.y;
+        } else {
+            x = (screenSize.width - childSize.width) / 2;
+            y = (screenSize.height - childSize.height) / 2;
+        }
+        if (!absolute) {
+            x /= 2;
+            y /= 2;
+        }
+        child.setLocation(x, y);
     }
 } // END OF CLASS
 

@@ -1,6 +1,8 @@
 package test;
 
+import bim.Computer;
 import java.net.URISyntaxException;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -10,13 +12,17 @@ public class Test {
 
     public static void main(String[] args) throws URISyntaxException {
         System.out.println("Testing executed");
-       // new Utilities().readXML("Value is ", "Year is ", "Month is ", "Day is ", "Time is ");
-        
+        Computer c = new Computer();
+        c.computeEER(30, "active", 178, 58, "male");
+        System.out.println(new DecimalFormat("#").format(c.getEER()));
+        // new Utilities().readXML("Value is ", "Year is ", "Month is ", "Day is ", "Time is ");
+
         // UIManager.put("TextField.font", new FontUIResource( yourFontHere ));
 
 
         // new Utilities().appendInXML("19");
-        //new Utilities().pasteSplashFile();
+//        new Utilities().pasteSplashFile();
+
         /**
          * Package[] allPackages = Package.getPackages();
          * System.out.println("All loaded packages:"); for (int i = 0; i <
