@@ -165,16 +165,26 @@ public class Computer {
     }
 
     /**
-     *
-     * The official formulas for the calculation of your daily estimated energy
-     * requirements (EER) are provided by the Food and Nutrition Board of the
-     * Institute of Medicine of the National Academies. (Trumbo et al. 2002)
+     *  * The official formulas for the calculation of your daily estimated
+     * energy requirements (EER) are provided by the Food and Nutrition Board of
+     * the Institute of Medicine of the National Academies. (Trumbo et al. 2002)
      *
      * EER Male = (662 - (9.53 x Age)) + (PA x ((15.91 x Weight) + (539.6 x
-     * Height))) EER Female = (354 - (6.91 x Age)) + (PA x ((9.36 x Weight) +
-     * (726 x Height))) PA indicates your Activity Level and is equal to 1.0 for
-     * Sedentary, 1.12 for Low Active, 1.27 for Active and 1.45 for Very Active.
-     * Weight is measured in kilograms and height in metres.
+     * Height))).
+     *
+     * EER Female = (354 - (6.91 x Age)) + (PA x ((9.36 x Weight) + (726 x
+     * Height))).
+     *
+     * PA indicates your Activity Level and is equal to 1.0 for Sedentary, 1.12
+     * for Low Active, 1.27 for Active and 1.45 for Very Active. Weight is
+     * measured in kilograms and height in meters.
+     *
+     * @param age Age
+     * @param activity Activity
+     * @param heit Height
+     * @param weit Weight
+     * @param gender gender
+     * @return EER as double value
      */
     public double computeEER(int age, String activity, double heit, double weit, String gender) {
 

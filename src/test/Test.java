@@ -1,8 +1,7 @@
 package test;
 
-import bim.Computer;
-import java.net.URISyntaxException;
-import java.text.DecimalFormat;
+import bim.Utilities;
+import java.util.Iterator;
 
 /**
  *
@@ -10,27 +9,59 @@ import java.text.DecimalFormat;
  */
 public class Test {
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(String[] args) {
+
+        
+
+
+
         System.out.println("Testing executed");
-        Computer c = new Computer();
-        c.computeEER(30, "active", 178, 58, "male");
-        System.out.println(new DecimalFormat("#").format(c.getEER()));
-        // new Utilities().readXML("Value is ", "Year is ", "Month is ", "Day is ", "Time is ");
+        // Computer c = new Computer();
+        Utilities util = new Utilities();
+        util.readIBMITABLE("male", 1.74);
+        System.out.println("range is " + util.getIbmirange());
+        double j = 0;
+        double e = 0;
+        double s;
+        double arg = 1.78;
+        double diff;
+        double dim;
+        double ah = 0;
+        Iterator kset = util.manMap.keySet().iterator();
+        for (int k = 0; k < util.manMap.keySet().size(); k++) {
+            while (kset.hasNext()) {
+                //  System.err.println(kset.next() + " size= " + util.manMap.keySet().size());
+                s = Double.parseDouble(kset.next().toString());
+                diff = Math.max(s, arg);
+                dim = Math.min(s, arg);
+// 0.013 is the maximum difference between two ordered height values
+                //  System.out.println(" here is FIRST  diff: " + diff);
+                if (diff - arg <= 0.013 && diff != arg) {
+                    // diff - arg
+                    j = diff;
+                    System.out.println("here is diff: " + diff);
+
+                    // break;
+                }
+
+                if (arg - dim <= 0.013 && dim != arg) {
+                    e = dim;
+                    System.out.println("here is dim: " + dim);
+                }
+            }
+        }
+        if ((arg - e) < (j - arg)) {
+            ah = e;
+        }
+        if ((arg - e) > (j - arg)) {
+            ah = j;
+        }
+        System.err.println(j + " " + (j - arg));
+        System.err.println(e + " " + (arg - e));
+        System.err.println("And here is final ah: " + ah);
 
         // UIManager.put("TextField.font", new FontUIResource( yourFontHere ));
 
 
-        // new Utilities().appendInXML("19");
-//        new Utilities().pasteSplashFile();
-
-        /**
-         * Package[] allPackages = Package.getPackages();
-         * System.out.println("All loaded packages:"); for (int i = 0; i <
-         * allPackages.length; i++) { System.out.println("" + (i + 1) + ": " +
-         * allPackages[i].getName() + ": " +
-         * allPackages[i].getImplementationTitle() + ", version: " +
-         * allPackages[i].getImplementationVersion()); }
-         * System.out.println("Vendor is " + new Utilities().getVendor());
-         */
     } // END OF MAIN
 } // END OF CLASS

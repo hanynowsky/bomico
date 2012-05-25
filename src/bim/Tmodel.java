@@ -71,7 +71,7 @@ public final class Tmodel extends AbstractTableModel {
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("bmi");
             System.out.println("Getting Sub Root -----------------------" + nList.item(0));
-             System.out.println("nList length is  -----------------------" + nList.getLength()); 
+            System.out.println("Follow-up file has " + nList.getLength()+" entries");
 
             columnNames = new ArrayList();
             columnNames.add("User");

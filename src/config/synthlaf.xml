@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<synth>
+    <style id="basicStyle">
+        <opaque value="TRUE"/>
+        <property key="Button.textShiftOffset" type="integer" value="1"/>
+        <property key="Separator.thickness" type="integer" value="2"/>
+        <font name="Dialog" size="11"/>
+        <state>
+            <color value="#403f3b" type="BACKGROUND"/>
+            <color value="#dfdbd2" type="FOREGROUND"/>
+        </state>
+    </style>
+    <bind style="basicStyle" type="region" key=".*"/>
+    <style id="textfield">
+        <opaque value="TRUE"/>
+        <state>
+            <font name="Dialog" size="11"/>
+            <color value="white" type="BACKGROUND"/>
+            <color value="black" type="TEXT_FOREGROUND"/>
+        </state>
+    </style>
+    <bind style="textfield" type="region" key="TextField"/>
+    <style id="slider">
+        <opaque value="TRUE"/>
+        <font name="Dialog" size="11"/>
+        <state>
+            <color value="#f2f1f0" type="BACKGROUND"/>
+            <color value="#484848" type="FOREGROUND"/>
+            <color value="#000000" type="TEXT_FOREGROUND"/>
+            <color value="#000000" type="TEXT_BACKGROUND"/>
+        </state>
+    </style>
+    <bind style="slider" type="region" key="Slider"/>
+    <style id="textarea">
+        <opaque value="TRUE"/>
+        <font name="Dialog" size="11"/>
+        <state>
+            <color value="white" type="BACKGROUND"/>
+            <color value="black" type="FOREGROUND"/>
+            <color value="#000000" type="TEXT_FOREGROUND"/>
+        </state>
+    </style>
+    <bind style="textarea" type="region" key="TextArea"/>
+</synth>

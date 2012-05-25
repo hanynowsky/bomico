@@ -4,8 +4,7 @@ import java.awt.*;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -71,11 +70,38 @@ public class Utilities {
     int i = 0;
     static String localpath;
     static File xmlFile;
+    public Map manMap = new HashMap();
+    public Map womanMap = new HashMap();
+    private String ibmirange = "";
 
     /**
      * Creates a new instance of this object class
      */
     public Utilities() {
+    }
+
+    public String getIbmirange() {
+        return ibmirange;
+    }
+
+    public void setIbmirange(String ibmirange) {
+        this.ibmirange = ibmirange;
+    }
+
+    public Map getManMap() {
+        return manMap;
+    }
+
+    public void setManMap(Map manMap) {
+        this.manMap = manMap;
+    }
+
+    public Map getWomanMap() {
+        return womanMap;
+    }
+
+    public void setWomanMap(Map womanMap) {
+        this.womanMap = womanMap;
     }
 
     public static String getLocalpath() {
@@ -362,18 +388,131 @@ public class Utilities {
                 try (OutputStream output = new FileOutputStream(splash)) {
                     int read = 0; // Assigned value is never used?
                     byte[] bytes = new byte[1024];
-
                     while ((read = is.read(bytes)) != -1) {
                         output.write(bytes, 0, read);
                     }
                     is.close();
                     output.flush();
                 }
-
                 System.out.println("New Splash file created!");
             } catch (IOException ex) {
                 Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    public void pasteSynthFile() {
+        InputStream is = getClass().getResourceAsStream("/config/synthlaf.xml");
+        File synth = new File(p + separator + "bomico" + separator + "config" + separator + "synthlaf.xml");
+        if (!synth.exists()) {
+            try {
+                new File(p + separator + "bomico" + separator + "config").mkdirs();
+                synth.createNewFile();
+                try (OutputStream output = new FileOutputStream(synth)) {
+                    int read;
+                    byte[] bytes = new byte[1024];
+                    while ((read = is.read(bytes)) != -1) {
+                        output.write(bytes, 0, read);
+                    }
+                    is.close();
+                    output.flush();
+                }
+                System.out.println("New Synth file created!");
+            } catch (IOException ex) {
+                Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param gender Gender (String: Male or Female)
+     * @param height Height as double (in centimeters. ex: 175)
+     */
+    public void readIBMITABLE(String gender, double height) {
+
+        BufferedReader bufRdr;
+        try {
+
+            File f = new File(System.getProperty("user.home"), separator + "bomico" + separator + "config" + separator + "ibmitable.csv");
+            if (!f.exists()) {
+                InputStream inputStream = getClass().getResourceAsStream("/config/ibmitable.csv");
+                OutputStream out = new FileOutputStream(f);
+                byte buf[] = new byte[1024];
+                int len;
+                while ((len = inputStream.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+                System.out.println("\nibmitable.csv File is created..............");
+            }
+            // File file = new File(System.getProperty("user.home"), "/Desktop/ibmitable.csv");
+            bufRdr = new BufferedReader(new FileReader(f)); //
+            String line;
+            int row = 0;
+            //  StringTokenizer drove me nuts so I kicked it off
+            while ((line = bufRdr.readLine()) != null) {
+                String[] content = line.split(";", 3); // Three columns
+                // Height | Man  | Woman
+                manMap.put(content[0], content[1]);
+                womanMap.put(content[0], content[2]);
+                row++;
+            }
+            bufRdr.close();
+            ibmirange = "";
+
+            String g = gender;
+
+            double j = 0;
+            double e = 0;
+            double s;
+            double arg = 1.78;
+            double diff;
+            double dim;
+            double ah = 0;
+            Iterator kset = manMap.keySet().iterator();
+            for (int k = 0; k < manMap.keySet().size(); k++) {
+                while (kset.hasNext()) {
+                    s = Double.parseDouble(kset.next().toString());
+                    diff = Math.max(s, arg);
+                    dim = Math.min(s, arg);
+                    // 0.013 is the maximum difference between two ordered height values
+                    //  System.out.println(" here is FIRST  diff: " + diff);
+                    if (diff - arg <= 0.013 && diff != arg) {
+                        j = diff;
+                        //  System.out.println("here is diff: " + diff);
+                    }
+
+                    if (arg - dim <= 0.013 && dim != arg) {
+                        e = dim;
+                        //  System.out.println("here is dim: " + dim);
+                    }
+                }
+            }
+            if ((arg - e) < (j - arg)) {
+                ah = e;
+            }
+            if ((arg - e) > (j - arg)) {
+                ah = j;
+            }
+            //   System.err.println(j + " " + (j - arg));
+            //   System.err.println(e + " " + (arg - e));
+            //   System.err.println("And here is final ah: " + ah);
+
+            height = ah;
+            String h = String.valueOf(height);
+            if (g.equalsIgnoreCase("male")) {
+                setIbmirange(String.valueOf(manMap.get(h)));
+                System.err.println(String.valueOf(manMap.get(h)));
+            }
+            if (g.equalsIgnoreCase("female")) {
+                setIbmirange(String.valueOf(womanMap.get(h)));
+            }
+
+            //    System.err.println(String.valueOf(manMap.get(height)));
+        } catch (IOException ex) {
+            Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("iBMI Ranges CSV File is not present or corrupted. "
+                    + "Please delete it manually and relaunch the application.");
         }
     }
 
