@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -44,7 +45,7 @@ import org.xml.sax.SAXException;
  * @author Hanynowsky
  */
 public class Utilities {
-
+    
     static String p = System.getProperty("user.home");
     String separator = File.separator;
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -73,112 +74,124 @@ public class Utilities {
     public Map manMap = new HashMap();
     public Map womanMap = new HashMap();
     private String ibmirange = "";
+    Preferences prefs = Preferences.userNodeForPackage(bim.Bim.class);
+    final String AGE_PREF = "age_pref";
+    final String HEIGHT_PREF = "height_pref";
+    final String WEIGHT_PREF = "weight_pref";
+    final String GENDER_PREF = "gender_pref";
+    final String ACTIVITY_PREF = "activity_pref";
+    final String LAF_PREF = "laf_pref";
 
     /**
      * Creates a new instance of this object class
      */
     public Utilities() {
     }
-
+    
+    public void setPreferences(String PREF, Object value) {
+        
+        prefs.put(PREF, value.toString());
+    }
+    
     public String getIbmirange() {
         return ibmirange;
     }
-
+    
     public void setIbmirange(String ibmirange) {
         this.ibmirange = ibmirange;
     }
-
+    
     public Map getManMap() {
         return manMap;
     }
-
+    
     public void setManMap(Map manMap) {
         this.manMap = manMap;
     }
-
+    
     public Map getWomanMap() {
         return womanMap;
     }
-
+    
     public void setWomanMap(Map womanMap) {
         this.womanMap = womanMap;
     }
-
+    
     public static String getLocalpath() {
         localpath = p + File.separator + "bomico"
                 + File.separator + "config" + File.separator + "followup.xml";
         return localpath;
     }
-
+    
     public static File getXmlFile() {
         xmlFile = new File(getLocalpath());
         return xmlFile;
     }
-
+    
     public static String getMotiflaf() {
         return motiflaf;
     }
-
+    
     public static void setMotiflaf(String motiflaf) {
         Utilities.motiflaf = motiflaf;
     }
-
+    
     public static String getNimbuslaf() {
         return nimbuslaf;
     }
-
+    
     public static void setNimbuslaf(String nimbuslaf) {
         Utilities.nimbuslaf = nimbuslaf;
     }
-
+    
     public static String getLaf() {
         return laf;
     }
-
+    
     public static void setLaf(String laf) {
         Utilities.laf = laf;
     }
-
+    
     public String getVendor() {
         // vendor = Bim.class.getPackage().getImplementationVendor();
         vendor = "Otika";
         return vendor;
     }
-
+    
     public String getBuild() {
         build = "20";
         return build;
     }
-
+    
     public String getTitle() {
         title = "Bomico";
         return title;
     }
-
+    
     public String getVersion() {
         // version = Bim.class.getPackage().getImplementationVersion();
         version = "1.0";
         return version;
     }
-
+    
     public String getGtklaf() {
         return gtklaf;
     }
-
+    
     public void setGtklaf(String gtklaf) {
         Utilities.gtklaf = gtklaf;
     }
-
+    
     public String getMetallaf() {
         return metallaf;
     }
-
+    
     public void setMetallaf(String metallaf) {
         Utilities.metallaf = metallaf;
     }
-
+    
     public String getAppInfos() {
-
+        
         String infos = "<html><b>Version</b>: " + getVersion() + "<html><br></br>" + "<html><b>Application:</b> "
                 + getTitle() + "<html><br></br>" + "<html><b>Vendor:</b> " + getVendor() + "<html><br></br>"
                 + "<html><b>Build:</b> " + getBuild() + "<html><br></br>" + "<html><b>User Home:</b> " + p + "<html><br></br>"
@@ -188,7 +201,7 @@ public class Utilities {
                 + " " + System.getProperty("java.vendor");
         return infos;
     }
-
+    
     public void createFile() {
         try {
             if (!xmlFile.exists()) {
@@ -207,9 +220,9 @@ public class Utilities {
             Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void appendInXML(String bmival) {
-
+        
         System.out.println(dateFormat.format(cal.getTime()));
         try {
             /*
@@ -225,7 +238,7 @@ public class Utilities {
              * System.out.println(xFile.getCanonicalPath());
              * System.out.println("---");
              */
-
+            
             createFile(); // Check if the file exists, if not create it.
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -249,20 +262,20 @@ public class Utilities {
             timeNode.setTextContent(time);
             //Create a Node element
             Element nodeElement = document.createElement("bmi");
-
+            
             try {
-
+                
                 int idv = document.getLastChild().getChildNodes().getLength();
                 String iv;
                 if (document.getLastChild() != null) {
-
+                    
                     if (idv == 0) {
                         i = 1;
                     } else {
                         i = idv + 1; // i = (idv + 1) / 2;
                     }
                     iv = String.valueOf(i);
-
+                    
                     nodeElement.setAttribute("id", iv);
                     System.out.println("- XML Document Child nodes length is: " + idv);
                     System.out.println("- Added Element is " + iv);
@@ -293,11 +306,11 @@ public class Utilities {
             Source source = new DOMSource(document);
             Result result = new StreamResult(xmlFile); // xmlFile
             tFormer.transform(source, result);
-
+            
         } catch (TransformerException | SAXException | IOException | ParserConfigurationException ex) {
             Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         System.out.println("- Success: Info appended in XML");
     }
 
@@ -305,7 +318,7 @@ public class Utilities {
      * Read XML data
      */
     public void readXML(String v, String y, String m, String d, String t) {
-
+        
         try {
             File xFile = new File(p + separator + "bomico"
                     + separator + "config" + separator + "followup.xml");
@@ -313,47 +326,47 @@ public class Utilities {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xFile);
             doc.getDocumentElement().normalize();
-
+            
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("bmi");
             System.out.println("Getting Sub Root -----------------------" + nList.item(0));
-
-
+            
+            
             for (i = 0; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) nNode;
-
+                    
                     NodeList userList = element.getElementsByTagName("user");
                     Element userElement = (Element) userList.item(0);
                     NodeList textuserList = userElement.getChildNodes();
                     System.out.println(v + ((Node) textuserList.item(0)).getNodeValue().trim());
-
+                    
                     NodeList valueList = element.getElementsByTagName("value");
                     Element valueElement = (Element) valueList.item(0);
                     NodeList textvalueList = valueElement.getChildNodes();
                     System.out.println(v + ((Node) textvalueList.item(0)).getNodeValue().trim());
-
+                    
                     NodeList yearList = element.getElementsByTagName("year");
                     Element yearElement = (Element) yearList.item(0);
                     NodeList textyearList = yearElement.getChildNodes();
                     System.out.println(y + ((Node) textyearList.item(0)).getNodeValue().trim());
-
+                    
                     NodeList monthList = element.getElementsByTagName("month");
                     Element monthElement = (Element) monthList.item(0);
                     NodeList textmonthList = monthElement.getChildNodes();
                     System.out.println(m + ((Node) textmonthList.item(0)).getNodeValue().trim());
-
+                    
                     NodeList dayList = element.getElementsByTagName("day");
                     Element dayElement = (Element) dayList.item(0);
                     NodeList textdayList = dayElement.getChildNodes();
                     System.out.println(d + ((Node) textdayList.item(0)).getNodeValue().trim());
-
+                    
                     NodeList timeList = element.getElementsByTagName("time");
                     Element timeElement = (Element) timeList.item(0);
                     NodeList texttimeList = timeElement.getChildNodes();
                     System.out.println(t + ((Node) texttimeList.item(0)).getNodeValue().trim());
-
+                    
                     System.out.println("\n------------------\n");
 
                     /**
@@ -371,8 +384,8 @@ public class Utilities {
         } catch (SAXException | IOException | ParserConfigurationException ex) {
             Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
+        
+        
     }
 
     /**
@@ -400,7 +413,7 @@ public class Utilities {
             }
         }
     }
-
+    
     public void pasteSynthFile() {
         InputStream is = getClass().getResourceAsStream("/config/synthlaf.xml");
         File synth = new File(p + separator + "bomico" + separator + "config" + separator + "synthlaf.xml");
@@ -430,10 +443,9 @@ public class Utilities {
      * @param height Height as double (in centimeters. ex: 175)
      */
     public void readIBMITABLE(String gender, double height) {
-
         BufferedReader bufRdr;
         try {
-
+            
             File f = new File(System.getProperty("user.home"), separator + "bomico" + separator + "config" + separator + "ibmitable.csv");
             if (!f.exists()) {
                 InputStream inputStream = getClass().getResourceAsStream("/config/ibmitable.csv");
@@ -455,17 +467,20 @@ public class Utilities {
                 // Height | Man  | Woman
                 manMap.put(content[0], content[1]);
                 womanMap.put(content[0], content[2]);
-                row++;
+                row++;            
             }
             bufRdr.close();
-            ibmirange = "";
+
+            //  System.out.println(manMap.entrySet());
+            //    System.out.println(womanMap.entrySet());
+            // ibmirange = "";
 
             String g = gender;
-
+            
             double j = 0;
             double e = 0;
             double s;
-            double arg = 1.78;
+            double arg = height;
             double diff;
             double dim;
             double ah = 0;
@@ -479,25 +494,29 @@ public class Utilities {
                     //  System.out.println(" here is FIRST  diff: " + diff);
                     if (diff - arg <= 0.013 && diff != arg) {
                         j = diff;
-                        //  System.out.println("here is diff: " + diff);
+                      //  System.out.println("here is diff: " + diff);
                     }
-
+                    
                     if (arg - dim <= 0.013 && dim != arg) {
                         e = dim;
-                        //  System.out.println("here is dim: " + dim);
+                      //  System.out.println("here is dim: " + dim);
                     }
                 }
             }
+
+            //   System.out.println(manMap.keySet());
+
+            System.err.println(j + " " + (j - arg));
+            System.err.println(e + " " + (arg - e));
             if ((arg - e) < (j - arg)) {
                 ah = e;
             }
             if ((arg - e) > (j - arg)) {
                 ah = j;
             }
-            //   System.err.println(j + " " + (j - arg));
-            //   System.err.println(e + " " + (arg - e));
-            //   System.err.println("And here is final ah: " + ah);
-
+            
+        //    System.err.println("And here is final ah: " + ah);
+            
             height = ah;
             String h = String.valueOf(height);
             if (g.equalsIgnoreCase("male")) {
