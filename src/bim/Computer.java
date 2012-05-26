@@ -9,10 +9,10 @@ public class Computer {
 
     String healthy = "Healthy";
     String nhealthy = "Normal";
-    String ill = "Ill";
+    String ill = "Underweight";
     String fat = "Overweight";
     String obese = "Obese";
-    String skinny = "Underweight";
+    String skinny = "X-Underweight";
     String extreme = "Not Healthy";
     /**
      * Text Strings for Health
@@ -22,15 +22,34 @@ public class Computer {
     String illT = "You're underweight! Eat something";
     String fatT = "Overweight! Let's Jogg \n & stop swallowing everything";
     String obeseT = "Obese. I think you know it";
-    String skinnyT = "Severe UW! Are you a Skeleton?";
+    String skinnyT = "Severe Underweight! Are you a Skeleton?";
     double result = 0;
     double ideal = 0;
     double iweight;
     double EER;
     double PA;
+    double BMRA;
+    double BMR;
+    double TDEE;
 
     //Constructor
     public Computer() {
+    }
+
+    public double getTDEE() {
+        return TDEE;
+    }
+
+    public double getBMR() {
+        return BMR;
+    }
+
+    public double getBMRA() {
+        return BMRA;
+    }
+
+    public void setBMRA(double BMRA) {
+        this.BMRA = BMRA;
     }
 
     public double getEER() {
@@ -51,6 +70,10 @@ public class Computer {
 
     public double getIweight() {
         return iweight;
+    }
+
+    public void setIweight(double iweight) {
+        this.iweight = iweight;
     }
 
     public double getIdeal() {
@@ -83,13 +106,93 @@ public class Computer {
     }
 
     /**
+     * Compute the Ideal weight using the specified formulas.
      *
-     * @param hei height
-     * @return ideal weight - double
+     * @param hei Height in centimeters
+     * @param formula Ideal Weight Formula
+     * @param gender Gender (Male or Female)
+     * @param morph Morphology (Ectomorph | Mesomorph | Endomorph)
+     * @return Ideal Weight
      */
-    public double computeIdealWeight(double hei) {
-        double height = hei * 0.01;
-        iweight = getIdeal() * (height * height);
+    public double computeIdealWeight(double hei, String formula, String gender, String morph) {
+        double height = hei * 0.01; // Convert centimeters to Meters
+        //1 centimeter = 0.393700787 inch
+        // 1 inch = 2.54 cms
+        // 1 foot = 30.48 centimeters
+        double i = (hei - 152.4) * 0.393700787; // 
+        if (gender.equalsIgnoreCase("male")) {
+
+            switch (formula) {
+                case "Robinson":
+                    iweight = 52 + (1.9 * i);
+                    break;
+                case "Miller":
+                    iweight = 56.2 + (1.41 * i);
+                    break;
+                case "Hamwi":
+                    if (morph.equalsIgnoreCase("ectomorph")) {
+                        iweight = (48 + (2.7 * i)) - ((48 + (2.7 * i)) * 10 / 100);
+                    }
+                    if (morph.equalsIgnoreCase("mesomorph")) {
+                        iweight = 48 + (2.7 * i);
+                    }
+                    if (morph.equalsIgnoreCase("endomorph")) {
+                        iweight = (48 + (2.7 * i)) + ((48 + (2.7 * i)) * 10 / 100);
+                    }
+                    if (morph.equalsIgnoreCase("")) {
+                        iweight = 48 + (2.7 * i);
+                    }
+                    break;
+
+                case "Devine":
+                    iweight = 50 + (2.3 * i);
+                    break;
+                case "Social":
+                    iweight = getIdeal() * (Math.pow(height, 2));
+                    break;
+                case "":
+                    iweight = getIdeal() * (Math.pow(height, 2));
+                    break;
+            }
+
+
+        } else if (gender.equalsIgnoreCase("female")) {
+
+            switch (formula) {
+                case "Robinson":
+                    iweight = 49 + (1.7 * i);
+                    break;
+                case "Miller":
+                    iweight = 53.1 + (1.36 * i);
+                    break;
+                case "Hamwi":
+                    if (morph.equalsIgnoreCase("")) {
+                        iweight = 45 + (2.2 * i);
+                    }
+                    if (morph.equalsIgnoreCase("ectomorph")) {
+                        iweight = (45 + (2.2 * i)) - ((45 + (2.2 * i)) * 10 / 100);
+                    }
+                    if (morph.equalsIgnoreCase("mesomorph")) {
+                        iweight = 45 + (2.2 * i);
+                    }
+                    if (morph.equalsIgnoreCase("endomorph")) {
+                        iweight = (45 + (2.2 * i)) + ((45 + (2.2 * i)) * 10 / 100);
+                    }
+                    ;
+                    break;
+
+                case "Devine":
+                    iweight = 45.5 + (2.3 * i);
+                    break;
+                case "Social":
+                    iweight = getIdeal() * (Math.pow(height, 2));
+                    break;
+                case "":
+                    iweight = getIdeal() * (Math.pow(height, 2));
+                    break;
+            }
+        }
+
         return iweight;
     }
 
@@ -108,10 +211,12 @@ public class Computer {
         }
 
 
+        //
+
         /*
-         * Men	Ideal BMI	= 0.5 * bmi + 11.5
+         * Men	Social Ideal BMI	= 0.5 * bmi + 11.5
          *
-         * Women	Ideal BMI	= 0.4 * bmi + 0.03*Age + 11
+         * Women	Social Ideal BMI	= 0.4 * bmi + 0.03*Age + 11
          */
 
         return ideal;
@@ -184,7 +289,7 @@ public class Computer {
      * @param heit Height
      * @param weit Weight
      * @param gender gender
-     * @return EER as double value
+     * @return EER
      */
     public double computeEER(int age, String activity, double heit, double weit, String gender) {
 
@@ -196,6 +301,8 @@ public class Computer {
             setPA(1.27);
         } else if (activity.contains("ery")) {
             setPA(1.45);
+        } else if (activity.contains("xtreme")) {
+            setPA(1.66);
         } else if (activity.equals("") || activity == null) {
             setPA(1.27);
         }
@@ -206,5 +313,52 @@ public class Computer {
             EER = (354 - (6.91 * age)) + (getPA() * ((9.36 * weit) + (726 * heit)));
         }
         return EER;
+    }
+
+    /**
+     * Compute the Basal Metabolic Rate
+     *
+     * @param w Weight as double
+     * @param h Height as double
+     * @param a Age as integer
+     * @param g Gender as String
+     * @return BMR Basal Metabolic Rate
+     */
+    public double computeBMR(double w, double h, int a, String g) {
+
+        if (g.equalsIgnoreCase("female")) {     // Women BMR = 655 +(9.6*w)+(1.8*h)-(4.7*a)
+            BMR = 655 + (9.6 * w) + (1.8 * h) - (4.7 * a);
+        } else {
+            BMR = 66 + (13.7 * w) + (5 * h) - (6.8 * a);
+        }
+        return BMR;
+    }
+
+    public double computeTDEE(String activity) {
+        /**
+         * Total Daily Energy Expenditure (TDEE) = Caloric requirements to
+         * maintain weight.
+         *
+         * TDEE = BMR * Activity Factor
+         *
+         * Sedentary = Little or no exercise/desk job = 1.2 Lightly active = 1-3
+         * sport/week = 1.375 Moderately active = 3-5 sport week = 1.55 Very
+         * active = 6-7 sport/week = 1.725 extremely active = 2sports/day = 1.9
+         */
+        double a = 0;
+        if (activity.equalsIgnoreCase("sedentary")) {
+            a = 1.2;
+        } else if (activity.contains("ow")) {
+            a = 1.375;
+        } else if (activity.contains("ery")) {
+            a = 1.725;
+        } else if (activity.equalsIgnoreCase("active")) {
+            a = 1.55;
+        } else if (activity.contains("xtreme")) {
+            a = 1.9;
+        }
+
+        TDEE = BMR * a;
+        return TDEE;
     }
 } // END OF CLASS

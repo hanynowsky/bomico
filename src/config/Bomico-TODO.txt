@@ -1,0 +1,49 @@
+
+- Add help button to explain what BMI is and how it is gotten
+- Add Fat calculator
+- Add Morph Calculator
+
+
+----------------------------
+
+
+-----------------------------
+Basal Metabolic rate.
+Women BMR = 655 +(9.6*w)+(1.8*h)-(4.7*a)
+
+Men BMR = 66 +(13.7*w)+(5*h)-(6.8*a)
+
+---------------------------
+
+Total Daily Energy Expenditure (TDEE) = Caloric requirements to maintain weight.
+
+TDEE = BMR * Activity Factor
+
+Sedentary = Little or no exercise/desk job = 1.2
+Lightly active = 1-3 sport/week = 1.375
+Moderately active = 3-5 sport week = 1.55
+Very active = 6-7 sport/week = 1.725
+extremely active = 2sports/day = 1.9
+
+
+------------------------------
+5 feet = 152.4 cm
+
+Ideal Weight since:
+
+J. D. Robinson Formula (1983)
+
+52 kg + 1.9 kg per inch over 5 feet       (man)
+49 kg + 1.7 kg per inch over 5 feet       (woman)
+D. R. Miller Formula (1983)
+
+56.2 kg + 1.41 kg per inch over 5 feet       (man)
+53.1 kg + 1.36 kg per inch over 5 feet       (woman)
+G. J. Hamwi Formula (1964)
+
+48.0 kg + 2.7 kg per inch over 5 feet       (man)
+45.5 kg + 2.2 kg per inch over 5 feet       (woman)
+B. J. Devine Formula (1974)
+
+50.0 + 2.3 kg per inch over 5 feet       (man)
+45.5 + 2.3 kg per inch over 5 feet       (woman)
