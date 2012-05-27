@@ -84,6 +84,7 @@ public class Utilities {
     public final String LAF_PREF = "laf_pref";
     final String MORPH_PREF = "morph_pref";
     final String FORMULA_PREF = "formula_pref";
+    final String ORIGIN_PREF = "origin_pref";
 
     /**
      * Creates a new instance of this object class

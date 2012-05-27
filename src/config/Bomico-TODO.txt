@@ -1,5 +1,5 @@
 
-- Add help button to explain what BMI is and how it is gotten
+- Add help button to explain what BMI is and how it is gotten (Tabbed pane with HTML pane)
 - Add Fat calculator
 - Add Morph Calculator
 
@@ -47,3 +47,26 @@ B. J. Devine Formula (1974)
 
 50.0 + 2.3 kg per inch over 5 feet       (man)
 45.5 + 2.3 kg per inch over 5 feet       (woman)
+
+--------------------------------------------------------------
+
+BODY FAT
+Description	Women	Men
+Recommended amount	20-25%	8-14%
+Adults in United States, average	22-25%	15-19%
+Obese	30%+	25%+
+According to Health Check Systems, The American Council on Exercise has categorized the range of body fat percentages as follows:
+
+Description	Women	Men
+Essential fat	12-15%	2-5%
+Athletes	16-20%	6-13%
+Fitness	21-24%	14-17%
+Acceptable	25-31%	18-25%
+Obese	32%+	25%+
+
+The Body Fat Calculator uses the U.S. Navy Method
+
+body fat calculator formula for man:
+495/(1.0324-0.19077(LOG(waist-neck))+0.15456(LOG(height)))-450
+body fat calculator formula for woman:
+495/(1.29579-0.35004(LOG(waist+hip-neck))+0.22100(LOG(height)))-450

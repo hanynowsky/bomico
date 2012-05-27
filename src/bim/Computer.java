@@ -7,6 +7,7 @@ package bim;
  */
 public class Computer {
 
+    String health = "";
     String healthy = "Healthy";
     String nhealthy = "Normal";
     String ill = "Underweight";
@@ -226,24 +227,43 @@ public class Computer {
      *
      * @return Explanation of BIM value
      */
-    public String getHealth() {
-
-        if (18.5 < this.result & this.result < 20) {
-            return healthy;
-        } else if (25 < this.result & this.result < 30) {
-            return fat;
-        } else if (20 < this.result & this.result < 25) {
-            return nhealthy;
-        } else if (this.result < 18.5 & this.result > 16) {
-            return ill;
-        } else if (this.result > 30 & this.result < 40) {
-            return obese;
-        } else if (this.result < 16) {
-            return skinny;
-        } else {
-            return extreme;
+    public String getHealth(String origin) {
+        if (origin.equalsIgnoreCase("caucasian")) {
+            if (18.5 <= this.result & this.result <= 20) {
+                health = healthy;
+            } else if (25 < this.result & this.result < 30) {
+                health = fat;
+            } else if (20 < this.result & this.result < 25) {
+                health = nhealthy;
+            } else if (this.result < 18.5 & this.result > 16) {
+                health = ill;
+            } else if (this.result > 30 & this.result < 40) {
+                health = obese;
+            } else if (this.result <= 16) {
+                health = skinny;
+            } else {
+                health = extreme;
+            }
         }
-    }
+        if (origin.equalsIgnoreCase("asian")) {
+            if (18.5 <= this.result & this.result <= 22.9) {
+                health = nhealthy;
+            } else if (22.9 < this.result & this.result < 25) {
+                health = fat;
+            } else if (25 <= this.result & this.result < 30) {
+                health = obese;
+            } else if (this.result < 18.5 & this.result > 16) {
+                health = ill;
+            } else if (this.result > 30 & this.result < 40) {
+                health = obese;
+            } else if (this.result < 16) {
+                health = skinny;
+            } else {
+                health = extreme;
+            }
+        }
+        return health;
+    } // End of Method
 
     /**
      *
@@ -251,28 +271,28 @@ public class Computer {
      */
     public String getHealthText() {
 
-        if (getHealth().equalsIgnoreCase(healthy)) {
+        if (health.equalsIgnoreCase(healthy)) {
             return healthyT;
-        } else if (getHealth().equalsIgnoreCase(fat)) {
+        } else if (health.equalsIgnoreCase(fat)) {
             return fatT;
-        } else if (getHealth().equalsIgnoreCase(nhealthy)) {
+        } else if (health.equalsIgnoreCase(nhealthy)) {
             return nhealthyT;
-        } else if (getHealth().equalsIgnoreCase(ill)) {
+        } else if (health.equalsIgnoreCase(ill)) {
             return illT;
-        } else if (getHealth().equalsIgnoreCase(obese)) {
+        } else if (health.equalsIgnoreCase(obese)) {
             return obeseT;
-        } else if (getHealth().equalsIgnoreCase(skinny)) {
+        } else if (health.equalsIgnoreCase(skinny)) {
             return skinnyT;
         } else {
-            return "You might be living somwhere in US. "
+            return "For Real? "
                     + "\nCheck The Doctor for Aliens' Diet";
         }
     }
 
     /**
-     *  * The official formulas for the calculation of your daily estimated
-     * energy requirements (EER) are provided by the Food and Nutrition Board of
-     * the Institute of Medicine of the National Academies. (Trumbo et al. 2002)
+     ** The official formulas for the calculation of daily estimated energy
+     * requirements (EER) are provided by the Food and Nutrition Board of the
+     * Institute of Medicine of the National Academies (Trumbo et al. 2002).
      *
      * EER Male = (662 - (9.53 x Age)) + (PA x ((15.91 x Weight) + (539.6 x
      * Height))).
@@ -280,9 +300,9 @@ public class Computer {
      * EER Female = (354 - (6.91 x Age)) + (PA x ((9.36 x Weight) + (726 x
      * Height))).
      *
-     * PA indicates your Activity Level and is equal to 1.0 for Sedentary, 1.12
-     * for Low Active, 1.27 for Active and 1.45 for Very Active. Weight is
-     * measured in kilograms and height in meters.
+     * PA indicates Activity Level and is equal to 1.0 for Sedentary, 1.12 for
+     * Low Active, 1.27 for Active and 1.45 for Very Active. Weight is measured
+     * in kilograms and height in meters.
      *
      * @param age Age
      * @param activity Activity
@@ -291,7 +311,7 @@ public class Computer {
      * @param gender gender
      * @return EER
      */
-    public double computeEER(int age, String activity, double heit, double weit, String gender) {
+    public double computeEER(int age, String activity, double height, double weit, String gender) {
 
         if (activity.equalsIgnoreCase("sedentary")) {
             setPA(1.00);
@@ -307,10 +327,31 @@ public class Computer {
             setPA(1.27);
         }
 
+        double heit = height / 100; // Height from Centimeters to Meters
         if (gender.equalsIgnoreCase("male")) {
-            EER = (662 - (9.53 * age)) + (getPA() * ((15.91 * weit) + (539.6 * heit)));
+            if (age >= 0 && age <= 2) {
+                EER = (89 * weit - 100) + 20;
+            }
+            if (age >= 3 && age <= 8) {
+                EER = 88.5 - (61.9 * age) + getPA() * (26.7 * weit + 903 * heit) + 20;
+            }
+            if (age >= 9 && age <= 18) {
+                EER = 88.5 - (61.9 * age) + getPA() * (26.7 * weit + 903 * heit) + 25;
+            } else {
+                EER = 662 - (9.53 * age) + getPA() * (15.91 * weit + 539.6 * heit);
+            }
         } else {
-            EER = (354 - (6.91 * age)) + (getPA() * ((9.36 * weit) + (726 * heit)));
+            if (age >= 0 && age <= 2) {
+                EER = (89 * weit - 100) + 20;
+            }
+            if (age >= 3 && age <= 8) {
+                EER = 135.3 - (30.8 * age) + getPA() * (10 * weit + 934 * heit) + 20;
+            }
+            if (age >= 9 && age <= 18) {
+                EER = 135.3 - (30.8 * age) + getPA() * (10 * heit + 934 * heit) + 25;
+            } else {
+                EER = (354 - (6.91 * age)) + (getPA() * ((9.36 * weit) + (726 * heit)));
+            }
         }
         return EER;
     }
