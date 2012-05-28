@@ -85,6 +85,12 @@ public class Utilities {
     final String MORPH_PREF = "morph_pref";
     final String FORMULA_PREF = "formula_pref";
     final String ORIGIN_PREF = "origin_pref";
+    final String WAIST_PREF = "waist_pref";
+    final String WRIST_PREF = "wrist_pref";
+    final String HIP_PREF = "tip_pref";
+    final String ELBOW_PREF = "elbow_pref";
+    final String NECK_PREF = "neck_pref";
+    final String WRISTELBOW_PREF = "wristelbow_pref";
 
     /**
      * Creates a new instance of this object class
@@ -594,9 +600,14 @@ public class Utilities {
         return f + " ft " + fi + " in";
     }
 
-    public double convertWeight(double weight) {
+    public static double convertWeight(double weight) {
         double w = weight * 2.2;
         return Double.parseDouble(new DecimalFormat("#.##").format(w));
     }
+    
+    public static double convertCMtoINCH (double cm){
+    
+    return cm * 0.393700787;
+}
 } // END OF CLASS
 

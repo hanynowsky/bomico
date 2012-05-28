@@ -20,9 +20,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.synth.SynthLookAndFeel;
 import javax.swing.table.TableModel;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 import org.java.ayatana.ApplicationMenu;
 import org.java.ayatana.AyatanaDesktop;
 
@@ -100,6 +103,7 @@ public class Bim extends javax.swing.JFrame {
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         jOptionPane1 = new javax.swing.JOptionPane();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jToolBar1 = new javax.swing.JToolBar();
         jSeparator6 = new javax.swing.JToolBar.Separator();
         jButton3 = new javax.swing.JButton();
@@ -159,12 +163,29 @@ public class Bim extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
-        jSeparator16 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jSlider2 = new javax.swing.JSlider();
+        jSlider5 = new javax.swing.JSlider();
+        jSlider6 = new javax.swing.JSlider();
         jPanel5 = new javax.swing.JPanel();
-        jSeparator18 = new javax.swing.JSeparator();
-        jPanel6 = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jSlider7 = new javax.swing.JSlider();
+        jSlider8 = new javax.swing.JSlider();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jTextField10 = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         jEditorPane2 = new javax.swing.JEditorPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -882,67 +903,244 @@ public class Bim extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("BMI", jPanel1);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Body Fat", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Body Fat", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+
+        jLabel28.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        jLabel28.setText("Waist (cm)");
+
+        jLabel29.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        jLabel29.setText("Hip (cm)");
+
+        jLabel30.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        jLabel30.setText("Neck (cm)");
+
+        jSlider2.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        jSlider2.setMajorTickSpacing(10);
+        jSlider2.setMaximum(150);
+        jSlider2.setMinimum(15);
+        jSlider2.setMinorTickSpacing(5);
+        jSlider2.setPaintLabels(true);
+        jSlider2.setPaintTicks(true);
+        jSlider2.setToolTipText("");
+        jSlider2.setValue(Integer.parseInt(utils.prefs.get(utils.WAIST_PREF, "75")));
+
+        jSlider5.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jSlider5.setMajorTickSpacing(10);
+        jSlider5.setMaximum(200);
+        jSlider5.setMinimum(30);
+        jSlider5.setMinorTickSpacing(5);
+        jSlider5.setPaintLabels(true);
+        jSlider5.setPaintTicks(true);
+        jSlider5.setToolTipText("");
+        jSlider5.setValue(Integer.parseInt(utils.prefs.get(utils.HIP_PREF, "85")));
+
+        jSlider6.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jSlider6.setMajorTickSpacing(10);
+        jSlider6.setMaximum(70);
+        jSlider6.setMinimum(15);
+        jSlider6.setMinorTickSpacing(1);
+        jSlider6.setPaintLabels(true);
+        jSlider6.setPaintTicks(true);
+        jSlider6.setToolTipText("");
+        jSlider6.setValue(Integer.parseInt(utils.prefs.get(utils.NECK_PREF, "37")));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSlider2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSlider6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSlider5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28)
+                    .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29)
+                    .addComponent(jSlider5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSlider6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Body Type", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Body Type", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+
+        jLabel31.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        jLabel31.setText("Wrist (cm)");
+
+        jLabel32.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        jLabel32.setText("Elbow (cm)");
+
+        jSlider7.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jSlider7.setMajorTickSpacing(10);
+        jSlider7.setMaximum(15);
+        jSlider7.setMinimum(2);
+        jSlider7.setMinorTickSpacing(1);
+        jSlider7.setPaintLabels(true);
+        jSlider7.setPaintTicks(true);
+        jSlider7.setToolTipText("");
+        jSlider7.setValue(Integer.parseInt(utils.prefs.get(utils.ELBOW_PREF, "6")));
+
+        jSlider8.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jSlider8.setMajorTickSpacing(10);
+        jSlider8.setMaximum(35);
+        jSlider8.setMinimum(5);
+        jSlider8.setMinorTickSpacing(1);
+        jSlider8.setPaintLabels(true);
+        jSlider8.setPaintTicks(true);
+        jSlider8.setToolTipText("");
+        jSlider8.setValue(Integer.parseInt(utils.prefs.get(utils.WRIST_PREF, "16")));
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jRadioButton1.setSelected(Boolean.parseBoolean(utils.prefs.get(utils.WRISTELBOW_PREF, "true")));
+        jRadioButton1.setText("Elbow");
+        jRadioButton1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jRadioButton2.setText("Wrist");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSlider7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSlider8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSlider8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel31)
+                    .addComponent(jRadioButton2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel32)
+                    .addComponent(jSlider7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Unit Converter", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+        jLabel33.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel33.setText("Waist");
+        jLabel33.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel33.setMinimumSize(new java.awt.Dimension(187, 10));
+        jLabel33.setPreferredSize(new java.awt.Dimension(187, 13));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jLabel34.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel34.setText("Hip");
+        jLabel34.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel34.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel34.setMinimumSize(new java.awt.Dimension(187, 10));
+        jLabel34.setPreferredSize(new java.awt.Dimension(187, 13));
 
-        jButton11.setBackground(new java.awt.Color(230, 230, 230));
-        jButton11.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jButton11.setText("Calculate");
+        jLabel35.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("Neck");
+        jLabel35.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel35.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel35.setMinimumSize(new java.awt.Dimension(187, 10));
+        jLabel35.setPreferredSize(new java.awt.Dimension(187, 13));
+
+        jLabel37.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel37.setText("Wrist");
+        jLabel37.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel37.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel37.setMinimumSize(new java.awt.Dimension(187, 10));
+        jLabel37.setPreferredSize(new java.awt.Dimension(187, 13));
+
+        jLabel40.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setText("Elbow");
+        jLabel40.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel40.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel40.setMinimumSize(new java.awt.Dimension(187, 10));
+        jLabel40.setPreferredSize(new java.awt.Dimension(187, 13));
+
+        jTextField9.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jTextField9.setForeground(new java.awt.Color(51, 51, 255));
+        jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField9.setText("--------------");
+        jTextField9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextField9.setPreferredSize(new java.awt.Dimension(70, 22));
+
+        jLabel38.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel38.setText("Body Fat");
+
+        jLabel39.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        jLabel39.setText("Body Type");
+
+        jTextField10.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jTextField10.setForeground(new java.awt.Color(255, 102, 0));
+        jTextField10.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField10.setText("-");
+        jTextField10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextField10.setPreferredSize(new java.awt.Dimension(70, 22));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator16, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
-                            .addComponent(jSeparator18, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(354, 354, 354)
-                        .addComponent(jButton11)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField10, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -950,17 +1148,20 @@ public class Bim extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator18, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton11)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel39)
+                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(177, 177, 177))
         );
 
         jTabbedPane1.addTab("Miscelaneous", jPanel2);
@@ -972,6 +1173,11 @@ public class Bim extends javax.swing.JFrame {
         } catch (java.io.IOException e1) {
             e1.printStackTrace();
         }
+        jEditorPane2.addHyperlinkListener(new javax.swing.event.HyperlinkListener() {
+            public void hyperlinkUpdate(javax.swing.event.HyperlinkEvent evt) {
+                jEditorPane2HyperlinkUpdate(evt);
+            }
+        });
         jScrollPane4.setViewportView(jEditorPane2);
 
         jTabbedPane1.addTab("Guide", jScrollPane4);
@@ -1150,7 +1356,7 @@ public class Bim extends javax.swing.JFrame {
      * BMI Computation method for the GUI
      */
     private void computation() {
-
+        c = new Computer();
         //  Utilities utility = new Utilities();
         // double H = jSlider4.getValue() * 0.01;
         double W = jSlider3.getValue();
@@ -1200,15 +1406,17 @@ public class Bim extends javax.swing.JFrame {
         jTextField8.setText(String.valueOf(new DecimalFormat("#.##").format(c.getTDEE())));
 
 
+        c.computeBodyFat(jSlider4.getValue(), jSlider2.getValue(), jSlider6.getValue(), jSlider5.getValue(), jComboBox1.getSelectedItem().toString());
+        jTextField9.setText(new DecimalFormat("#.##").format(c.getBF()) + " %" + " - " + c.getBFString());
+        String bt = c.computeBodyType(jComboBox1.getSelectedItem().toString(), jSlider4.getValue(), jSlider8.getValue(), jSlider7.getValue(), jRadioButton1.isSelected());
+        jTextField10.setText(bt + " frame");
+
         if (18.5 <= res & res <= 25) {
             jTextField2.setForeground(greencolor);
             System.out.println("Normal BMI");
-        }
-        if (18.5 > res | res > 25) {
+        } else if (18.5 > res | res > 25) {
             jTextField2.setForeground(redcolor);
         }
-
-
 
         //
     }
@@ -1224,13 +1432,13 @@ public class Bim extends javax.swing.JFrame {
                         jProgressBar1.setIndeterminate(false);
                         jProgressBar1.setValue(progress);
                         jLabel17.setText(String.format("Completed %d%% of task. ", progress));
-                        // computation();
+                        //computation();
                     }
-                    computation();
+                    // computation();
                 }
             });
             task.execute();
-
+            computation();
             System.out.println("Computation Done.");
             jLabel17.setText("Computation done.");
         }
@@ -1656,11 +1864,13 @@ public class Bim extends javax.swing.JFrame {
                     jProgressBar1.setIndeterminate(false);
                     jProgressBar1.setValue(progress);
                     jLabel17.setText(String.format("Completed %d%% of task. ", progress));
-                    // computation();
+                    //  computation();
                 }
+                //computation();
             }
         });
         task.execute();
+        computation();
 
         System.out.println("Computation Done.");
         jLabel17.setText("Computation done.");
@@ -1760,6 +1970,13 @@ public class Bim extends javax.swing.JFrame {
             utils.setPreferences(utils.ACTIVITY_PREF, jComboBox2.getSelectedItem());
             utils.setPreferences(utils.ORIGIN_PREF, jComboBox5.getSelectedItem());
             utils.setPreferences(utils.LAF_PREF, Utilities.laf);
+            utils.setPreferences(utils.WAIST_PREF, jSlider2.getValue());
+            utils.setPreferences(utils.WRIST_PREF, jSlider8.getValue());
+            utils.setPreferences(utils.ELBOW_PREF, jSlider7.getValue());
+            utils.setPreferences(utils.HIP_PREF, jSlider5.getValue());
+            utils.setPreferences(utils.NECK_PREF, jSlider6.getValue());
+            utils.setPreferences(utils.WRISTELBOW_PREF, jRadioButton1.isSelected());
+
             jLabel17.setText("Preferences saved");
             // Integer.parseInt(utils.prefs.get(utils.HEIGHT_PREF, "170"))
         }
@@ -1778,10 +1995,60 @@ public class Bim extends javax.swing.JFrame {
 
     private void jTextField4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField4MouseClicked
         if (evt.getSource() == jTextField4) {
+            Computer c = new Computer();
             String pw = new DecimalFormat("#.##").format(c.getIweight() * 2.20462262);
             jLabel17.setText("Ideal weight is: " + pw + " pounds");
         }
     }//GEN-LAST:event_jTextField4MouseClicked
+
+    private void jEditorPane2HyperlinkUpdate(javax.swing.event.HyperlinkEvent evt) {//GEN-FIRST:event_jEditorPane2HyperlinkUpdate
+        String ref = evt.getURL().getRef();
+
+        if (evt.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+
+            if (evt != null && ref.equals("moreinfo")) {
+                try {
+                    java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+                    desktop.browse(new URI("http://www.who.int/en/"));
+
+                    System.out.println("More Infos Link opening in Web Browser");
+                } catch (IOException | URISyntaxException ex) {
+                    Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);//
+                }
+            }
+
+            if (evt != null && ref.equals("guidebrowser")) {
+                try {
+                    java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+                    URI guide = getClass().getResource("/resource/guide.html").toURI();
+                    desktop.browse(guide);
+
+                    System.out.println("Guide document opening in Web Browser");
+                } catch (IOException | URISyntaxException ex) {
+                    Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);//
+                }
+            }
+
+            if (evt instanceof HTMLFrameHyperlinkEvent) {
+                ((HTMLDocument) jEditorPane2.getDocument()).processHTMLFrameHyperlinkEvent(
+                        (HTMLFrameHyperlinkEvent) evt);
+            } else {
+                try {
+                    jEditorPane2.setPage(evt.getURL());
+                } catch (IOException ioe) {
+                    System.err.println("IOE: " + ioe);
+                }
+                // String ref = evt.getURL().getRef();
+                if (ref != null && ref.length() > 0 && evt.getURL().sameFile(getClass().getResource("/resource/guide.html"))) {
+                    System.out.println("Scrolled to Reference  = " + ref);
+                    jEditorPane2.scrollToReference(ref);
+                }
+
+                System.out.println("Clicked on Link in Guide Document");
+
+            }
+        }
+    }//GEN-LAST:event_jEditorPane2HyperlinkUpdate
 
     // SEPARATION
     /**
@@ -1813,7 +2080,7 @@ public class Bim extends javax.swing.JFrame {
                 setProgress(Math.min(progress, 100));
 
             }
-            computation();
+            //  computation();
             return null;
         }
     }
@@ -1887,12 +2154,12 @@ public class Bim extends javax.swing.JFrame {
     // Custom Declaration
     double res;
     Utilities utils = new Utilities();
-    Computer c = new Computer();
+    Computer c;
     //
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1929,8 +2196,20 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1962,8 +2241,9 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1975,9 +2255,7 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator13;
     private javax.swing.JToolBar.Separator jSeparator14;
     private javax.swing.JToolBar.Separator jSeparator15;
-    private javax.swing.JSeparator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
-    private javax.swing.JSeparator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -1987,12 +2265,18 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JSlider jSlider1;
+    private javax.swing.JSlider jSlider2;
     private javax.swing.JSlider jSlider3;
     private javax.swing.JSlider jSlider4;
+    private javax.swing.JSlider jSlider5;
+    private javax.swing.JSlider jSlider6;
+    private javax.swing.JSlider jSlider7;
+    private javax.swing.JSlider jSlider8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -2000,6 +2284,7 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables

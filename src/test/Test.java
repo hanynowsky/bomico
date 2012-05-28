@@ -22,14 +22,19 @@ public class Test {
         //test.calculateRange();
         // util.readIBMITABLE("Male", 1.50);
         // System.out.println("Here is Range: " + util.getIbmirange());
-      //  c.computeBMR(58, 178, 31, "male");
-       // c.computeTDEE("sedentary");
-       // c.computeIdealWeight(178, "Hamwi", "female","mesomorph");
-        Utilities utility = new Utilities();
-        String slaf = UIManager.getLookAndFeel().getName();
-        System.out.println(utility.prefs.get(utility.LAF_PREF, UIManager.getSystemLookAndFeelClassName()));
-        System.out.println(UIManager.getSystemLookAndFeelClassName());
-
+        //  c.computeBMR(58, 178, 31, "male");
+        // c.computeTDEE("sedentary");
+        // c.computeIdealWeight(178, "Hamwi", "female","mesomorph");
+        //   Utilities utility = new Utilities();
+        // String slaf = UIManager.getLookAndFeel().getName();
+        // System.out.println(utility.prefs.get(utility.LAF_PREF, UIManager.getSystemLookAndFeelClassName()));
+        // System.out.println(UIManager.getSystemLookAndFeelClassName());
+        // String[] test = {"I am 0","I am 1","I am 2"};
+        // System.out.println(c.computeBodyType("male", 153, 15, 6.5, true)); 
+        System.out.println(c.computeBodyFat(178, 75, 37, 85, "male"));
+      
+     
+     
     } // END OF MAIN
 
     public void calculateRange() {
