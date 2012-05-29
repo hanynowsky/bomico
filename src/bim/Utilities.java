@@ -91,6 +91,7 @@ public class Utilities {
     final String ELBOW_PREF = "elbow_pref";
     final String NECK_PREF = "neck_pref";
     final String WRISTELBOW_PREF = "wristelbow_pref";
+    final String GUIDE_PREF ="guide_pref";
 
     /**
      * Creates a new instance of this object class

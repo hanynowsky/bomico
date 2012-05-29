@@ -552,15 +552,15 @@ public class Computer {
                     }
                 } else if (h < 1.63) {
                     i = 3;
-                    setBtmsg("Please use the elbow measure for male heights below 1.63m (5\'5)");
-                    System.err.println("Please use the elbow measure for male heights below 1.63m (5'5)");
+                    setBtmsg("Body Type: Please use the elbow measure for male heights below 1.63m (5\'5)");
+                    System.err.println("Body Type: Please use the elbow measure for male heights below 1.63m (5'5)");
                 }
             } else if (choice) {
                 // male elbow breadth
                 if (h <= 1.54) {
                     i = 4;
-                    System.err.println("There is no measure for males below 1.55m (5'2");
-                    setBtmsg("There is no measure for males below 1.55m (5'2");
+                    System.err.println("Body Type: There is no measure for males below 1.55m (5'2");
+                    setBtmsg("Body Type: There is no measure for males below 1.55m (5'2");
                 } else if (h >= 1.55 && h < 1.58) {
                     if (elbow < 6.4) {
                         i = 0;
@@ -683,8 +683,8 @@ public class Computer {
                     }
                 } else {
                     i = 5;
-                    System.err.println("There is no measure for females below 1.46m (4'10) or above 1.90m (6'4");
-                    setBtmsg("There is no measure for females below 1.46m (4'10) or above 1.90m (6'4");
+                    System.err.println("Body Type: There is no measure for females below 1.46m (4'10) or above 1.90m (6'4");
+                    setBtmsg("Body Type: There is no measure for females below 1.46m (4'10) or above 1.90m (6'4");
                 }
             }
         }

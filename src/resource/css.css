@@ -79,7 +79,7 @@ tr._even_row {
 
     float: right;
     position: relative;    
-    margin-left:16%;
+    margin-left:23%;
     margin-right:0%;
     border-spacing: 10px;
     border-right-style: solid;
@@ -128,7 +128,8 @@ tr._even_row {
     padding-bottom: 1px;
     padding-top: 1px;
     text-align: justify;
-    width: 280px;
+   /* width: 280px; */
+   margin-right:75%;
     height: 100%;
     float: left;
     position: fixed;
