@@ -1,7 +1,12 @@
 package bim;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -45,7 +50,7 @@ import org.xml.sax.SAXException;
  * @version 1.0
  * @author Hanynowsky
  */
-public class Utilities {
+public class Utilities implements ActionListener {
 
     static String p = System.getProperty("user.home");
     String separator = File.separator;
@@ -91,7 +96,9 @@ public class Utilities {
     final String ELBOW_PREF = "elbow_pref";
     final String NECK_PREF = "neck_pref";
     final String WRISTELBOW_PREF = "wristelbow_pref";
-    final String GUIDE_PREF ="guide_pref";
+    final String GUIDE_PREF = "guide_pref";
+    final String SOUND_PREF = "sound_pref";
+    AudioClip sound;
 
     /**
      * Creates a new instance of this object class
@@ -99,8 +106,13 @@ public class Utilities {
     public Utilities() {
     }
 
+    /**
+     * Sets the preference value from a component in GUI
+     *
+     * @param PREF Preference variable
+     * @param value Value of Preference
+     */
     public void setPreferences(String PREF, Object value) {
-
         prefs.put(PREF, value.toString());
     }
 
@@ -206,6 +218,11 @@ public class Utilities {
         Utilities.metallaf = metallaf;
     }
 
+    /**
+     * An HTML String for the About Dialog.
+     *
+     * @return Application and System information as String
+     */
     public String getAppInfos() {
 
         String infos = "<html><b>Version</b>: " + getVersion() + "<html><br></br>" + "<html><b>Application:</b> "
@@ -218,6 +235,9 @@ public class Utilities {
         return infos;
     }
 
+    /**
+     * Creates Follow-up XML file.
+     */
     public void createFile() {
         try {
             if (!xmlFile.exists()) {
@@ -237,6 +257,11 @@ public class Utilities {
         }
     }
 
+    /**
+     * Appends user information related to BMI into Follow-up XML file.
+     *
+     * @param bmival BMI value
+     */
     public void appendInXML(String bmival) {
 
         System.out.println(dateFormat.format(cal.getTime()));
@@ -331,7 +356,14 @@ public class Utilities {
     }
 
     /**
-     * Read XML data
+     * Reads Follow-up file XML data. Make sure the XML sub-root elements have
+     * not changed. If so, modify this method.
+     *
+     * @param v
+     * @param y
+     * @param m
+     * @param d
+     * @param t
      */
     public void readXML(String v, String y, String m, String d, String t) {
 
@@ -405,7 +437,7 @@ public class Utilities {
     }
 
     /**
-     * Copy Splash Picture in local folder
+     * Copy Splash Picture in local folder.
      */
     public void pasteSplashFile() {
         InputStream is = getClass().getResourceAsStream("/resource/Bomico.png");
@@ -430,6 +462,10 @@ public class Utilities {
         }
     }
 
+    /**
+     * Pastes the <em>Synth</em> LAF XML file into local folder. ($USERHOME /
+     * bomico).
+     */
     public void pasteSynthFile() {
         InputStream is = getClass().getResourceAsStream("/config/synthlaf.xml");
         File synth = new File(p + separator + "bomico" + separator + "config" + separator + "synthlaf.xml");
@@ -454,6 +490,7 @@ public class Utilities {
     }
 
     /**
+     * Parses the BMI correspondence table (CSV File) and sets the BMI Range.
      *
      * @param gender Gender (String: Male or Female)
      * @param height Height as double (in centimeters. ex: 175)
@@ -551,7 +588,13 @@ public class Utilities {
         }
     }
 
-    // Center on screen ( absolute true/false (exact center or 25% upper left) )
+    /**
+     * Exact center or 25% upper left.
+     *
+     * @param c Component in GUI (ex: JDialog)
+     * @param absolute decides if Component position on screen is absolute or
+     * centered
+     */
     public void centerOnScreen(final Component c, final boolean absolute) {
         final int width = c.getWidth();
         final int height = c.getHeight();
@@ -565,7 +608,12 @@ public class Utilities {
         c.setLocation(x, y);
     }
 
-// Center on parent ( absolute true/false (exact center or 25% upper left) )
+    /**
+     * Center on parent (absolute true/false (exact center or 25% upper left)).
+     *
+     * @param child Dialog or Frame (Window)
+     * @param absolute
+     */
     public void centerOnParent(final Window child, final boolean absolute) {
         child.pack();
         boolean useChildsOwner = child.getOwner() != null ? ((child.getOwner() instanceof JFrame) || (child.getOwner() instanceof JDialog)) : false;
@@ -594,21 +642,93 @@ public class Utilities {
         child.setLocation(x, y);
     }
 
-    public String convertHeight(double height) {
+    /**
+     * Converts a centimeter value to feet & inches in one string.
+     *
+     * @param height Height in centimeters
+     * @return Measure in Feet & Inches.
+     */
+    public static String convertHeight(double height) {
         double feet = height * 0.39370079 * 0.08333333;
         int f = (int) feet;
         double fi = Double.parseDouble(new DecimalFormat("#.##").format((feet - f) * 12));
         return f + " ft " + fi + " in";
     }
 
+    /**
+     * Converts kilograms to pounds.
+     *
+     * @param weight Weight in kilograms
+     * @return Formatted weight in pounds.
+     */
     public static double convertWeight(double weight) {
         double w = weight * 2.2;
         return Double.parseDouble(new DecimalFormat("#.##").format(w));
     }
-    
-    public static double convertCMtoINCH (double cm){
-    
-    return cm * 0.393700787;
-}
+
+    /**
+     * Convert centimeters to inches.
+     *
+     * @param cm Value in Centimeters.
+     * @return Measure in inches
+     */
+    public static double convertCMtoINCH(double cm) {
+        return cm * 0.393700787;
+    }
+
+    /**
+     * Plays audio files in AU format, that correspond to BMI status. <br/> For
+     * some reason, the play method of Applet class does not play the whole
+     * audio file while the loop method does, that is why meanwhile as a
+     * workaround we use the loop method instead, along with a timer that calls
+     * the audio stop method after a short delay of time.
+     *
+     * @param status BMI Status
+     * @param soundEnabled Enable Sound playing or not
+     */
+    public void playAudio(String status, boolean soundEnabled) {
+
+        if (soundEnabled) {
+            String audioname = "/resource/" + status.replace(" ", "").trim().toLowerCase() + ".au";
+            // System.err.println("Audio file name is: " + audioname);
+            URL soundurl = getClass().getResource(audioname);
+            if (!status.equals("") & status != null) {
+
+                if (status.toLowerCase().contains("class") || status.toLowerCase().contains("thinness")) {
+                    // System.err.println("Audio file name is: " + audioname);
+                    sound = Applet.newAudioClip(soundurl);
+                    sound.loop();
+                    javax.swing.Timer timer = new javax.swing.Timer(1700, this);
+                    timer.setInitialDelay(1700);
+                    timer.setRepeats(false);
+                    timer.start();
+                } else {
+                    sound = Applet.newAudioClip(soundurl);
+                    sound.play();
+                }
+            }
+        } else {
+        }
+    } // end of method
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        sound.stop();
+        // System.out.println("Inside Action performed UTILITIES");
+    }
+/**
+ * Used to set text field foreground color.
+ * @param weight Weight in Kilograms
+ * @param iweight Ideal Weight in Kilograms
+ * @return A Color (Green if weight equals ideal weight, else blue).
+ */
+    public static Color setColor(double weight, double iweight) {
+        if (weight == (int) Math.round(iweight)) {
+            Color greencolor = new Color(0, 153, 51);
+            return greencolor;
+        } else {
+            return Color.BLUE;
+        }
+    }
 } // END OF CLASS
 

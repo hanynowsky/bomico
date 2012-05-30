@@ -10,9 +10,10 @@ import javax.swing.UIManager;
  */
 public class Test {
 
-    Utilities util = new Utilities();
+    
 
     public static void main(String[] args) {
+        Utilities utils = new Utilities();
         Computer c = new Computer();
         // System.out.println(UIManager.getLookAndFeelDefaults().entrySet());
         // Utilities util = new Utilities();
@@ -31,7 +32,10 @@ public class Test {
         // System.out.println(UIManager.getSystemLookAndFeelClassName());
         // String[] test = {"I am 0","I am 1","I am 2"};
         // System.out.println(c.computeBodyType("male", 153, 15, 6.5, true)); 
-        System.out.println(c.computeBodyFat(178, 75, 37, 85, "male"));
+       // System.out.println(c.computeBodyFat(178, 75, 37, 85, "male"));
+       // utils.playAudio("Obese",true);
+        double d = 12.3265;
+       System.out.println( Math.round(d));
       
      
      

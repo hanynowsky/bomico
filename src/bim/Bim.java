@@ -1,9 +1,8 @@
 package bim;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
@@ -116,9 +115,12 @@ public class Bim extends javax.swing.JFrame {
         jSeparator14 = new javax.swing.JToolBar.Separator();
         jButton9 = new javax.swing.JButton();
         jSeparator15 = new javax.swing.JToolBar.Separator();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jSeparator18 = new javax.swing.JToolBar.Separator();
         jButton4 = new javax.swing.JButton();
         jSeparator13 = new javax.swing.JToolBar.Separator();
         jToggleButton1 = new javax.swing.JToggleButton();
+        jSeparator19 = new javax.swing.JToolBar.Separator();
         jLabel17 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -191,17 +193,15 @@ public class Bim extends javax.swing.JFrame {
         jTextField10 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem9 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jSeparator16 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -210,6 +210,14 @@ public class Bim extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -482,6 +490,15 @@ public class Bim extends javax.swing.JFrame {
         jToolBar1.add(jButton9);
         jToolBar1.add(jSeparator15);
 
+        jToggleButton2.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/sound.png"))); // NOI18N
+        jToggleButton2.setSelected(Boolean.parseBoolean(utils.prefs.get(utils.SOUND_PREF, "false")));
+        jToggleButton2.setFocusable(false);
+        jToggleButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jToggleButton2);
+        jToolBar1.add(jSeparator18);
+
         jButton4.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/122.png"))); // NOI18N
         jButton4.setToolTipText("<html><font face=\"SansSerif\" size=\"3\">About Bomico</font>");
@@ -508,6 +525,7 @@ public class Bim extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jToggleButton1);
+        jToolBar1.add(jSeparator19);
 
         getContentPane().add(jToolBar1);
         jToolBar1.setBounds(0, 0, 880, 40);
@@ -604,11 +622,11 @@ public class Bim extends javax.swing.JFrame {
         jLabel1.setEnabled(false);
 
         jLabel11.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
-        jLabel11.setText("("+String.valueOf(jSlider3.getValue())+" Kg / "+utils.convertWeight(jSlider3.getValue())+" Pounds )");
+        jLabel11.setText("("+String.valueOf(jSlider3.getValue())+" Kg / "+Utilities.convertWeight(jSlider3.getValue())+" Pounds )");
         jLabel11.setToolTipText("");
 
         jLabel12.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
-        jLabel12.setText("("+String.valueOf(jSlider4.getValue())+" Cm / "+utils.convertHeight(jSlider4.getValue())+" )");
+        jLabel12.setText("("+String.valueOf(jSlider4.getValue())+" Cm / "+Utilities.convertHeight(jSlider4.getValue())+" )");
 
         jTextField1.setEditable(false);
         jTextField1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -627,7 +645,7 @@ public class Bim extends javax.swing.JFrame {
         jSlider1.setMinorTickSpacing(2);
         jSlider1.setPaintLabels(true);
         jSlider1.setPaintTicks(true);
-        jSlider1.setValue(Integer.parseInt(new Utilities().prefs.get(new Utilities().AGE_PREF, "0")));
+        jSlider1.setValue(Integer.parseInt(new Utilities().prefs.get(new Utilities().AGE_PREF, "30")));
         jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSlider1StateChanged(evt);
@@ -830,14 +848,13 @@ public class Bim extends javax.swing.JFrame {
                             .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1111,7 +1128,7 @@ public class Bim extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("Waist");
+        jLabel33.setText("W: "+new DecimalFormat("#.##").format(Utilities.convertCMtoINCH(jSlider2.getValue())));
         jLabel33.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel33.setMinimumSize(new java.awt.Dimension(187, 10));
@@ -1119,7 +1136,7 @@ public class Bim extends javax.swing.JFrame {
 
         jLabel34.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel34.setText("Hip");
+        jLabel34.setText("H: "+new DecimalFormat("#.##").format(Utilities.convertCMtoINCH(jSlider5.getValue())));
         jLabel34.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel34.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel34.setMinimumSize(new java.awt.Dimension(187, 10));
@@ -1127,7 +1144,7 @@ public class Bim extends javax.swing.JFrame {
 
         jLabel35.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("Neck");
+        jLabel35.setText("N: "+new DecimalFormat("#.##").format(Utilities.convertCMtoINCH(jSlider6.getValue())));
         jLabel35.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel35.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel35.setMinimumSize(new java.awt.Dimension(187, 10));
@@ -1135,7 +1152,7 @@ public class Bim extends javax.swing.JFrame {
 
         jLabel37.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel37.setText("Wrist");
+        jLabel37.setText("W: "+new DecimalFormat("#.##").format(Utilities.convertCMtoINCH(jSlider8.getValue())));
         jLabel37.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel37.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel37.setMinimumSize(new java.awt.Dimension(187, 10));
@@ -1143,7 +1160,7 @@ public class Bim extends javax.swing.JFrame {
 
         jLabel40.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel40.setText("Elbow");
+        jLabel40.setText("E: "+new DecimalFormat("#.##").format(Utilities.convertCMtoINCH(jSlider7.getValue())));
         jLabel40.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel40.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel40.setMinimumSize(new java.awt.Dimension(187, 10));
@@ -1165,11 +1182,13 @@ public class Bim extends javax.swing.JFrame {
 
         jTextField10.setEditable(false);
         jTextField10.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        jTextField10.setForeground(new java.awt.Color(255, 102, 0));
-        jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField10.setForeground(new java.awt.Color(204, 102, 0));
+        jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField10.setText("-");
         jTextField10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField10.setPreferredSize(new java.awt.Dimension(70, 22));
+        jTextField10.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        jTextField10.setSelectionColor(new java.awt.Color(255, 102, 0));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1225,22 +1244,15 @@ public class Bim extends javax.swing.JFrame {
 
         getContentPane().add(jTabbedPane1);
         jTabbedPane1.setBounds(10, 50, 860, 620);
-        jTabbedPane1.getAccessibleContext().setAccessibleName("BMI");
+        jTabbedPane1.setIconAt(0, new javax.swing.ImageIcon(getClass().getResource("/resource/b.png")));
+        jTabbedPane1.setIconAt(1, new javax.swing.ImageIcon(getClass().getResource("/resource/m.png")));
+        if (jToggleButton1.isSelected()){jTabbedPane1.addTab("Guide", new javax.swing.ImageIcon(getClass().getResource("/resource/i.png")), jScrollPane4);
+        };
+        jTabbedPane1.getAccessibleContext().setAccessibleName("");
 
         jMenu1.setForeground(new java.awt.Color(153, 153, 153));
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        jMenuItem2.setForeground(new java.awt.Color(0, 0, 0));
-        jMenuItem2.setText("Exit");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuExit(evt);
-            }
-        });
-        jMenu1.add(jMenuItem2);
         jMenu1.add(jSeparator2);
 
         jMenuItem9.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
@@ -1263,29 +1275,6 @@ public class Bim extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenu4.setText("Preferences");
-        jMenu4.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-
-        jMenuItem12.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        jMenuItem12.setText("Save Preferences");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem12);
-
-        jMenuItem13.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        jMenuItem13.setText("Clear Preferences");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem13);
-
-        jMenu1.add(jMenu4);
-
         jMenu5.setText("Export");
         jMenu5.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
 
@@ -1305,6 +1294,18 @@ public class Bim extends javax.swing.JFrame {
         jMenu5.add(jMenuItem14);
 
         jMenu1.add(jMenu5);
+        jMenu1.add(jSeparator16);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem2.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItem2.setText("Exit");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuExit(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -1369,6 +1370,53 @@ public class Bim extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu4.setForeground(new java.awt.Color(153, 153, 153));
+        jMenu4.setText("Preferences");
+        jMenu4.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+
+        jMenuItem12.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem12.setText("Save Preferences");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem12);
+
+        jMenuItem13.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem13.setText("Clear Preferences");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem13);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu6.setForeground(new java.awt.Color(153, 153, 153));
+        jMenu6.setText("Locale");
+        jMenu6.setEnabled(false);
+        jMenu6.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+
+        jMenuItem16.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem16.setText("English");
+        jMenu6.add(jMenuItem16);
+
+        jMenuItem17.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem17.setText("French");
+        jMenu6.add(jMenuItem17);
+
+        jMenuItem18.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem18.setText("Arabic");
+        jMenu6.add(jMenuItem18);
+
+        jMenuItem19.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem19.setText("Japanese");
+        jMenu6.add(jMenuItem19);
+
+        jMenuBar1.add(jMenu6);
+
         jMenu3.setForeground(new java.awt.Color(153, 153, 153));
         jMenu3.setText("About");
         jMenu3.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
@@ -1399,7 +1447,7 @@ public class Bim extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * BMI Computation method for the GUI
+     * BMI Computation method for the GUI.
      */
     private void computation() {
         c = new Computer();
@@ -1417,8 +1465,8 @@ public class Bim extends javax.swing.JFrame {
                 + jSlider3.getValue() + " Kgs" + ", and measures "
                 + jSlider4.getValue() + " Cms" + " in height." + "\n");
         jTextArea1.append("Your BMI = " + bmi);
-        jTextArea1.append("\n" + "(" + c.getHealthText() + " )");
         jTextField3.setText(c.getHealth(jComboBox5.getSelectedItem().toString()));
+        jTextArea1.append("\n" + "(" + c.getHealthText() + " )");
         // System.out.println(String.valueOf(bimo));
         // System.out.println(res);
         System.err.println("BIM is: " + df.format(c.getResult()));
@@ -1429,7 +1477,7 @@ public class Bim extends javax.swing.JFrame {
         Color greencolor = new Color(0, 153, 51);
         Color redcolor = new Color(204, 0, 0);
 
-        // Compute Ideals
+// Compute Ideals
         c.computePeopleIdeal(jSlider1.getValue(), jComboBox1.getSelectedItem().toString(), res);
         jTextField1.setText(String.valueOf(new DecimalFormat("#.##").format(c.getIdeal())));
         c.computeIdealWeight(jSlider4.getValue(), jComboBox4.getSelectedItem().toString(), jComboBox1.getSelectedItem().toString(), jComboBox3.getSelectedItem().toString());
@@ -1456,12 +1504,17 @@ public class Bim extends javax.swing.JFrame {
         String bt = c.computeBodyType(jComboBox1.getSelectedItem().toString(), jSlider4.getValue(), jSlider8.getValue(), jSlider7.getValue(), jRadioButton1.isSelected());
         jTextField10.setText(bt + " frame");
 
+// Highlight the BMI text field in red if BMI is abnormal, otherwise green.
         if (18.5 <= res & res <= 25) {
             jTextField2.setForeground(greencolor);
             System.out.println("Normal BMI");
         } else if (18.5 > res | res > 25) {
             jTextField2.setForeground(redcolor);
         }
+        // Highlight the IW text field
+        jTextField4.setForeground(Utilities.setColor(jSlider3.getValue(), c.getIweight()));
+        // Play Status Audio sound
+        utils.playAudio(c.getHealth(jComboBox5.getSelectedItem().toString()), jToggleButton2.isSelected());
 
         //
     }
@@ -1481,11 +1534,38 @@ public class Bim extends javax.swing.JFrame {
 
     private void menuExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExit
         if (evt.getSource() == jMenuItem2) {
-            this.addWindowListener(new ExitListener());
-            System.exit(0);
+            int delay = 3000;
+            JDialog exitdialog = new JDialog(this, null, Dialog.ModalityType.MODELESS);
+            JLabel exitlabel = new JLabel("Will exit in " + delay / 1000 + " seconds");
+            exitdialog.setSize(200, 50);
+            exitdialog.add(exitlabel);
+            exitdialog.setLayout(new FlowLayout());
+            exitdialog.setTitle("Bomico " + utils.getVersion());
+            exitlabel.setForeground(Color.GRAY);
+            exitlabel.setFont(new java.awt.Font("Nimbus Sans L", Font.BOLD, 14));
+            exitdialog.setLocationRelativeTo(this);
+            exitdialog.setVisible(true);
+
+            System.out.println("Will exit in " + delay / 1000 + " seconds");
+            //  JOptionPane.showMessageDialog(jTabbedPane1, "Will exit in "+delay/1000+" seconds");
+            javax.swing.Timer timer = new javax.swing.Timer(delay, new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
+            timer.setInitialDelay(delay);
+            timer.start();
+            this.addWindowListener(new ExitListener()); // does nothing for now
+
         }
     }//GEN-LAST:event_menuExit
-
+    /**
+     * Opens a web site in default web browser.
+     *
+     * @param evt Type of Event being fired.
+     */
     private void goToWebSite(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_goToWebSite
         if (evt != null) {
             try {
@@ -1526,22 +1606,20 @@ public class Bim extends javax.swing.JFrame {
                         csv.write(model.getValueAt(i, j).toString() + ";");
                     }
                     csv.write("\n");
-
-
                 }
             }
 
         } catch (IOException e) {
             Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, e);
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 
     /**
-     * This method has to be shortened somehow (repetitive code). Issue: The GTK
-     * LAF for File chooser and option pane is so ugly under Gnome 3 so the
+     * This method has to be shortened somehow (repetitive code). <em>Issue: The
+     * GTK LAF for File chooser and option pane is so ugly under Gnome 3 so the
      * following code set Nimbus LAF before the File Chooser is called and
-     * reverts back to original LAF when the user operation is complete
+     * reverts back to original LAF when the user operation is complete</em>
      */
     private void exportFollowup() {
         LookAndFeel llaf = UIManager.getLookAndFeel();
@@ -1554,8 +1632,6 @@ public class Bim extends javax.swing.JFrame {
         JFileChooser fchooser = new JFileChooser(System.getProperty("user.home"));
         try {
             UIManager.setLookAndFeel(Utilities.nimbuslaf);
-
-
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
@@ -1582,8 +1658,6 @@ public class Bim extends javax.swing.JFrame {
                         fileInputStream.read(b);
                         for (int i = 0; i < b.length; i++) {
                             output.write(b[i]);
-
-
                         }
 
                     } catch (IOException ex) {
@@ -1638,8 +1712,6 @@ public class Bim extends javax.swing.JFrame {
                     fileInputStream.read(b);
                     for (int i = 0; i < b.length; i++) {
                         output.write(b[i]);
-
-
                     }
 
                 } catch (IOException ex) {
@@ -1652,7 +1724,6 @@ public class Bim extends javax.swing.JFrame {
                         jLabel17.setText("New File exported here: " + fchooser.getSelectedFile());
                         UIManager.setLookAndFeel(llaf);
                         SwingUtilities.updateComponentTreeUI(this);
-
 
                     } catch (IOException | UnsupportedLookAndFeelException ex) {
                         Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
@@ -1667,7 +1738,6 @@ public class Bim extends javax.swing.JFrame {
             if ("Nimbus".equals(claf)) {
                 try {
                     UIManager.setLookAndFeel(llaf);
-
 
                 } catch (UnsupportedLookAndFeelException ex) {
                     Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
@@ -1685,7 +1755,7 @@ public class Bim extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (evt.getSource() == jButton3) {
-            this.addWindowListener(new ExitListener());
+            this.addWindowListener(new ExitListener()); // does nothing for now
             System.exit(0);
             System.out.println("Application terminated by user.");
         }
@@ -1886,7 +1956,7 @@ public class Bim extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
     /**
-     * Method used for both Computation Buttons
+     * Manual Method used for both Computation Buttons.
      */
     private void taskPropertyChangeAction() {
         Task task = new Task();
@@ -1923,7 +1993,7 @@ public class Bim extends javax.swing.JFrame {
         // HEIGHT
         if (evt.getSource() == jSlider4) {
             String sv = String.valueOf(jSlider4.getValue());
-            String fi = utils.convertHeight(jSlider4.getValue());
+            String fi = Utilities.convertHeight(jSlider4.getValue());
             jLabel12.setText("(" + sv + " Cm / " + fi + " )");
             jLabel17.setText("You moved the height slider to "
                     + sv + " centimeters" + " / " + fi);
@@ -1985,12 +2055,9 @@ public class Bim extends javax.swing.JFrame {
                 SwingUtilities.updateComponentTreeUI(jDialog1);
                 SwingUtilities.updateComponentTreeUI(jDialog2);
 
-
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
                 Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-
         }
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
@@ -2012,7 +2079,7 @@ public class Bim extends javax.swing.JFrame {
             utils.setPreferences(utils.NECK_PREF, jSlider6.getValue());
             utils.setPreferences(utils.WRISTELBOW_PREF, jRadioButton1.isSelected());
             utils.setPreferences(utils.GUIDE_PREF, jToggleButton1.isSelected());
-
+            utils.setPreferences(utils.SOUND_PREF, jToggleButton2.isSelected());
             jLabel17.setText("Preferences saved");
             // Integer.parseInt(utils.prefs.get(utils.HEIGHT_PREF, "170"))
         }
@@ -2102,23 +2169,30 @@ public class Bim extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jSlider7StateChanged
 
+    /**
+     * Added a condition post initiation for tabbed pane 1 to add guide tab if
+     * guide toggle button is selected.
+     *
+     * @param evt Action event
+     */
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        if (evt.getSource() == jToggleButton1) {
+            //  jTabbedPane1.remove(jTabbedPane1.getComponentAt(jTabbedPane1.getSelectedIndex()));
 
-        //  jTabbedPane1.remove(jTabbedPane1.getComponentAt(jTabbedPane1.getSelectedIndex()));
-        javax.swing.ImageIcon ticon = new javax.swing.ImageIcon(getClass().getResource("/resource/pingu.gif"));
-        if (jToggleButton1.isSelected()) {
-            jTabbedPane1.addTab("Guide", null, jScrollPane4);
-            jTabbedPane1.setSelectedIndex(jTabbedPane1.getTabCount() - 1);
-            System.out.println("Guide Tab Added");
-        } else {
-            // Or use get selected index if index != 0 & 1 -> Guide must be selected
-            if (jTabbedPane1.getTitleAt(2).equalsIgnoreCase("guide")) {
-                jTabbedPane1.removeTabAt(2);
-                jTabbedPane1.setSelectedIndex(0);
-                System.out.println("Guide Tab Removed");
+            if (jToggleButton1.isSelected()) {
+                jTabbedPane1.addTab("Guide", null, jScrollPane4);
+                jTabbedPane1.setSelectedIndex(jTabbedPane1.getTabCount() - 1);
+                jTabbedPane1.setIconAt(jTabbedPane1.getTabCount() - 1, new javax.swing.ImageIcon(getClass().getResource("/resource/i.png")));
+                System.out.println("Guide Tab Added");
+            } else {
+                // Or use get selected index if index != 0 & 1 -> Guide must be selected
+                if (jTabbedPane1.getTitleAt(2).equalsIgnoreCase("guide")) {
+                    jTabbedPane1.removeTabAt(2);
+                    jTabbedPane1.setSelectedIndex(0);
+                    System.out.println("Guide Tab Removed");
+                }
             }
         }
-
         //jTabbedPane1.getComponentAt(2).setVisible(true);
         //jTabbedPane1.repaint();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
@@ -2292,6 +2366,7 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -2300,6 +2375,10 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -2328,7 +2407,10 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator13;
     private javax.swing.JToolBar.Separator jSeparator14;
     private javax.swing.JToolBar.Separator jSeparator15;
+    private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
+    private javax.swing.JToolBar.Separator jSeparator18;
+    private javax.swing.JToolBar.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -2360,6 +2442,7 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

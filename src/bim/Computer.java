@@ -15,8 +15,15 @@ public class Computer {
     String ill = "Underweight";
     String fat = "Overweight";
     String obese = "Obese";
-    String skinny = "X-Underweight";
-    String extreme = "Not Healthy";
+    String skinny = "Skinny";
+    String extreme = "Extreme";
+    String sthinness = "Severe Thinness";
+    String modthinness = "Moderate Thinness";
+    String mildthinness = "Mild Thinness";
+    String obese1 = "Obese Class I";
+    String obese2 = "Obese Class II";
+    String obese3 = "Obese Class III";
+    String preobese = "Fatness";
     /**
      * Text Strings for Health
      */
@@ -26,6 +33,7 @@ public class Computer {
     String fatT = "Overweight! Let's Jogg \n & stop swallowing everything";
     String obeseT = "Obese. I think you know it";
     String skinnyT = "Severe Underweight! Are you a Skeleton?";
+    String HealthText = "";
     double result = 0;
     double ideal = 0;
     double iweight;
@@ -45,6 +53,15 @@ public class Computer {
 
     //Constructor
     public Computer() {
+    }
+
+    public String getHealthText() {
+        //  HealthText = "Health Text here";
+        return HealthText;
+    }
+
+    public void setHealthText(String HealthText) {
+        this.HealthText = HealthText;
     }
 
     public double getBF() {
@@ -270,38 +287,62 @@ public class Computer {
      * @return Explanation of BIM value
      */
     public String getHealth(String origin) {
+
         if (origin.equalsIgnoreCase("caucasian")) {
             if (18.5 <= this.result & this.result <= 20) {
                 health = healthy;
-            } else if (25 < this.result & this.result < 30) {
+                setHealthText(healthyT);
+            } else if (25 < this.result & this.result < 27.5) {
                 health = fat;
+                setHealthText(fat);
+            } else if (27.5 <= this.result & this.result < 30) {
+                health = preobese;
+                setHealthText(fat);
             } else if (20 < this.result & this.result < 25) {
                 health = nhealthy;
-            } else if (this.result < 18.5 & this.result > 16) {
+                setHealthText(nhealthyT);
+            } else if (this.result < 18.5 & this.result >= 16) {
                 health = ill;
-            } else if (this.result > 30 & this.result < 40) {
-                health = obese;
-            } else if (this.result <= 16) {
-                health = skinny;
+                setHealthText(illT);
+            } else if (this.result > 30 & this.result < 35) {
+                health = obese1;
+                setHealthText(obeseT);
+            } else if (this.result >= 35 & this.result < 40) {
+                health = obese2;
+                setHealthText(obeseT);
+            } else if (this.result >= 40 & this.result < 50) {
+                health = obese3;
+                setHealthText(obeseT);
+            } else if (this.result > 5 & this.result < 16) {
+                health = sthinness;
+                setHealthText(skinnyT);
             } else {
                 health = extreme;
+                setHealthText("Alien!");
             }
-        }
-        if (origin.equalsIgnoreCase("asian")) {
+        } else if (origin.equalsIgnoreCase("asian")) {
             if (18.5 <= this.result & this.result <= 22.9) {
                 health = nhealthy;
+                setHealthText(nhealthyT);
             } else if (22.9 < this.result & this.result < 25) {
                 health = fat;
+                setHealthText(fatT);
             } else if (25 <= this.result & this.result < 30) {
                 health = obese;
+                setHealthText(obeseT);
             } else if (this.result < 18.5 & this.result > 16) {
                 health = ill;
+                setHealthText(illT);
             } else if (this.result > 30 & this.result < 40) {
                 health = obese;
-            } else if (this.result < 16) {
+                setHealthText(obeseT);
+            } else if (this.result > 4.6 & this.result < 16) {
                 health = skinny;
+                setHealthText(skinnyT);
             } else {
                 health = extreme;
+                setHealthText("For Real? "
+                        + "\nCheck The Doctor for Aliens' Diet");
             }
         }
         return health;
@@ -311,26 +352,6 @@ public class Computer {
      *
      * @return a String - Detailed text corresponding to BMI details
      */
-    public String getHealthText() {
-
-        if (health.equalsIgnoreCase(healthy)) {
-            return healthyT;
-        } else if (health.equalsIgnoreCase(fat)) {
-            return fatT;
-        } else if (health.equalsIgnoreCase(nhealthy)) {
-            return nhealthyT;
-        } else if (health.equalsIgnoreCase(ill)) {
-            return illT;
-        } else if (health.equalsIgnoreCase(obese)) {
-            return obeseT;
-        } else if (health.equalsIgnoreCase(skinny)) {
-            return skinnyT;
-        } else {
-            return "For Real? "
-                    + "\nCheck The Doctor for Aliens' Diet";
-        }
-    }
-
     /**
      ** The official formulas for the calculation of daily estimated energy
      * requirements (EER) are provided by the Food and Nutrition Board of the
@@ -515,7 +536,7 @@ public class Computer {
             }
         }
         System.out.println("Height is " + h + " inches");
-        System.out.println("Height is " + p + " inches");
+        System.out.println("Hip is " + p + " inches");
         System.out.println("Neck is " + n + " inches");
         System.out.println("Waist is " + w + " inches");
         System.out.println("Body Fat Percentage is " + new DecimalFormat("#.##").format(BF) + " %");
