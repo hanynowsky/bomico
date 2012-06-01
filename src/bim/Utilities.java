@@ -7,10 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
@@ -716,12 +721,14 @@ public class Utilities implements ActionListener {
         sound.stop();
         // System.out.println("Inside Action performed UTILITIES");
     }
-/**
- * Used to set text field foreground color.
- * @param weight Weight in Kilograms
- * @param iweight Ideal Weight in Kilograms
- * @return A Color (Green if weight equals ideal weight, else blue).
- */
+
+    /**
+     * Used to set text field foreground color.
+     *
+     * @param weight Weight in Kilograms
+     * @param iweight Ideal Weight in Kilograms
+     * @return A Color (Green if weight equals ideal weight, else blue).
+     */
     public static Color setColor(double weight, double iweight) {
         if (weight == (int) Math.round(iweight)) {
             Color greencolor = new Color(0, 153, 51);
@@ -729,6 +736,39 @@ public class Utilities implements ActionListener {
         } else {
             return Color.BLUE;
         }
+    }
+
+    public static String showSystemPath() {
+        String path = "";
+        try {
+            String path1 = Bim.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+            path = URLDecoder.decode(path1, "UTF-8");
+
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return path;
+    }
+/**
+ * Not complete yet. Don't use.
+ * Restarts the application.
+ */
+    public void restartApplication() {
+
+        ScheduledExecutorService schedulerExecutor = Executors.newScheduledThreadPool(2);
+        Callable<Process> callable = new Callable<Process>() {
+
+            @Override
+            public Process call() throws Exception {
+                Process p = Runtime.getRuntime().exec("java -jar BIM.jar");
+                return p;
+            }
+        };
+        FutureTask<Process> futureTask = new FutureTask<Process>(callable); // redundant argument
+        schedulerExecutor.submit(futureTask);
+
+        System.exit(0);
+
     }
 } // END OF CLASS
 

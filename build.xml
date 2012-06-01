@@ -71,4 +71,18 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+    <target name="-post-jar">  
+        <jar jarfile="dist/BIM.jar" update="true">  
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />  
+            <zipfileset src="dist/lib/jayatana-1.2.0.jar" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/liquidlnf.jar" excludes="META-INF/*" />  
+            <zipfileset src="dist/lib/JTattoo.jar" excludes="META-INF/*" /> 
+            <zipfileset src="dist/lib/jdom-2.0.1.jar" excludes="META-INF/*" />
+            <manifest>  
+                <attribute name="Main-Class" value="bim.Bim"/>  
+            </manifest>  
+        </jar>  
+    </target>  
+    
 </project>

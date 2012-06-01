@@ -207,6 +207,10 @@ public class Bim extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jSeparator20 = new javax.swing.JPopupMenu.Separator();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem20 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -1348,6 +1352,30 @@ public class Bim extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem8);
+        jMenu2.add(jSeparator20);
+
+        jMenu7.setText("Tattoo");
+        jMenu7.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+
+        jMenuItem20.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem20.setText("Aluminium");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem20);
+
+        jMenuItem21.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
+        jMenuItem21.setText("Smart");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem21);
+
+        jMenu2.add(jMenu7);
 
         jMenuItem11.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jMenuItem11.setText("Liquid");
@@ -1396,23 +1424,26 @@ public class Bim extends javax.swing.JFrame {
 
         jMenu6.setForeground(new java.awt.Color(153, 153, 153));
         jMenu6.setText("Locale");
-        jMenu6.setEnabled(false);
         jMenu6.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
 
         jMenuItem16.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jMenuItem16.setText("English");
+        jMenuItem16.setEnabled(false);
         jMenu6.add(jMenuItem16);
 
         jMenuItem17.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jMenuItem17.setText("French");
+        jMenuItem17.setEnabled(false);
         jMenu6.add(jMenuItem17);
 
         jMenuItem18.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jMenuItem18.setText("Arabic");
+        jMenuItem18.setEnabled(false);
         jMenu6.add(jMenuItem18);
 
         jMenuItem19.setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
         jMenuItem19.setText("Japanese");
+        jMenuItem19.setEnabled(false);
         jMenu6.add(jMenuItem19);
 
         jMenuBar1.add(jMenu6);
@@ -1517,6 +1548,9 @@ public class Bim extends javax.swing.JFrame {
         utils.playAudio(c.getHealth(jComboBox5.getSelectedItem().toString()), jToggleButton2.isSelected());
 
         //
+        // System.out.println("Working Directory is "+System.getProperty("user.dir"));
+        //System.out.println("System path is "+Utilities.showSystemPath());
+
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (evt.getSource() == jButton1) {
@@ -2050,7 +2084,7 @@ public class Bim extends javax.swing.JFrame {
                 //
                 // or if you want to use Apple's Panther window decoration
                 //
-                com.birosoft.liquid.LiquidLookAndFeel.setLiquidDecorations(true, "panther");
+                //  com.birosoft.liquid.LiquidLookAndFeel.setLiquidDecorations(true, "panther");
                 SwingUtilities.updateComponentTreeUI(this);
                 SwingUtilities.updateComponentTreeUI(jDialog1);
                 SwingUtilities.updateComponentTreeUI(jDialog2);
@@ -2197,6 +2231,38 @@ public class Bim extends javax.swing.JFrame {
         //jTabbedPane1.repaint();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        if (evt.getSource() == jMenuItem20) {
+            try {
+                UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+                for (Component component : this.getComponents()) {
+                    // SwingUtilities.updateComponentTreeUI(component);
+                  ///  System.out.println("Tattoo Aluminium: "+ component);
+                }
+                SwingUtilities.updateComponentTreeUI(jDialog1);
+                SwingUtilities.updateComponentTreeUI(jDialog2);
+                SwingUtilities.updateComponentTreeUI(this);
+                System.out.println("Laf changed to Tattoo Aluminium");
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+       if (evt.getSource() == jMenuItem21) {
+            try {
+                UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+                SwingUtilities.updateComponentTreeUI(jDialog1);
+                SwingUtilities.updateComponentTreeUI(jDialog2);
+                SwingUtilities.updateComponentTreeUI(this);
+                System.out.println("Laf changed to Tattoo Smart");
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
+
     // SEPARATION
     /**
      * Extension of Swing Worker to use for Progress bar simulation
@@ -2252,7 +2318,9 @@ public class Bim extends javax.swing.JFrame {
 
         try {
             Utilities utility = new Utilities();
-            // Set cross-platform Java L&F (also called "Metal")
+            // Set cross-platform Java L&F
+
+
             UIManager.setLookAndFeel(utility.prefs.get(utility.LAF_PREF, UIManager.getSystemLookAndFeelClassName()));
             //getCrossPlatformLookAndFeelClassName());
 
@@ -2367,6 +2435,7 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -2380,6 +2449,8 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -2412,6 +2483,7 @@ public class Bim extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator18;
     private javax.swing.JToolBar.Separator jSeparator19;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator20;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;

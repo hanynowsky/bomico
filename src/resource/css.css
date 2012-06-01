@@ -13,6 +13,24 @@ a {
     color: #333333;
 }
 
+h1 {
+    text-shadow: 0px 1px 1px #4d4d4d;
+    color: #222;
+    /*  font: 10px 'Helvetica';*/
+}
+
+h2 {
+    text-shadow: 0px 1px 1px #4d4d4d;
+    color: #222;
+    /*  font: 10px 'Helvetica';*/
+}
+
+h3 {
+    text-shadow: 0px 1px 1px #4d4d4d;
+    color: #222;
+    /*  font: 10px 'Helvetica';*/
+}
+
 table {
     empty-cells: show;
 }
@@ -106,6 +124,7 @@ tr._even_row {
 }
 
 #summary{
+    text-shadow: -1px 1px 4px gray;
 
     border-right-style: solid;
     border-left-style: solid;
@@ -137,7 +156,7 @@ tr._even_row {
     background-color: #dfeeee;
     font-family: Arial,Helvetica,sans-serif;
     font-variant: inherit;
-    font-weight: bold;
+    font-weight: normal;
     font-style: normal;
     color: #000099;
 }
