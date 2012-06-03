@@ -2,6 +2,8 @@ package test;
 
 import bim.Computer;
 import bim.Utilities;
+import java.awt.Font;
+import java.util.Locale;
 import javax.swing.UIManager;
 
 /**
@@ -10,10 +12,8 @@ import javax.swing.UIManager;
  */
 public class Test {
 
-    
-
     public static void main(String[] args) {
-        Utilities utils = new Utilities();
+        Utilities utility = new Utilities();
         Computer c = new Computer();
         // System.out.println(UIManager.getLookAndFeelDefaults().entrySet());
         // Utilities util = new Utilities();
@@ -32,13 +32,19 @@ public class Test {
         // System.out.println(UIManager.getSystemLookAndFeelClassName());
         // String[] test = {"I am 0","I am 1","I am 2"};
         // System.out.println(c.computeBodyType("male", 153, 15, 6.5, true)); 
-       // System.out.println(c.computeBodyFat(178, 75, 37, 85, "male"));
-       // utils.playAudio("Obese",true);
+        // System.out.println(c.computeBodyFat(178, 75, 37, 85, "male"));
+        // utils.playAudio("Obese",true);
         double d = 12.3265;
-       System.out.println( Math.round(d));
-      
-     
-     
+        System.out.println(new Locale(utility.prefs.get(utility.LOCALE_PREF, Locale.getDefault().toString())));
+        System.out.println( Locale.getDefault().getLanguage()+"  <->  "+Locale.getDefault().getCountry());
+          System.out.println(Locale.getDefault().toString());
+          System.out.println(utility.LOCALE_PREF.substring(0, 2)+"_"+utility.LOCALE_PREF.substring(3, 5).toUpperCase());
+        
+        
+
+     //   UIManager.getDefaults().put("OptionPane.font", new Font("Droid Sans", Font.PLAIN, 11));
+       // System.out.println(UIManager.getDefaults().getFont("OptionPane.font"));
+
     } // END OF MAIN
 
     public void calculateRange() {

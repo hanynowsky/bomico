@@ -103,6 +103,7 @@ public class Utilities implements ActionListener {
     final String WRISTELBOW_PREF = "wristelbow_pref";
     final String GUIDE_PREF = "guide_pref";
     final String SOUND_PREF = "sound_pref";
+    final public String LOCALE_PREF = "locale_pref";
     AudioClip sound;
 
     /**
@@ -656,7 +657,8 @@ public class Utilities implements ActionListener {
     public static String convertHeight(double height) {
         double feet = height * 0.39370079 * 0.08333333;
         int f = (int) feet;
-        double fi = Double.parseDouble(new DecimalFormat("#.##").format((feet - f) * 12));
+        double r = (feet - f) * 12;
+        String fi = new DecimalFormat("#").format(r);
         return f + " ft " + fi + " in";
     }
 
@@ -668,7 +670,8 @@ public class Utilities implements ActionListener {
      */
     public static double convertWeight(double weight) {
         double w = weight * 2.2;
-        return Double.parseDouble(new DecimalFormat("#.##").format(w));
+        return Math.round(w);
+        //return Double.parseDouble(new DecimalFormat("#.##").format(w));
     }
 
     /**
@@ -749,10 +752,11 @@ public class Utilities implements ActionListener {
         }
         return path;
     }
-/**
- * Not complete yet. Don't use.
- * Restarts the application.
- */
+
+    /**
+     * Supposed to handles Application Restart. The Callable is not instantiated.
+     * Not complete yet. Don't use. Restarts the application.
+     */
     public void restartApplication() {
 
         ScheduledExecutorService schedulerExecutor = Executors.newScheduledThreadPool(2);
@@ -769,6 +773,21 @@ public class Utilities implements ActionListener {
 
         System.exit(0);
 
+    }
+
+    /**
+     * Sets the default locale by its String representation <i>(e.g.
+     * "fr_FR").</i>
+     * We can refactor this method to be more generic and implement a Value Changed
+     * Call to all Frame components.
+     * @param locale String representation of a given Locale
+     */
+    public static void changeLocale(String locale) {
+        Locale loc = new Locale(locale.substring(0, 2) + "", locale.substring(3).toUpperCase());
+        ResourceBundle.clearCache();
+        Locale.setDefault(loc);
+        ResourceBundle.clearCache();
+        // Test: Use these for VM run : -Duser.language=fr -Duser.country=FR
     }
 } // END OF CLASS
 
