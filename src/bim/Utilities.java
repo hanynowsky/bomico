@@ -754,7 +754,7 @@ public class Utilities implements ActionListener {
     }
 
     /**
-     * Supposed to handles Application Restart. The Callable is not instantiated.
+     * Supposed to handles Application Restart.
      * Not complete yet. Don't use. Restarts the application.
      */
     public void restartApplication() {
@@ -772,14 +772,12 @@ public class Utilities implements ActionListener {
         schedulerExecutor.submit(futureTask);
 
         System.exit(0);
-
     }
 
     /**
      * Sets the default locale by its String representation <i>(e.g.
      * "fr_FR").</i>
-     * We can refactor this method to be more generic and implement a Value Changed
-     * Call to all Frame components.
+     *
      * @param locale String representation of a given Locale
      */
     public static void changeLocale(String locale) {
