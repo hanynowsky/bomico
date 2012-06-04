@@ -33,10 +33,11 @@ h3 {
 
 table {
     empty-cells: show;
+    font-size: 11pt;
 }
 
 th, td th {
-    font-size: small;
+    font-size: 8pt;
     color: #333333;
     border-top-style: solid;
     border-bottom-style: solid;
@@ -62,7 +63,7 @@ th, td th {
 td {
     vertical-align: top;
     padding-bottom: 8px;
-    font-size: small;
+    font-size: 8pt;
 }
 
 td, td td {
@@ -80,17 +81,20 @@ td, td td {
     border-right-color: #b2d5d6;
     vertical-align: baseline;
     padding-bottom: 0px;
+    font-size: 11pt;
 }
 
 tr._odd_row {
     background-color: gray;
     color: #4e6a71;
+    font-size: 11pt;
 }
 
 
 tr._even_row {
     background-color: gray;
     color: #4e6a71;
+    font-size: 11pt;
 }
 
 #content {
@@ -159,4 +163,14 @@ tr._even_row {
     font-weight: normal;
     font-style: normal;
     color: #000099;
+}
+
+.creditbody{
+    text-align: center;
+
+    font-family: sans-serif;
+    color: #333333;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 11px;
 }
