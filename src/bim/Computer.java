@@ -252,8 +252,8 @@ public class Computer {
                     break;
             }
         }
-
-        return iweight;
+setIweight(iweight);
+        return iweight; 
     }
 
     /**

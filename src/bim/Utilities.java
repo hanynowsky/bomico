@@ -79,6 +79,9 @@ public class Utilities implements ActionListener {
     protected static String nimbuslaf = "javax.swing.plaf.nimbus.NimbusLookAndFeel";
     protected static String motiflaf = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
     protected static String laf = UIManager.getSystemLookAndFeelClassName();
+    protected static String pantherlaf = "com.birosoft.liquid.LiquidLookAndFeel";
+    protected static String aluminiumlaf = "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel";
+    protected static String smartlaf = "com.jtattoo.plaf.smart.SmartLookAndFeel";
     int i = 0;
     static String localpath;
     static File xmlFile;
@@ -754,8 +757,8 @@ public class Utilities implements ActionListener {
     }
 
     /**
-     * Supposed to handles Application Restart.
-     * Not complete yet. Don't use. Restarts the application.
+     * Supposed to handles Application Restart. Not complete yet. Don't use.
+     * Restarts the application.
      */
     public void restartApplication() {
 
