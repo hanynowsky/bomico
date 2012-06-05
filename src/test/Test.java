@@ -39,9 +39,9 @@ public class Test {
         System.out.println(new Locale(utility.prefs.get(utility.LOCALE_PREF, Locale.getDefault().toString())));
         System.out.println( Locale.getDefault().getLanguage()+"  <->  "+Locale.getDefault().getCountry());
           System.out.println(Locale.getDefault().toString());
-          System.out.println(utility.LOCALE_PREF.substring(0, 2)+utility.LOCALE_PREF.substring(3, 5).toUpperCase());
+          System.out.println(utility.prefs.get(utility.LOCALE_PREF, null).substring(0, 2)+"_"+utility.prefs.get(utility.LOCALE_PREF, null).substring(3, 5).toUpperCase());
           
-        System.err.println();
+        System.err.println(UIManager.getSystemLookAndFeelClassName());
         
 
      //   UIManager.getDefaults().put("OptionPane.font", new Font("Droid Sans", Font.PLAIN, 11));

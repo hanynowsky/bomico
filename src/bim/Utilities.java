@@ -366,7 +366,7 @@ public class Utilities implements ActionListener {
 
     /**
      * Reads Follow-up file XML data. Make sure the XML sub-root elements have
-     * not changed. If so, modify this method.
+     * not changed. If so, modify this method accordingly.
      *
      * @param v
      * @param y
@@ -446,7 +446,7 @@ public class Utilities implements ActionListener {
     }
 
     /**
-     * Copy Splash Picture in local folder.
+     * Copy Splash Picture File in local folder.
      */
     public void pasteSplashFile() {
         InputStream is = getClass().getResourceAsStream("/resource/Bomico.png");
@@ -698,7 +698,7 @@ public class Utilities implements ActionListener {
      * @param soundEnabled Enable Sound playing or not
      */
     public void playAudio(String status, boolean soundEnabled) {
-
+        status = Computer.getSoundStatus();
         if (soundEnabled) {
             String audioname = "/resource/" + status.replace(" ", "").trim().toLowerCase() + ".au";
             // System.err.println("Audio file name is: " + audioname);

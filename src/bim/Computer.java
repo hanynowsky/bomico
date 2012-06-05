@@ -10,29 +10,39 @@ import java.text.DecimalFormat;
 public class Computer {
 
     String health = "";
-    String healthy = "Healthy";
-    String nhealthy = "Normal";
-    String ill = "Underweight";
-    String fat = "Overweight";
-    String obese = "Obese";
-    String skinny = "Skinny";
-    String extreme = "Extreme";
-    String sthinness = "Severe Thinness";
-    String modthinness = "Moderate Thinness";
-    String mildthinness = "Mild Thinness";
-    String obese1 = "Obese Class I";
-    String obese2 = "Obese Class II";
-    String obese3 = "Obese Class III";
-    String preobese = "Fatness";
+    String healthy = java.util.ResourceBundle.getBundle("bim/Bundle").getString("HEALTHY");
+    String nhealthy = java.util.ResourceBundle.getBundle("bim/Bundle").getString("NORMAL");
+    String ill = java.util.ResourceBundle.getBundle("bim/Bundle").getString("UNDERWEIGHT");
+    String fat = java.util.ResourceBundle.getBundle("bim/Bundle").getString("OVERWEIGHT");
+    String obese = java.util.ResourceBundle.getBundle("bim/Bundle").getString("OBESE");
+    String skinny = java.util.ResourceBundle.getBundle("bim/Bundle").getString("SKINNY");
+    String extreme = java.util.ResourceBundle.getBundle("bim/Bundle").getString("EXTREME");
+    String sthinness = java.util.ResourceBundle.getBundle("bim/Bundle").getString("SEVERE_THINNESS");
+    String modthinness = java.util.ResourceBundle.getBundle("bim/Bundle").getString("MODERATE_THINNESS");
+    String mildthinness = java.util.ResourceBundle.getBundle("bim/Bundle").getString("MILD_THINNESS");
+    String obese1 = java.util.ResourceBundle.getBundle("bim/Bundle").getString("OBESE_CLASS_I");
+    String obese2 = java.util.ResourceBundle.getBundle("bim/Bundle").getString("OBESE_CLASS_II");
+    String obese3 = java.util.ResourceBundle.getBundle("bim/Bundle").getString("OBESE_CLASS_III");
+    String preobese = java.util.ResourceBundle.getBundle("bim/Bundle").getString("FATNESS");
+    /**
+     *
+     */
+    public String nomeasure_F = java.util.ResourceBundle.getBundle("bim/Bundle").getString("MEASURE_F");
+    public String nomeasure_M = java.util.ResourceBundle.getBundle("bim/Bundle").getString("MEASURE_M");
+    String small = java.util.ResourceBundle.getBundle("bim/Bundle").getString("SMALL");
+    String medium = java.util.ResourceBundle.getBundle("bim/Bundle").getString("MEDIUM");
+    String large = java.util.ResourceBundle.getBundle("bim/Bundle").getString("LARGE");
+    String useElbow = java.util.ResourceBundle.getBundle("bim/Bundle").getString("USE_ELBOW");
+    String unknown = java.util.ResourceBundle.getBundle("bim/Bundle").getString("UNKNOWN");
     /**
      * Text Strings for Health
      */
-    String healthyT = "You're in a good but suspicious shape. \nDo you practice martial arts?";
-    String nhealthyT = "You're in a normal & healthy shape";
-    String illT = "You're underweight! Eat something";
-    String fatT = "Overweight! Let's Jogg \n & stop swallowing everything";
-    String obeseT = "Obese. I think you know it";
-    String skinnyT = "Severe Underweight! Are you a Skeleton?";
+    String healthyT = java.util.ResourceBundle.getBundle("bim/Bundle").getString("HEALTHY_TEXT");
+    String nhealthyT = java.util.ResourceBundle.getBundle("bim/Bundle").getString("NHEALTHY_TEXT");
+    String illT = java.util.ResourceBundle.getBundle("bim/Bundle").getString("ILL_TEXT");
+    String fatT = java.util.ResourceBundle.getBundle("bim/Bundle").getString("FAT_TEXT");
+    String obeseT = java.util.ResourceBundle.getBundle("bim/Bundle").getString("OBESE_TEXT");
+    String skinnyT = java.util.ResourceBundle.getBundle("bim/Bundle").getString("SKINNY_TEXT");
     String HealthText = "";
     double result = 0;
     double ideal = 0;
@@ -43,16 +53,27 @@ public class Computer {
     double BMR;
     double TDEE;
     double BF;
-    String[] BFS = {"Essential Fat", "Athletes", "Fitness", "Acceptable", "Obese", "N/A"};
+    String essFat = java.util.ResourceBundle.getBundle("bim/Bundle").getString("ESSENTIAL_FAT");
+    String athlete = java.util.ResourceBundle.getBundle("bim/Bundle").getString("ATHLETE");
+    String fitness = java.util.ResourceBundle.getBundle("bim/Bundle").getString("FITNESS");
+    String acceptable = java.util.ResourceBundle.getBundle("bim/Bundle").getString("ACCEPTABLE");
+    String ob = java.util.ResourceBundle.getBundle("bim/Bundle").getString("OBESE_BODYTYPE");
+    String[] BFS = {essFat, athlete, fitness, acceptable, ob, "N/A"};
     String BFString = ""; // Receives the value of BFS when BF is calculated
-    String[] bodytype = {"Small", "Medium", "Large",
-        "Please use the elbow measure for male heights below 1.63m (5\'5)",
-        "There is no measure for males below 1.55m (5\'2)",
-        "There is no measure for females below 1.46m (4\'10) or above 1.90m (6\'4)", "UNKNOWN"};
+    String[] bodytype = {small, medium, large, useElbow, nomeasure_M, nomeasure_F, unknown};
     String btmsg = "";
+    static String soundStatus = "normal";
 
     //Constructor
     public Computer() {
+    }
+
+    public static String getSoundStatus() {
+        return soundStatus;
+    }
+
+    public static void setSoundStatus(String soundStatus) {
+        Computer.soundStatus = soundStatus;
     }
 
     public String getHealthText() {
@@ -174,13 +195,13 @@ public class Computer {
      * @param morph Morphology (Ectomorph | Mesomorph | Endomorph)
      * @return Ideal Weight
      */
-    public double computeIdealWeight(double hei, String formula, String gender, String morph) {
+    public double computeIdealWeight(double hei, String formula, int gender, int morph) {
         double height = hei * 0.01; // Convert centimeters to Meters
         //1 centimeter = 0.393700787 inch
         // 1 inch = 2.54 cms
         // 1 foot = 30.48 centimeters
         double i = (hei - 152.4) * 0.393700787; // 
-        if (gender.equalsIgnoreCase("male")) {
+        if (gender==0) { // 0 for male and 1 for female
 
             switch (formula) {
                 case "Robinson":
@@ -190,16 +211,16 @@ public class Computer {
                     iweight = 56.2 + (1.41 * i);
                     break;
                 case "Hamwi":
-                    if (morph.equalsIgnoreCase("ectomorph")) {
+                    if (morph==0) { // ectomorph 0
                         iweight = (48 + (2.7 * i)) - ((48 + (2.7 * i)) * 10 / 100);
                     }
-                    if (morph.equalsIgnoreCase("mesomorph")) {
+                    if (morph==1) { // mesomorph 1
                         iweight = 48 + (2.7 * i);
                     }
-                    if (morph.equalsIgnoreCase("endomorph")) {
+                    if (morph==2) { // endomorph 2
                         iweight = (48 + (2.7 * i)) + ((48 + (2.7 * i)) * 10 / 100);
                     }
-                    if (morph.equalsIgnoreCase("")) {
+                    if (morph==-1) {
                         iweight = 48 + (2.7 * i);
                     }
                     break;
@@ -216,7 +237,7 @@ public class Computer {
             }
 
 
-        } else if (gender.equalsIgnoreCase("female")) {
+        } else if (gender==1) {
 
             switch (formula) {
                 case "Robinson":
@@ -226,16 +247,16 @@ public class Computer {
                     iweight = 53.1 + (1.36 * i);
                     break;
                 case "Hamwi":
-                    if (morph.equalsIgnoreCase("")) {
+                    if (morph>2 || morph==-1) {
                         iweight = 45 + (2.2 * i);
                     }
-                    if (morph.equalsIgnoreCase("ectomorph")) {
+                    if (morph == 0) { //0 for ecto
                         iweight = (45 + (2.2 * i)) - ((45 + (2.2 * i)) * 10 / 100);
                     }
-                    if (morph.equalsIgnoreCase("mesomorph")) {
+                    if (morph == 1) { // 1 for meso
                         iweight = 45 + (2.2 * i);
                     }
-                    if (morph.equalsIgnoreCase("endomorph")) {
+                    if (morph == 2) { // 2 for endo
                         iweight = (45 + (2.2 * i)) + ((45 + (2.2 * i)) * 10 / 100);
                     }
                     ;
@@ -252,8 +273,8 @@ public class Computer {
                     break;
             }
         }
-setIweight(iweight);
-        return iweight; 
+        setIweight(iweight);
+        return iweight;
     }
 
     /**
@@ -286,65 +307,82 @@ setIweight(iweight);
      *
      * @return Explanation of BIM value
      */
-    public String getHealth(String origin) {
+    public String getHealth(int origin) {
 
-        if (origin.equalsIgnoreCase("caucasian")) {
+        if (origin == 0) { // 0 for caucasian
             if (18.5 <= this.result & this.result <= 20) {
                 health = healthy;
                 setHealthText(healthyT);
+                setSoundStatus("Healthy");
             } else if (25 < this.result & this.result < 27.5) {
                 health = fat;
                 setHealthText(fat);
+                setSoundStatus("Overweight");
             } else if (27.5 <= this.result & this.result < 30) {
                 health = preobese;
                 setHealthText(fat);
+                setSoundStatus("Fatness");
             } else if (20 < this.result & this.result < 25) {
                 health = nhealthy;
                 setHealthText(nhealthyT);
+                setSoundStatus("Normal");
             } else if (this.result < 18.5 & this.result >= 16) {
                 health = ill;
                 setHealthText(illT);
+                setSoundStatus("Underweight");
             } else if (this.result > 30 & this.result < 35) {
                 health = obese1;
                 setHealthText(obeseT);
+                setSoundStatus("Obese Class I");
             } else if (this.result >= 35 & this.result < 40) {
                 health = obese2;
                 setHealthText(obeseT);
+                setSoundStatus("Obese Class II");
             } else if (this.result >= 40 & this.result < 50) {
                 health = obese3;
                 setHealthText(obeseT);
+                setSoundStatus("Obese Class III");
             } else if (this.result > 5 & this.result < 16) {
                 health = sthinness;
                 setHealthText(skinnyT);
+                setSoundStatus("Severe Thinness");
             } else {
                 health = extreme;
                 setHealthText("Alien!");
+                setSoundStatus("Extreme");
             }
-        } else if (origin.equalsIgnoreCase("asian")) {
+        } else if (origin == 1) { // 1 for asian
             if (18.5 <= this.result & this.result <= 22.9) {
                 health = nhealthy;
                 setHealthText(nhealthyT);
+                setSoundStatus("Normal");
             } else if (22.9 < this.result & this.result < 25) {
                 health = fat;
                 setHealthText(fatT);
+                setSoundStatus("Overweight");
             } else if (25 <= this.result & this.result < 30) {
                 health = obese;
                 setHealthText(obeseT);
+                setSoundStatus("Obese");
             } else if (this.result < 18.5 & this.result > 16) {
                 health = ill;
                 setHealthText(illT);
+                setSoundStatus("Underweight");
             } else if (this.result > 30 & this.result < 40) {
                 health = obese;
                 setHealthText(obeseT);
+                setSoundStatus("Obese Class II");
             } else if (this.result > 4.6 & this.result < 16) {
                 health = skinny;
                 setHealthText(skinnyT);
+                setSoundStatus("Skinny");
             } else {
                 health = extreme;
-                setHealthText("For Real? "
-                        + "\nCheck The Doctor for Aliens' Diet");
+                setHealthText("For Real? Check The Doctor for Aliens' Diet");
+                setSoundStatus("Extreme");
             }
         }
+
         return health;
     } // End of Method
 
@@ -374,24 +412,24 @@ setIweight(iweight);
      * @param gender gender
      * @return EER
      */
-    public double computeEER(int age, String activity, double height, double weit, String gender) {
+    public double computeEER(int age, int activity, double height, double weit, int gender) {
 
-        if (activity.equalsIgnoreCase("sedentary")) {
+        if (activity == 0) { // 0 sedentary
             setPA(1.00);
-        } else if (activity.contains("ow")) {
+        } else if (activity == 1) { // 1 low
             setPA(1.12);
-        } else if (activity.equalsIgnoreCase("active")) {
+        } else if (activity == 2) { // 2 active
             setPA(1.27);
-        } else if (activity.contains("ery")) {
+        } else if (activity == 3) { // 3 very active
             setPA(1.45);
-        } else if (activity.contains("xtreme")) {
+        } else if (activity == 4) { // 4 extreme
             setPA(1.66);
-        } else if (activity.equals("") || activity == null) {
+        } else {
             setPA(1.27);
         }
 
         double heit = height / 100; // Height from Centimeters to Meters
-        if (gender.equalsIgnoreCase("male")) {
+        if (gender == 0) { // 0 corresponds to male and 1 to female
             if (age >= 0 && age <= 2) {
                 EER = (89 * weit - 100) + 20;
             }
@@ -705,7 +743,7 @@ setIweight(iweight);
                 } else {
                     i = 5;
                     System.err.println("Body Type: There is no measure for females below 1.46m (4'10) or above 1.90m (6'4");
-                    setBtmsg("Body Type: There is no measure for females below 1.46m (4'10) or above 1.90m (6'4");
+                    setBtmsg(nomeasure_F);
                 }
             }
         }

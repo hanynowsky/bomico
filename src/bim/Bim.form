@@ -257,20 +257,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jLabel16" alignment="0" pref="400" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jScrollPane3" pref="375" max="32767" attributes="0"/>
-                              <Component id="jSeparator10" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
-                          <Component id="jButton10" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jSeparator10" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
+                      <Component id="jButton10" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -282,8 +275,8 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jSeparator10" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane3" min="-2" pref="299" max="-2" attributes="0"/>
-                  <EmptySpace pref="42" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" pref="328" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton10" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1188,39 +1181,31 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jLabel23" max="32767" attributes="0"/>
+                                          <Component id="jLabel24" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jLabel19" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jComboBox3" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jComboBox4" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jLabel21" alignment="1" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="jLabel19" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel24" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel21" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel23" alignment="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jTextField7" pref="139" max="32767" attributes="0"/>
-                                                  <Component id="jTextField8" max="32767" attributes="0"/>
-                                                  <Component id="jTextField5" max="32767" attributes="0"/>
-                                                  <Component id="jTextField6" max="32767" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jComboBox3" max="32767" attributes="0"/>
-                                                  <Component id="jComboBox4" max="32767" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jLabel27" min="-2" pref="43" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jComboBox5" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jComboBox5" min="-2" pref="124" max="-2" attributes="0"/>
                                           </Group>
+                                          <Component id="jTextField8" min="-2" pref="120" max="-2" attributes="0"/>
+                                          <Component id="jTextField5" pref="120" max="-2" attributes="0"/>
+                                          <Component id="jTextField7" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                          <Component id="jTextField6" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" groupAlignment="1" attributes="0">
+                                      <EmptySpace pref="18" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jButton2" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jProgressBar1" max="32767" attributes="0"/>
                                           <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="jButton2" max="32767" attributes="0"/>
-                                          <Component id="jProgressBar1" alignment="1" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -1290,19 +1275,12 @@
                                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                      <Component id="jTextField8" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1312,13 +1290,11 @@
                                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jTextField6" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
@@ -1409,14 +1385,11 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox1">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="String male = java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;MALE&quot;);&#xa;String female = java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;FEMALE&quot;);">
                   <Font name="Dialog" size="10" style="0"/>
                 </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Male"/>
-                    <StringItem index="1" value="Female"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { male, female })" type="code"/>
                 </Property>
                 <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="(Object)(utils.prefs.get(utils.GENDER_PREF, &quot;Male&quot;))" type="code"/>
@@ -1437,7 +1410,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="298" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="281" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1676,17 +1649,11 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBox2">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="String sed = java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;SEDENTARY&quot;);&#xa;String low = java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;LOW_ACTIVE&quot;);&#xa;String activ = java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;ACTIVE&quot;);&#xa;String vactiv = java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;VERY_ACTIVE&quot;);&#xa;String ext = java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;EXTREME&quot;);">
                   <Font name="Dialog" size="10" style="0"/>
                 </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="Active"/>
-                    <StringItem index="1" value="Low Active"/>
-                    <StringItem index="2" value="Very Active"/>
-                    <StringItem index="3" value="Sedentary"/>
-                    <StringItem index="4" value="Extreme"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { sed, low, activ, vactiv, ext })" type="code"/>
                 </Property>
                 <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="(Object)(utils.prefs.get(utils.ACTIVITY_PREF, java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;SEDENTARY&quot;)))" type="code"/>
@@ -1737,12 +1704,8 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="10" style="0"/>
                 </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Mesomorph"/>
-                    <StringItem index="1" value="Ectomorph"/>
-                    <StringItem index="2" value="Endomorph"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;ECTOMORPH&quot;), java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;MESOMORPH&quot;), java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;ENDOMORPH&quot;) })" type="code"/>
                 </Property>
                 <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="(Object)(utils.prefs.get(utils.MORPH_PREF,java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;MESOMORPH&quot;)))" type="code"/>
@@ -1889,11 +1852,8 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="10" style="0"/>
                 </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Caucasian"/>
-                    <StringItem index="1" value="Asian"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;CAUCASIAN&quot;), java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;ASIAN&quot;)})" type="code"/>
                 </Property>
                 <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="(Object)(utils.prefs.get(utils.ORIGIN_PREF,java.util.ResourceBundle.getBundle(&quot;bim/Bundle&quot;).getString(&quot;CAUCASIAN&quot;)))" type="code"/>
