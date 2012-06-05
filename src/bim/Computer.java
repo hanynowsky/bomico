@@ -188,6 +188,7 @@ public class Computer {
 
     /**
      * Compute the Ideal weight using the specified formulas.
+     * Beware: Formula Strings are case sensitive (First Letter is Capital).
      *
      * @param hei Height in centimeters
      * @param formula Ideal Weight Formula
@@ -201,7 +202,7 @@ public class Computer {
         // 1 inch = 2.54 cms
         // 1 foot = 30.48 centimeters
         double i = (hei - 152.4) * 0.393700787; // 
-        if (gender==0) { // 0 for male and 1 for female
+        if (gender == 0) { // 0 for male and 1 for female
 
             switch (formula) {
                 case "Robinson":
@@ -211,16 +212,16 @@ public class Computer {
                     iweight = 56.2 + (1.41 * i);
                     break;
                 case "Hamwi":
-                    if (morph==0) { // ectomorph 0
+                    if (morph == 0) { // ectomorph 0
                         iweight = (48 + (2.7 * i)) - ((48 + (2.7 * i)) * 10 / 100);
                     }
-                    if (morph==1) { // mesomorph 1
+                    if (morph == 1) { // mesomorph 1
                         iweight = 48 + (2.7 * i);
                     }
-                    if (morph==2) { // endomorph 2
+                    if (morph == 2) { // endomorph 2
                         iweight = (48 + (2.7 * i)) + ((48 + (2.7 * i)) * 10 / 100);
                     }
-                    if (morph==-1) {
+                    if (morph == -1) {
                         iweight = 48 + (2.7 * i);
                     }
                     break;
@@ -237,7 +238,7 @@ public class Computer {
             }
 
 
-        } else if (gender==1) {
+        } else if (gender == 1) {
 
             switch (formula) {
                 case "Robinson":
@@ -247,7 +248,7 @@ public class Computer {
                     iweight = 53.1 + (1.36 * i);
                     break;
                 case "Hamwi":
-                    if (morph>2 || morph==-1) {
+                    if (morph > 2 || morph == -1) {
                         iweight = 45 + (2.2 * i);
                     }
                     if (morph == 0) { //0 for ecto
@@ -475,8 +476,12 @@ public class Computer {
         }
         return BMR;
     }
-
-    public double computeTDEE(String activity) {
+/**
+ * Calculates the TDEE
+ * @param activity Physical Activity
+ * @return TDEE
+ */
+    public double computeTDEE(int activity) {
         /**
          * Total Daily Energy Expenditure (TDEE) = Caloric requirements to
          * maintain weight.
@@ -488,15 +493,15 @@ public class Computer {
          * active = 6-7 sport/week = 1.725 extremely active = 2sports/day = 1.9
          */
         double a = 0;
-        if (activity.equalsIgnoreCase("sedentary")) {
+        if (activity == 0) { // 0 for sedentary
             a = 1.2;
-        } else if (activity.contains("ow")) {
+        } else if (activity == 1) { // 1 low
             a = 1.375;
-        } else if (activity.contains("ery")) {
+        } else if (activity == 2) { // 2 very active
             a = 1.725;
-        } else if (activity.equalsIgnoreCase("active")) {
+        } else if (activity == 3) { // 3 active
             a = 1.55;
-        } else if (activity.contains("xtreme")) {
+        } else if (activity == 4) { // 4 extreme
             a = 1.9;
         }
 
@@ -525,7 +530,7 @@ public class Computer {
      * @param gender Gender (Male / Female)
      * @return Body Fat as a percentage
      */
-    public double computeBodyFat(double height, double waist, double neck, double hip, String gender) {
+    public double computeBodyFat(double height, double waist, double neck, double hip, int gender) {
         /**
          * //man =
          * 495/(1.0324-0.19077(LOG(waist-neck))+0.15456(LOG(height)))-450
@@ -538,7 +543,7 @@ public class Computer {
         double w = Utilities.convertCMtoINCH(waist);
         double p = Utilities.convertCMtoINCH(hip);
 
-        if (gender.equalsIgnoreCase("male")) {
+        if (gender == 0) { // 0 for male
             BF = 495 / (1.0324 - (0.19077 * (Math.log(waist - neck)) / Math.log(10)) + (0.15456 * (Math.log(height))) / Math.log(10)) - 450;
             setBF(BF);
             //BF = 495/(1.0324-0.19077*(Math.log(w-n))+0.15456*(Math.log(h)))-450;
@@ -557,7 +562,7 @@ public class Computer {
                 setBFString(BFS[5]);
             }
 
-        } else if (gender.equalsIgnoreCase("female")) {
+        } else if (gender == 1) { // 1 for female
             BF = 495 / (1.29579 - 0.35004 * (Math.log(waist + hip - neck) / Math.log(10)) + 0.22100 * (Math.log(height)) / Math.log(10)) - 450;
             if (BF >= 12 && BF <= 15) {
                 setBFString(BFS[0]);
@@ -593,11 +598,11 @@ public class Computer {
      * @param choice Boolean (True if Elbow measure, false if Wrist).
      * @return Body Type (Small, Medium or Large)
      */
-    public String computeBodyType(String gender, double height, double wrist, double elbow, boolean choice) {
+    public String computeBodyType(int gender, double height, double wrist, double elbow, boolean choice) {
         int i = 0;
         double h = height / 100;
 
-        if (gender.equalsIgnoreCase("male")) {
+        if (gender == 0) { // 0 for male and 1 for female
             // male wrist 
 
             if (!choice) {

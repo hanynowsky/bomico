@@ -244,9 +244,6 @@
           <Dimension value="[400, 430]"/>
         </Property>
         <Property name="modal" type="boolean" value="true"/>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[400, 430]"/>
-        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="jDialog2.setLocationRelativeTo(this);"/>

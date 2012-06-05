@@ -504,7 +504,7 @@ public class Utilities implements ActionListener {
      * @param gender Gender (String: Male or Female)
      * @param height Height as double (in centimeters. ex: 175)
      */
-    public void readIBMITABLE(String gender, double height) {
+    public void readIBMITABLE(int gender, double height) {
         BufferedReader bufRdr;
         try {
 
@@ -537,7 +537,7 @@ public class Utilities implements ActionListener {
             //    System.out.println(womanMap.entrySet());
             // ibmirange = "";
 
-            String g = gender;
+            int g = gender;
 
             double j = 0;
             double e = 0;
@@ -581,11 +581,11 @@ public class Utilities implements ActionListener {
 
             height = ah;
             String h = String.valueOf(height);
-            if (g.equalsIgnoreCase("male")) {
+            if (g == 0) { // 0 for male and 1 for female
                 setIbmirange(String.valueOf(manMap.get(h)));
                 // System.err.println(String.valueOf(manMap.get(h)));
             }
-            if (g.equalsIgnoreCase("female")) {
+            if (g == 1) {
                 setIbmirange(String.valueOf(womanMap.get(h)));
             }
 
@@ -757,7 +757,7 @@ public class Utilities implements ActionListener {
     }
 
     /**
-     * Supposed to handles Application Restart. Not complete yet. Don't use.
+     * Supposed to handle Application Restart. Not complete yet. Don't use.
      * Restarts the application.
      */
     public void restartApplication() {

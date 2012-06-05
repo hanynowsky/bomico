@@ -1575,20 +1575,20 @@ public class Bim extends javax.swing.JFrame {
         // Parse BMI Table
         double ih = (double) jSlider4.getValue();
         double h = ih / 100; // Transform from centimeters to meters.
-        utils.readIBMITABLE(jComboBox1.getSelectedItem().toString(), h);
+        utils.readIBMITABLE(jComboBox1.getSelectedIndex(), h);
         System.err.println("Medical Weight Range is: " + utils.getIbmirange() + " for a height of:  " + h);
 
 // BMR & TDEE
         jTextField6.setText(utils.getIbmirange());
         c.computeBMR(jSlider3.getValue(), jSlider4.getValue(), jSlider1.getValue(), jComboBox1.getSelectedItem().toString());
-        c.computeTDEE(jComboBox2.getSelectedItem().toString());
+        c.computeTDEE(jComboBox2.getSelectedIndex());
         jTextField7.setText(String.valueOf(new DecimalFormat("#.##").format(c.getBMR())));
         jTextField8.setText(String.valueOf(new DecimalFormat("#.##").format(c.getTDEE())));
 
 // Body Fat & Body Type
-        c.computeBodyFat(jSlider4.getValue(), jSlider2.getValue(), jSlider6.getValue(), jSlider5.getValue(), jComboBox1.getSelectedItem().toString());
+        c.computeBodyFat(jSlider4.getValue(), jSlider2.getValue(), jSlider6.getValue(), jSlider5.getValue(), jComboBox1.getSelectedIndex());
         jTextField9.setText(new DecimalFormat("#.##").format(c.getBF()) + " %" + " - " + c.getBFString());
-        String bt = c.computeBodyType(jComboBox1.getSelectedItem().toString(), jSlider4.getValue(), jSlider8.getValue(), jSlider7.getValue(), jRadioButton1.isSelected());
+        String bt = c.computeBodyType(jComboBox1.getSelectedIndex(), jSlider4.getValue(), jSlider8.getValue(), jSlider7.getValue(), jRadioButton1.isSelected());
         jTextField10.setText(bt + java.util.ResourceBundle.getBundle("bim/Bundle").getString(" FRAME"));
 
 // Highlight the BMI text field in red if BMI is abnormal, otherwise green.
@@ -1886,33 +1886,32 @@ public class Bim extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         if (evt.getSource() == jMenuItem6) {
-            
-   if (UIManager.getSystemLookAndFeelClassName().toLowerCase().contains("windows")){
-       String gtkmsg = java.util.ResourceBundle.getBundle("bim/Bundle").getString("NOGTK");
-       JOptionPane.showMessageDialog(this, gtkmsg, "LAF", JOptionPane.ERROR_MESSAGE);
-   }         
-   else {  
-            try {
-                UIManager.put("ToolTip.font", new FontUIResource(new Font("Dialog", Font.PLAIN, 11)));
-                Utilities.setLaf(Utilities.gtklaf);
-                UIManager.setLookAndFeel(Utilities.gtklaf);
-                //   SwingUtilities.updateComponentTreeUI(Bim.this);
 
-                //   setUndecorated(false);
+            if (UIManager.getSystemLookAndFeelClassName().toLowerCase().contains("windows")) {
+                String gtkmsg = java.util.ResourceBundle.getBundle("bim/Bundle").getString("NOGTK");
+                JOptionPane.showMessageDialog(this, gtkmsg, "LAF", JOptionPane.ERROR_MESSAGE);
+            } else {
+                try {
+                    UIManager.put("ToolTip.font", new FontUIResource(new Font("Dialog", Font.PLAIN, 11)));
+                    Utilities.setLaf(Utilities.gtklaf);
+                    UIManager.setLookAndFeel(Utilities.gtklaf);
+                    //   SwingUtilities.updateComponentTreeUI(Bim.this);
 
-                SwingUtilities.updateComponentTreeUI(this);
-                SwingUtilities.updateComponentTreeUI(jDialog1);
-                SwingUtilities.updateComponentTreeUI(jDialog2);
-                System.out.println("LAF changed to GTK");
+                    //   setUndecorated(false);
 
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
+                    SwingUtilities.updateComponentTreeUI(this);
+                    SwingUtilities.updateComponentTreeUI(jDialog1);
+                    SwingUtilities.updateComponentTreeUI(jDialog2);
+                    System.out.println("LAF changed to GTK");
+
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-            
-   }
-            
-            
-            
+
+
+
         }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
@@ -2489,6 +2488,11 @@ public class Bim extends javax.swing.JFrame {
         try {
             //     Utilities utility = new Utilities();
             // Set cross-platform Java L&F
+            if (utility.prefs.get(utility.LAF_PREF, null).toLowerCase().contains("aluminium")) {
+                com.jtattoo.plaf.aluminium.AluminiumLookAndFeel.setTheme("Default", "Bomico", "Bomico");
+            } else if (utility.prefs.get(utility.LAF_PREF, null).toLowerCase().contains("smart")) {
+                com.jtattoo.plaf.smart.SmartLookAndFeel.setTheme("Default", "Bomico", "Bomico");
+            }
 
             UIManager.setLookAndFeel(utility.prefs.get(utility.LAF_PREF, UIManager.getSystemLookAndFeelClassName()));
             setDefaultLookAndFeelDecorated(false);
