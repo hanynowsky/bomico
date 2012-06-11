@@ -2744,7 +2744,7 @@ public class Bim extends javax.swing.JFrame {
 /**
  * Class to allow exiting the GUI
  *
- * @author Hanynowsky <hanynowsky@gmail.com>
+ * @author <a href="hanynowsky@gmail.com">Hanynowsky</a>
  */
 class ExitListener extends WindowAdapter {
 
