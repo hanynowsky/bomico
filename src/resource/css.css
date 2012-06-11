@@ -97,8 +97,8 @@ tr._even_row {
     font-size: 11pt;
 }
 
-#content {
-
+.content {
+    /*text-shadow: 1px 1px 0px #fff;*/
     float: right;
     position: relative;    
     margin-left:25%;
@@ -125,10 +125,11 @@ tr._even_row {
     text-align: justify;
     height: 100%;
     text-indent: 3px;
+  
 }
 
 #summary{
-    text-shadow: -1px 1px 4px gray;
+    text-shadow: -1px 1px 1px gray;
 
     border-right-style: solid;
     border-left-style: solid;
@@ -173,4 +174,18 @@ tr._even_row {
     font-weight: normal;
     font-style: normal;
     font-size: 11px;
+}
+
+.footer {
+    white-space: nowrap;
+    margin: 8px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    cursor: text;
+    color:#4D4D4D;
+    font-size: 13px;
+    font-family: sans-serif;
+    background-color: rgb(225,225,225);
 }

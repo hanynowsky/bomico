@@ -1,9 +1,5 @@
 package bim;
 
-/**
- *
- * @author Hanynowsky <hanynowsky@gmail.com>
- */
 import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.plaf.basic.BasicGraphicsUtils;

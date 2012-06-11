@@ -48,9 +48,9 @@ import org.xml.sax.SAXException;
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see http://www.gnu.org/licenses/.
  *
- * Bomico - Copyright (C) 2012 <OTIKA – hanynowsky@gmail.com> This program comes
- * with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to
- * redistribute it under certain conditions.
+ * Bomico - Copyright (C) 2012 <a href="hanynowsky@gmail.com">OTIKA</a>. This
+ * program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are
+ * welcome to redistribute it under certain conditions.
  *
  * @version 1.0
  * @author Hanynowsky
@@ -757,23 +757,37 @@ public class Utilities implements ActionListener {
     }
 
     /**
-     * Supposed to handle Application Restart. Not complete yet. Don't use.
-     * Restarts the application.
+     * Handles Application Restart. Restarts the application. Works only when
+     * the application is executed from as jar.
      */
-    public void restartApplication() {
-
+    public static void restartApplication() {
+        final String executable = System.getProperty("java.class.path");
         ScheduledExecutorService schedulerExecutor = Executors.newScheduledThreadPool(2);
         Callable<Process> callable = new Callable<Process>() {
 
             @Override
-            public Process call() throws Exception {
-                Process p = Runtime.getRuntime().exec("java -jar BIM.jar");
+            public Process call() throws Exception {//
+                String command = null;
+                if (executable.endsWith("jar")) {
+                    command = "java -jar ";
+                } else if (executable.endsWith("exe")) {
+                    command = "";
+                } else if (executable.endsWith("deb")) {
+                    command.concat("");
+                } else if (executable.endsWith("rpm")) {
+                    command.concat("");
+                } else if (executable.endsWith("sh")) {
+                    command = "sh ";
+                } else if (executable.endsWith("bin")) {
+                    command.concat("");
+                }
+                Process p = Runtime.getRuntime().exec(command + executable);
                 return p;
             }
         };
-        FutureTask<Process> futureTask = new FutureTask<Process>(callable); // redundant argument
+        FutureTask<Process> futureTask = new FutureTask<>(callable);
         schedulerExecutor.submit(futureTask);
-
+        System.out.println("Restarting Application.");
         System.exit(0);
     }
 
@@ -789,6 +803,18 @@ public class Utilities implements ActionListener {
         Locale.setDefault(loc);
         ResourceBundle.clearCache();
         // Test: Use these for VM run : -Duser.language=fr -Duser.country=FR
+    }
+
+    /**
+     * Retrieves the value of Text Anti-aliasing used by the desktop. (ex:
+     * {Text-specific anti-aliasing enable key=LCD HRGB anti-aliasing text mode}
+     * as used in most Linux desktops)
+     *
+     * @return Desktop Hint Information
+     */
+    public static Object getDesktopHint() {
+        Object hintInfo = Toolkit.getDefaultToolkit().getDesktopProperty("awt.font.desktophints");
+        return hintInfo;
     }
 } // END OF CLASS
 
