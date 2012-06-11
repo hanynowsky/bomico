@@ -50,6 +50,8 @@ public class Test {
 
         //   UIManager.getDefaults().put("OptionPane.font", new Font("Droid Sans", Font.PLAIN, 11));
         // System.out.println(UIManager.getDefaults().getFont("OptionPane.font"));
+        String s = "carcaroot.exe";
+        System.out.println("|"+s.subSequence(0, s.length()-4)+"|");
 
     } // END OF MAIN
 

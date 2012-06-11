@@ -108,6 +108,7 @@ public class Utilities implements ActionListener {
     final String SOUND_PREF = "sound_pref";
     final public String LOCALE_PREF = "locale_pref";
     AudioClip sound;
+    static String executable = System.getProperty("java.class.path");
 
     /**
      * Creates a new instance of this object class
@@ -758,30 +759,30 @@ public class Utilities implements ActionListener {
 
     /**
      * Handles Application Restart. Restarts the application. Works only when
-     * the application is executed from as jar.
+     * the application is executed as jar or 'exe'.
      */
     public static void restartApplication() {
-        final String executable = System.getProperty("java.class.path");
+
         ScheduledExecutorService schedulerExecutor = Executors.newScheduledThreadPool(2);
         Callable<Process> callable = new Callable<Process>() {
 
             @Override
-            public Process call() throws Exception {//
+            public Process call() throws Exception {
                 String command = null;
                 if (executable.endsWith("jar")) {
                     command = "java -jar ";
                 } else if (executable.endsWith("exe")) {
+                    if (executable.contains(".exe")) {
+                        executable = executable.substring(0, executable.length() - 4);
+                    }
                     command = "";
-                } else if (executable.endsWith("deb")) {
-                    command.concat("");
-                } else if (executable.endsWith("rpm")) {
-                    command.concat("");
                 } else if (executable.endsWith("sh")) {
                     command = "sh ";
                 } else if (executable.endsWith("bin")) {
                     command.concat("");
                 }
                 Process p = Runtime.getRuntime().exec(command + executable);
+                System.out.println("Trying to execute " + command + executable);
                 return p;
             }
         };
