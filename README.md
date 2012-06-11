@@ -1,4 +1,4 @@
-Bomico V 1.0.0 (June 2012).
+Bomico V 1.0.2 (June 2012).
 ======
 
 BOMICO is a small program in Java, that computes the BMI (Body Mass Index).
