@@ -53,7 +53,7 @@ import org.java.ayatana.AyatanaDesktop;
  * WARRANTY. This is free software, and you are welcome to redistribute it under
  * certain conditions</i>
  *
- * @version 1.0
+ * @version 1.0.1
  * @author hanynowsky@gmail.com
  * @since 1.0
  */

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<followup>
+    <bmi id="1">
+        <user>l502x</user>
+        <value>20</value>
+        <year>2012</year>
+        <month>05</month>
+        <day>11</day>
+        <time>11:20:03</time>
+    </bmi>
+    <bmi id="2">
+        <user>l502x</user>
+        <value>19</value>
+        <year>2012</year>
+        <month>05</month>
+        <day>11</day>
+        <time>12:21:05</time>
+    </bmi>
+</followup>

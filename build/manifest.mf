@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+X-COMMENT: Main-Class will be added automatically by build
+Specification-Title: Java Swing
+Specification-Version: 1.7.0_04
+Specification-Vendor: Sun
+
+Name: bim
+Implementation-Title: Bomico (Body Mass Index Computer)
+Implementation-Version: 1.0
+Implementation-Vendor: OTIKA
