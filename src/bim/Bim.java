@@ -1630,17 +1630,34 @@ public class Bim extends javax.swing.JFrame {
     private void menuExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExit
         if (evt.getSource() == jMenuItem2) {
             int delay = 3000;
+
             JDialog exitdialog = new JDialog(this, null, Dialog.ModalityType.MODELESS);
-            JLabel exitlabel = new JLabel(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("bim/Bundle").getString("WILL EXIT IN {0} SECONDS"), new Object[]{delay / 1000}));
+            final JLabel exitlabel = new JLabel(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("bim/Bundle").getString("WILL EXIT IN {0} SECONDS"), new Object[]{delay / 1000}));
             exitdialog.setSize(200, 70);
+            exitdialog.setResizable(false);
             exitdialog.setModal(false);
             exitdialog.add(exitlabel);
             exitdialog.setLayout(new FlowLayout());
             exitdialog.setTitle("Bomico " + utils.getVersion());
-            exitlabel.setForeground(Color.GRAY);
+            exitlabel.setForeground(Color.darkGray);
             exitlabel.setFont(new java.awt.Font("Droid Sans", Font.PLAIN, 14));
             exitdialog.setLocationRelativeTo(this);
             exitdialog.setVisible(true);
+
+            javax.swing.Timer tclock = new javax.swing.Timer(1000, new ActionListener() {
+
+                int t = 3;
+                int c = 236;
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    --t;
+                    c++;
+                    exitlabel.setText("Will exit in " + "" + t + " seconds");
+                    exitlabel.setForeground(new Color(110, 200, c));
+                }
+            });
+            tclock.start();
 
             System.out.println("Will exit in " + delay / 1000 + " seconds");
             //  JOptionPane.showMessageDialog(jTabbedPane1, "Will exit in "+delay/1000+" seconds");
@@ -2498,12 +2515,12 @@ public class Bim extends javax.swing.JFrame {
 
 
             UIManager.put("Button.font", new Font("Arial", Font.BOLD, 13));
-           // UIManager.put("Button.foreground", new Color(109, 109, 109));
-            UIManager.put("Button.margin", new Insets(2, 14, 2,14));
-            UIManager.put("ToggleButton.margin", new Insets(2, 14, 2,14));
+            // UIManager.put("Button.foreground", new Color(109, 109, 109));
+            UIManager.put("Button.margin", new Insets(2, 14, 2, 14));
+            UIManager.put("ToggleButton.margin", new Insets(2, 14, 2, 14));
 
 
-             // Set cross-platform Java L&F
+            // Set cross-platform Java L&F
             if (utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel") != null & utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel").toLowerCase().contains("aluminium")) {
                 com.jtattoo.plaf.aluminium.AluminiumLookAndFeel.setTheme("Default", "Bomico", "Bomico");
             } else if (utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.smart.SmartLookAndFeel").toLowerCase().contains("smart")) {
