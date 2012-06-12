@@ -2503,10 +2503,10 @@ public class Bim extends javax.swing.JFrame {
             UIManager.put("ToggleButton.margin", new Insets(2, 14, 2,14));
 
 
-            // Set cross-platform Java L&F
-            if (utility.prefs.get(utility.LAF_PREF, null).toLowerCase().contains("aluminium")) {
+             // Set cross-platform Java L&F
+            if (utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel") != null & utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel").toLowerCase().contains("aluminium")) {
                 com.jtattoo.plaf.aluminium.AluminiumLookAndFeel.setTheme("Default", "Bomico", "Bomico");
-            } else if (utility.prefs.get(utility.LAF_PREF, null).toLowerCase().contains("smart")) {
+            } else if (utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.smart.SmartLookAndFeel").toLowerCase().contains("smart")) {
                 com.jtattoo.plaf.smart.SmartLookAndFeel.setTheme("Default", "Bomico", "Bomico");
             }
 
