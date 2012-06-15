@@ -204,7 +204,7 @@ public class Utilities implements ActionListener {
 
     public String getVersion() {
         // version = Bim.class.getPackage().getImplementationVersion();
-        version = "1.0";
+        version = "1.0.2";
         return version;
     }
 

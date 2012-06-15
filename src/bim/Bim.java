@@ -2488,7 +2488,11 @@ public class Bim extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        Utilities utility = new Utilities();
+         Utilities utility = new Utilities();
+            if (args[0].equals("--version")) {
+            System.out.println(" Bomico (Body Mass Index Computer) v: " + utility.getVersion());
+        } else {
+
         // Paste Splash File
         utility.pasteSplashFile();
         // Change Default Locale to the one saved in user preferences
@@ -2598,7 +2602,7 @@ public class Bim extends javax.swing.JFrame {
                 }
             });
         }
-
+            }
     }
     // Custom Declaration
     double res;

@@ -35,23 +35,28 @@ public class Test {
         // System.out.println(c.computeBodyType("male", 153, 15, 6.5, true)); 
         // System.out.println(c.computeBodyFat(178, 75, 37, 85, "male"));
         // utils.playAudio("Obese",true);
-        double d = 12.3265;
-        System.out.println(new Locale(utility.prefs.get(utility.LOCALE_PREF, Locale.getDefault().toString())));
-        System.out.println(Locale.getDefault().getLanguage() + "  <->  " + Locale.getDefault().getCountry());
-        System.out.println(Locale.getDefault().toString());
-        System.out.println(utility.prefs.get(utility.LOCALE_PREF, null).substring(0, 2) + "_" + utility.prefs.get(utility.LOCALE_PREF, null).substring(3, 5).toUpperCase());
+        if (args[0].equals("--version")) {
+            System.out.println(" Bomico Version: " + utility.getVersion());
+        } else {
+            double d = 12.3265;
+            System.out.println(new Locale(utility.prefs.get(utility.LOCALE_PREF, Locale.getDefault().toString())));
+            System.out.println(Locale.getDefault().getLanguage() + "  <->  " + Locale.getDefault().getCountry());
+            System.out.println(Locale.getDefault().toString());
+            System.out.println(utility.prefs.get(utility.LOCALE_PREF, null).substring(0, 2) + "_" + utility.prefs.get(utility.LOCALE_PREF, null).substring(3, 5).toUpperCase());
 
-        System.err.println(UIManager.getDefaults().get("Button.disabledText"));
-        System.err.println(UIManager.getDefaults().get("Button.disabledForeground"));
-        System.err.println(UIManager.getDefaults().get("Button.disabledShadow"));
-        System.err.println(UIManager.getDefaults().get("Button.textShiftOffset"));
-          System.err.println(UIManager.getDefaults().get("Button.shadow"));
-        System.out.println(UIManager.getDefaults().keys().toString());
+            System.err.println(UIManager.getDefaults().get("Button.disabledText"));
+            System.err.println(UIManager.getDefaults().get("Button.disabledForeground"));
+            System.err.println(UIManager.getDefaults().get("Button.disabledShadow"));
+            System.err.println(UIManager.getDefaults().get("Button.textShiftOffset"));
+            System.err.println(UIManager.getDefaults().get("Button.shadow"));
+            System.out.println(UIManager.getDefaults().keys().toString());
 
-        //   UIManager.getDefaults().put("OptionPane.font", new Font("Droid Sans", Font.PLAIN, 11));
-        // System.out.println(UIManager.getDefaults().getFont("OptionPane.font"));
-        String s = "carcaroot.exe";
-        System.out.println("|"+s.subSequence(0, s.length()-4)+"|");
+            //   UIManager.getDefaults().put("OptionPane.font", new Font("Droid Sans", Font.PLAIN, 11));
+            // System.out.println(UIManager.getDefaults().getFont("OptionPane.font"));
+            String s = "carcaroot.exe";
+            System.out.println("|" + s.subSequence(0, s.length() - 4) + "|");
+        }
+
 
     } // END OF MAIN
 
