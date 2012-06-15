@@ -2488,121 +2488,124 @@ public class Bim extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-         Utilities utility = new Utilities();
-            if (args[0].equals("--version")) {
-            System.out.println(" Bomico (Body Mass Index Computer) v: " + utility.getVersion());
+        Utilities utility = new Utilities();
+        System.out.println("args length is: " + args.length);
+// args.toString() != null & !args.toString().equals("") &
+        if (args.length > 0) {
+            if (args[0].toString().trim().equals("--version")) {
+                System.out.println(" Bomico (Body Mass Index Computer) v: " + utility.getVersion());
+            }
         } else {
 
-        // Paste Splash File
-        utility.pasteSplashFile();
-        // Change Default Locale to the one saved in user preferences
-        Utilities.changeLocale(utility.prefs.get(utility.LOCALE_PREF, Locale.getDefault().toString()));
-        System.out.println("Current Locale is " + Locale.getDefault());
+            // Paste Splash File
+            utility.pasteSplashFile();
+            // Change Default Locale to the one saved in user preferences
+            Utilities.changeLocale(utility.prefs.get(utility.LOCALE_PREF, Locale.getDefault().toString()));
+            System.out.println("Current Locale is " + Locale.getDefault());
 
-
-
-
+            /*
+             * Set the look and feel
+             */
+            //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /*
-         * Set the look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        // com.sun.java.swing.plaf.gtk.GTKLookAndFeel
-        // javax.swing.plaf.metal.MetalLookAndFeel
+             * If Nimbus (introduced in Java SE 6) is not available, stay with
+             * the default look and feel. For details see
+             * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+             */
+            // com.sun.java.swing.plaf.gtk.GTKLookAndFeel
+            // javax.swing.plaf.metal.MetalLookAndFeel
 
-        try {
-            //     Utilities utility = new Utilities();
-
-
-            UIManager.put("Button.font", new Font("Arial", Font.BOLD, 13));
-            // UIManager.put("Button.foreground", new Color(109, 109, 109));
-            UIManager.put("Button.margin", new Insets(2, 14, 2, 14));
-            UIManager.put("ToggleButton.margin", new Insets(2, 14, 2, 14));
-
-
-            // Set cross-platform Java L&F
-            if (utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel") != null & utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel").toLowerCase().contains("aluminium")) {
-                com.jtattoo.plaf.aluminium.AluminiumLookAndFeel.setTheme("Default", "Bomico", "Bomico");
-            } else if (utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.smart.SmartLookAndFeel").toLowerCase().contains("smart")) {
-                com.jtattoo.plaf.smart.SmartLookAndFeel.setTheme("Default", "Bomico", "Bomico");
-            }
-
-            UIManager.setLookAndFeel(utility.prefs.get(utility.LAF_PREF, UIManager.getSystemLookAndFeelClassName()));
-            setDefaultLookAndFeelDecorated(false);
-
-
-            //getCrossPlatformLookAndFeelClassName());
-
-        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        /*
-         * try { for (javax.swing.UIManager.LookAndFeelInfo info :
-         * javax.swing.UIManager.getInstalledLookAndFeels()) { if
-         * ("Nimbus".equals(info.getName())) {
-         * javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-         * // javax.swing.UIManager.setLookAndFeel(info.getClassName()); break;
-         * } } } catch (ClassNotFoundException ex) {
-         * java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE,
-         * null, ex); } catch (InstantiationException ex) {
-         * java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE,
-         * null, ex); } catch (IllegalAccessException ex) {
-         * java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE,
-         * null, ex); } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-         * java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE,
-         * null, ex); }
-         */
-        //</editor-fold>
-
-        /*
-         * Create and display the form
-         */
-///////////////////////////////////////////////////////////////////////////////
-        /**
-         * Allow only one instance of this Application using JUnique library <a
-         * href="http://www.sauronsoftware.it/projects/junique/">http://www.sauronsoftware.it/projects/junique/</a>
-         */
-        String appId = "Bomico";
-        boolean alreadyRunning;
-        try {
-            JUnique.acquireLock(appId);
-            alreadyRunning = false;
-        } catch (AlreadyLockedException e) {
-            alreadyRunning = true;
-            System.err.println(e);
-            JFrame instFrame = new JFrame("Bomico Already Running");
-            String msg = java.util.ResourceBundle.getBundle("bim/Bundle").getString("ALREADY_RUNNING");
-            JOptionPane.showMessageDialog(instFrame, msg, instFrame.getTitle(), JOptionPane.ERROR_MESSAGE, null);
             try {
-                Thread.sleep(500);
-                System.exit(0);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if (!alreadyRunning) {
-            System.out.println("No instance of Bomico is running. Launching is taking place right now");
-            java.awt.EventQueue.invokeLater(new Runnable() {
+                //     Utilities utility = new Utilities();
 
-                @Override // The override annotation was added manually
-                public void run() {
-                    Bim bim = new Bim();
 
-                    //Loading the location of the image in the variable url.
-                    URL url = URLClassLoader.getSystemResource("resource/pingu.png");
-                    bim.setIconImage(new ImageIcon(url).getImage()); // seting the icon to the JFrame
+                UIManager.put("Button.font", new Font("Arial", Font.BOLD, 13));
+                // UIManager.put("Button.foreground", new Color(109, 109, 109));
+                UIManager.put("Button.margin", new Insets(2, 14, 2, 14));
+                UIManager.put("ToggleButton.margin", new Insets(2, 14, 2, 14));
 
-                    //bim.setIconImage(Toolkit.getDefaultToolkit().getImage("/resource/pingu.png"));
-                    bim.setVisible(true);
+
+                // Set cross-platform Java L&F
+                if (utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel") != null & utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.aluminium.AluminiumLookAndFeel").toLowerCase().contains("aluminium")) {
+                    com.jtattoo.plaf.aluminium.AluminiumLookAndFeel.setTheme("Default", "Bomico", "Bomico");
+                } else if (utility.prefs.get(utility.LAF_PREF, "com.jtattoo.plaf.smart.SmartLookAndFeel").toLowerCase().contains("smart")) {
+                    com.jtattoo.plaf.smart.SmartLookAndFeel.setTheme("Default", "Bomico", "Bomico");
                 }
-            });
-        }
+
+                UIManager.setLookAndFeel(utility.prefs.get(utility.LAF_PREF, UIManager.getSystemLookAndFeelClassName()));
+                setDefaultLookAndFeelDecorated(false);
+
+
+                //getCrossPlatformLookAndFeelClassName());
+
+            } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
+
+            /*
+             * try { for (javax.swing.UIManager.LookAndFeelInfo info :
+             * javax.swing.UIManager.getInstalledLookAndFeels()) { if
+             * ("Nimbus".equals(info.getName())) {
+             * javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+             * // javax.swing.UIManager.setLookAndFeel(info.getClassName());
+             * break; } } } catch (ClassNotFoundException ex) {
+             * java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE,
+             * null, ex); } catch (InstantiationException ex) {
+             * java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE,
+             * null, ex); } catch (IllegalAccessException ex) {
+             * java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE,
+             * null, ex); } catch (javax.swing.UnsupportedLookAndFeelException
+             * ex) {
+             * java.util.logging.Logger.getLogger(Bim.class.getName()).log(java.util.logging.Level.SEVERE,
+             * null, ex); }
+             */
+            //</editor-fold>
+
+            /*
+             * Create and display the form
+             */
+///////////////////////////////////////////////////////////////////////////////
+            /**
+             * Allow only one instance of this Application using JUnique library
+             * <a
+             * href="http://www.sauronsoftware.it/projects/junique/">http://www.sauronsoftware.it/projects/junique/</a>
+             */
+            String appId = "Bomico";
+            boolean alreadyRunning;
+            try {
+                JUnique.acquireLock(appId);
+                alreadyRunning = false;
+            } catch (AlreadyLockedException e) {
+                alreadyRunning = true;
+                System.err.println(e);
+                JFrame instFrame = new JFrame("Bomico Already Running");
+                String msg = java.util.ResourceBundle.getBundle("bim/Bundle").getString("ALREADY_RUNNING");
+                JOptionPane.showMessageDialog(instFrame, msg, instFrame.getTitle(), JOptionPane.ERROR_MESSAGE, null);
+                try {
+                    Thread.sleep(500);
+                    System.exit(0);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (!alreadyRunning) {
+                System.out.println("No instance of Bomico is running. Launching is taking place right now");
+                java.awt.EventQueue.invokeLater(new Runnable() {
+
+                    @Override // The override annotation was added manually
+                    public void run() {
+                        Bim bim = new Bim();
+
+                        //Loading the location of the image in the variable url.
+                        URL url = URLClassLoader.getSystemResource("resource/pingu.png");
+                        bim.setIconImage(new ImageIcon(url).getImage()); // seting the icon to the JFrame
+
+                        //bim.setIconImage(Toolkit.getDefaultToolkit().getImage("/resource/pingu.png"));
+                        bim.setVisible(true);
+                    }
+                });
+            }
+        }
     }
     // Custom Declaration
     double res;
