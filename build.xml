@@ -80,6 +80,8 @@
             <zipfileset src="dist/lib/JTattoo.jar" excludes="META-INF/*" /> 
             <zipfileset src="dist/lib/jdom-2.0.1.jar" excludes="META-INF/*" />
             <zipfileset src="dist/lib/junique-1.0.4.jar" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/gtk-4.1.jar" excludes="META-INF/*" />
+            <zipfileset src="dist/lib/gtk.jar" excludes="META-INF/*" />
             <manifest>  
                 <attribute name="Main-Class" value="bim.Bim"/>  
             </manifest>  
