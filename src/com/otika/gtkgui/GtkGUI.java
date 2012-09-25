@@ -346,4 +346,4 @@ public class GtkGUI extends Window {
             Logger.getLogger(GtkGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-}
+} // END OF CLASS
