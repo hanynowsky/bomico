@@ -25,7 +25,7 @@ public class GtkGUI extends Window {
     Fixed fixed, fixed2, fixed3;
     Toolbar toolbar;
     ToolButton quitTB, aboutTB, computeTB;
-    Pixbuf quitIcon, windowIcon, aboutIcon, computeIcon;
+    Pixbuf quitIcon, windowIcon, aboutIcon, computeIcon,stockQuit;
     Image image;
     Border border;
     HSeparator hsep;
@@ -110,10 +110,10 @@ public class GtkGUI extends Window {
         toolbar.setOrientation(Orientation.HORIZONTAL);
         toolbar.setStyle(ToolbarStyle.BOTH);
         toolbar.setSizeRequest(window.getWidth() - 2, 40);
-        quitTB = new ToolButton(image, "Quit");
+        quitTB = new ToolButton(new Image(Gtk.renderIcon(window, Stock.QUIT, IconSize.BUTTON)), "Quit");
         quitTB.setLabel("Quit");
         //quitTB.setSizeRequest(160, 48);
-        aboutTB = new ToolButton(new Image(aboutIcon), null);
+        aboutTB = new ToolButton(new Image(Gtk.renderIcon(window, Stock.ABOUT, IconSize.BUTTON)), null);
         aboutTB.setLabel("About");
         computeTB = new ToolButton(new Image(computeIcon), null);
         computeTB.setLabel("Compute");
@@ -340,7 +340,7 @@ public class GtkGUI extends Window {
         introLabel.setLabel("BMI = <b>" + bmi + "</b>");
         try {
             if (System.getProperty("os.name").toLowerCase().contains("linux")) {
-                Runtime.getRuntime().exec("notify-send -t 3600 BMI " + bmi);
+                Runtime.getRuntime().exec("notify-send -i face-laugh -t 3600 BMI " + bmi);
             }
         } catch (IOException ex) {
             Logger.getLogger(GtkGUI.class.getName()).log(Level.SEVERE, null, ex);
