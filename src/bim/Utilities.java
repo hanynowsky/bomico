@@ -109,6 +109,7 @@ public class Utilities implements ActionListener {
     final public String LOCALE_PREF = "locale_pref";
     AudioClip sound;
     static String executable = System.getProperty("java.class.path");
+    static String command = null;
 
     /**
      * Creates a new instance of this object class
@@ -241,7 +242,8 @@ public class Utilities implements ActionListener {
                 + "<html><b>User Directory:</b> " + System.getProperty("user.dir")
                 + "<html><br></br>" + "<html><b>System:</b> " + System.getProperty("os.name") + " " + System.getProperty("os.version")
                 + " " + System.getProperty("os.arch") + "<html><br></br>" + "<html><b>Java:</b> " + System.getProperty("java.version")
-                + " " + System.getProperty("java.vendor");
+                + " " + System.getProperty("java.vendor") + "<html><br></br>" + "<html><b>VM:</b> " + System.getProperty("java.vm.name") +
+                "<html><br></br>" + "<html><b>ENV:</b> " + System.getenv("XDG_CURRENT_DESKTOP");
         return infos;
     }
 
@@ -745,6 +747,10 @@ public class Utilities implements ActionListener {
         }
     }
 
+    /**
+     * 
+     * @return Path ( System String)
+     */
     public static String showSystemPath() {
         String path = "";
         try {
@@ -768,7 +774,7 @@ public class Utilities implements ActionListener {
 
             @Override
             public Process call() throws Exception {
-                String command = null;
+                
                 if (executable.endsWith("jar")) {
                     command = "java -jar ";
                 } else if (executable.endsWith("exe")) {
@@ -778,15 +784,17 @@ public class Utilities implements ActionListener {
                     command = "";
                 } else if (executable.endsWith("sh")) {
                     command = "sh ";
-                } else if (executable.endsWith("bin")) {
-                    command.concat("");
+                } else if (! executable.contains("jar") && ! executable.contains("sh")) 
+                {
+                if (System.getProperty("os.name").contains("inux"))
+                {command = "/usr/bin/java -jar ";}
                 }
                 Process p = Runtime.getRuntime().exec(command + executable);
-                System.out.println("Trying to execute " + command + executable);
                 return p;
             }
         };
         FutureTask<Process> futureTask = new FutureTask<>(callable);
+        System.out.println("Trying to execute " + command + executable);
         schedulerExecutor.submit(futureTask);
         System.out.println("Restarting Application.");
         System.exit(0);

@@ -258,7 +258,7 @@ public class Bim extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Liberation Mono", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("BOMICO V1.0"+"-");
+        jLabel8.setText("BOMICO V" +utils.getVersion());
 
         jLabel9.setText(bundle.getString("Bim.jLabel9.text")); // NOI18N
 
@@ -442,8 +442,8 @@ public class Bim extends javax.swing.JFrame {
         setTitle(bundle.getString("Bim.title")); // NOI18N
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFont(new java.awt.Font("Dialog", 0, 11)); // NOI18N
-        setPreferredSize(new java.awt.Dimension(885, 780));
         setUndecorated(false);
+        setPreferredSize(new java.awt.Dimension(885, 780));
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
