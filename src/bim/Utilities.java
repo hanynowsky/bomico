@@ -109,7 +109,7 @@ public class Utilities implements ActionListener {
     final public String LOCALE_PREF = "locale_pref";
     AudioClip sound;
     static String executable = System.getProperty("java.class.path");
-    static String command = null;
+    static String command = "java -jar ";
 
     /**
      * Creates a new instance of this object class
@@ -242,8 +242,8 @@ public class Utilities implements ActionListener {
                 + "<html><b>User Directory:</b> " + System.getProperty("user.dir")
                 + "<html><br></br>" + "<html><b>System:</b> " + System.getProperty("os.name") + " " + System.getProperty("os.version")
                 + " " + System.getProperty("os.arch") + "<html><br></br>" + "<html><b>Java:</b> " + System.getProperty("java.version")
-                + " " + System.getProperty("java.vendor") + "<html><br></br>" + "<html><b>VM:</b> " + System.getProperty("java.vm.name") +
-                "<html><br></br>" + "<html><b>ENV:</b> " + System.getenv("XDG_CURRENT_DESKTOP");
+                + " " + System.getProperty("java.vendor") + "<html><br></br>" + "<html><b>VM:</b> " + System.getProperty("java.vm.name")
+                + "<html><br></br>" + "<html><b>ENV:</b> " + System.getenv("XDG_CURRENT_DESKTOP");
         return infos;
     }
 
@@ -748,7 +748,7 @@ public class Utilities implements ActionListener {
     }
 
     /**
-     * 
+     *
      * @return Path ( System String)
      */
     public static String showSystemPath() {
@@ -769,13 +769,14 @@ public class Utilities implements ActionListener {
      */
     public static void restartApplication() {
 
+
         ScheduledExecutorService schedulerExecutor = Executors.newScheduledThreadPool(2);
         Callable<Process> callable = new Callable<Process>() {
-
             @Override
             public Process call() throws Exception {
-                // TODO
-                if (executable.endsWith("jar")) {
+                // String sysenv = System.getenv("XDG_CURRENT_DESKTOP").toString();
+                if (System.getProperty("os.name").contains("inux")) {
+                    //executable = "bomico";
                     command = "java -jar ";
                 } else if (executable.endsWith("exe")) {
                     if (executable.contains(".exe")) {
@@ -784,20 +785,67 @@ public class Utilities implements ActionListener {
                     command = "";
                 } else if (executable.endsWith("sh")) {
                     command = "sh ";
-                } else if (! executable.contains("jar") && ! executable.contains("sh")) 
-                {
-                if (System.getProperty("os.name").contains("inux"))
-                {command = "/usr/bin/java -jar ";}
+                } else if (!executable.contains("jar") && !executable.contains("sh")) {
+                    if (System.getProperty("os.name").contains("inux")) {
+                        command = "/usr/bin/java -jar ";
+                    }
                 }
                 Process p = Runtime.getRuntime().exec(command + executable);
+                System.out.println("Trying to execute " + command + " " + executable);
                 return p;
             }
         };
         FutureTask<Process> futureTask = new FutureTask<>(callable);
-        System.out.println("Trying to execute " + command + executable);
         schedulerExecutor.submit(futureTask);
+        System.out.println("Trying to execute " + command + " " + executable);
         System.out.println("Restarting Application.");
         System.exit(0);
+    }
+
+    /**
+     * Executes a bash command -Applicable only in UNIX
+     *
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void execBash() throws IOException, InterruptedException {
+        if (System.getProperty("os.name").contains("inux")){
+        java.util.List<String> commands = new ArrayList<String>();
+        commands.add("bash"); // or /bin/cat
+        commands.add("-c");
+        //commands.add("echo Han | grep [^*]");
+//        commands.add("notify-send Bye $USER -i face-laugh -t 600 -u low -a bomico");
+        commands.add("notify-send Bye $USER -i /usr/share/icons/hicolor/48x48/apps/bomico.png -t 600 -u low -a bomico");
+        System.out.println("Executing: " + commands);
+
+        //Run macro on target
+        ProcessBuilder pb = new ProcessBuilder(commands);
+        pb.directory(new File(System.getProperty("user.home")));
+        pb.redirectErrorStream(true);
+        Process process = pb.start();
+
+        //Read output
+        StringBuilder out = new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line = null, previous = null;
+        while ((line = br.readLine()) != null) {
+            if (!line.equals(previous)) {
+                previous = line;
+                out.append(line).append('\n');
+                System.out.println(line);
+            }
+        }
+        //Check result
+        if (process.waitFor() == 0) {
+            System.out.println("Success!");
+        }
+        System.exit(0);
+
+        //Abnormal termination: Log command parameters and output and throw ExecutionException
+        System.err.println(commands);
+        System.err.println(out.toString());
+        System.exit(1);
+        }
     }
 
     /**

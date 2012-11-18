@@ -71,21 +71,23 @@
     nbproject/build-impl.xml file. 
 
     -->
-  
+    <!-- <zipfileset src="dist/lib/jayatana-1.2.4.jar" excludes="META-INF/*" />
+    -->
+  <!--
     <target name="-post-jar">  
         <jar jarfile="dist/BIM.jar" update="true">  
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />  
-            <zipfileset src="dist/lib/jayatana-1.2.4.jar" excludes="META-INF/*" />
-            <zipfileset src="dist/lib/liquidlnf.jar" excludes="META-INF/*" />  
-            <zipfileset src="dist/lib/JTattoo.jar" excludes="META-INF/*" /> 
-            <zipfileset src="dist/lib/jdom-2.0.1.jar" excludes="META-INF/*" />
-            <zipfileset src="dist/lib/junique-1.0.4.jar" excludes="META-INF/*" />
-            <zipfileset src="dist/lib/gtk.jar" excludes="META-INF/*" />
+            <zipfileset src="lib/liquidlnf.jar" excludes="META-INF/*" />  
+            <zipfileset src="lib/JTattoo.jar" excludes="META-INF/*" /> 
+            <zipfileset src="lib/jdom-2.0.1.jar" excludes="META-INF/*" />
+            <zipfileset src="lib/junique-1.0.4.jar" excludes="META-INF/*" />
+            <zipfileset src="lib/gtk.jar" excludes="META-INF/*" />
+            <zipfileset src="lib/jayatana-1.2.4.jar" excludes="META-INF/*" />
             <manifest>  
                 <attribute name="Main-Class" value="bim.Bim"/>  
             </manifest>  
         </jar>  
     </target>  
-    
+   -->
     
 </project>

@@ -1567,6 +1567,13 @@ public class Bim extends javax.swing.JFrame {
         jTextField2.setText(bmi);
         jButton9.setEnabled(true);
         System.out.println("Health Status - You are: " + c.getHealth(jComboBox5.getSelectedIndex()));
+        try {
+            if (System.getProperty("os.name").contains("inux")) {
+                Runtime.getRuntime().exec("notify-send " + bmi + " -i /usr/share/icons/hicolor/48x48/apps/bomico.png");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         Color greencolor = new Color(0, 153, 51);
         Color redcolor = new Color(204, 0, 0);
@@ -1629,7 +1636,7 @@ public class Bim extends javax.swing.JFrame {
 
     private void menuExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExit
         if (evt.getSource() == jMenuItem2) {
-            int delay = 3000;
+                        int delay = 3000;
 
             JDialog exitdialog = new JDialog(this, null, Dialog.ModalityType.MODELESS);
             final JLabel exitlabel = new JLabel(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("bim/Bundle").getString("WILL EXIT IN {0} SECONDS"), new Object[]{delay / 1000}));
@@ -1645,7 +1652,6 @@ public class Bim extends javax.swing.JFrame {
             exitdialog.setVisible(true);
 
             javax.swing.Timer tclock = new javax.swing.Timer(1000, new ActionListener() {
-
                 int t = 3;
                 int c = 236;
 
@@ -1662,9 +1668,13 @@ public class Bim extends javax.swing.JFrame {
             System.out.println("Will exit in " + delay / 1000 + " seconds");
             //  JOptionPane.showMessageDialog(jTabbedPane1, "Will exit in "+delay/1000+" seconds");
             javax.swing.Timer timer = new javax.swing.Timer(delay, new ActionListener() {
-
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(ActionEvent e) {try {
+                utils.execBash();
+            } catch (IOException | InterruptedException ex) {
+                Logger.getLogger(ExitListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                    
                     System.exit(0);
                 }
             });
@@ -2085,7 +2095,6 @@ public class Bim extends javax.swing.JFrame {
     private void taskPropertyChangeAction() {
         Task task = new Task();
         task.addPropertyChangeListener(new PropertyChangeListener() {
-
             @Override
             public void propertyChange(PropertyChangeEvent event) {
                 if ("progress".equals(event.getPropertyName())) {
@@ -2591,7 +2600,6 @@ public class Bim extends javax.swing.JFrame {
             if (!alreadyRunning) {
                 System.out.println("No instance of Bomico is running. Launching is taking place right now");
                 java.awt.EventQueue.invokeLater(new Runnable() {
-
                     @Override // The override annotation was added manually
                     public void run() {
                         Bim bim = new Bim();
