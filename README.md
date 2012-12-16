@@ -9,4 +9,4 @@ It is compatible with Oracle JRE 6 & 7 as well as OpenJDK 6 & 7.
 
 -------------------------------
 
-
+Bomici 1.1.1-1 Debian File can be downloaded here: https://dl.dropbox.com/u/67261634/bomico_1.1.1-1.deb
