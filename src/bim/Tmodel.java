@@ -91,38 +91,38 @@ public final class Tmodel extends AbstractTableModel {
                     Element userElement = (Element) userList.item(0);
                     NodeList textuserList = userElement.getChildNodes();
                     data.add(0, ((Node) textuserList.item(0)).getNodeValue().trim());
-                    // System.out.println("User is " + ((Node) textuserList.item(0)).getNodeValue().trim());
+                    // System.sbout.println("User is " + ((Node) textuserList.item(0)).getNodeValue().trim());
 
                     NodeList valueList = element.getElementsByTagName("value");
                     Element valueElement = (Element) valueList.item(0);
                     NodeList textvalueList = valueElement.getChildNodes();
                     data.add(1, ((Node) textvalueList.item(0)).getNodeValue().trim());
                     //setValueAt(((Node) textvalueList.item(0)).getNodeValue().trim(), i, 0);
-                    // System.out.println("Value is " + ((Node) textvalueList.item(0)).getNodeValue().trim());
+                    // System.sbout.println("Value is " + ((Node) textvalueList.item(0)).getNodeValue().trim());
 
                     NodeList yearList = element.getElementsByTagName("year");
                     Element yearElement = (Element) yearList.item(0);
                     NodeList textyearList = yearElement.getChildNodes();
                     data.add(2, ((Node) textyearList.item(0)).getNodeValue().trim());
-                    //  System.out.println("Year is " + ((Node) textyearList.item(0)).getNodeValue().trim());
+                    //  System.sbout.println("Year is " + ((Node) textyearList.item(0)).getNodeValue().trim());
 
                     NodeList monthList = element.getElementsByTagName("month");
                     Element monthElement = (Element) monthList.item(0);
                     NodeList textmonthList = monthElement.getChildNodes();
                     data.add(3, ((Node) textmonthList.item(0)).getNodeValue().trim());
-                    //  System.out.println("Month is " + ((Node) textmonthList.item(0)).getNodeValue().trim());
+                    //  System.sbout.println("Month is " + ((Node) textmonthList.item(0)).getNodeValue().trim());
 
                     NodeList dayList = element.getElementsByTagName("day");
                     Element dayElement = (Element) dayList.item(0);
                     NodeList textdayList = dayElement.getChildNodes();
                     data.add(4, ((Node) textdayList.item(0)).getNodeValue().trim());
-                    //   System.out.println("Day is " + ((Node) textdayList.item(0)).getNodeValue().trim());
+                    //   System.sbout.println("Day is " + ((Node) textdayList.item(0)).getNodeValue().trim());
 
                     NodeList timeList = element.getElementsByTagName("time");
                     Element timeElement = (Element) timeList.item(0);
                     NodeList texttimeList = timeElement.getChildNodes();
                     data.add(5, ((Node) texttimeList.item(0)).getNodeValue().trim());
-                    //   System.out.println("Time is " + ((Node) texttimeList.item(0)).getNodeValue().trim());
+                    //   System.sbout.println("Time is " + ((Node) texttimeList.item(0)).getNodeValue().trim());
 
                     j = i; // increment J to use later for system printing
 

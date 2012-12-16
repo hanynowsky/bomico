@@ -110,11 +110,21 @@ public class Utilities implements ActionListener {
     AudioClip sound;
     static String executable = System.getProperty("java.class.path");
     static String command = "java -jar ";
+    public static ProcessBuilder pb;
+    public static StringBuilder sbout;
 
     /**
      * Creates a new instance of this object class
      */
     public Utilities() {
+    }
+
+    public static StringBuilder getSbout() {
+        return sbout;
+    }
+
+    public static void setSbout(StringBuilder sbout) {
+        Utilities.sbout = sbout;
     }
 
     /**
@@ -285,11 +295,11 @@ public class Utilities implements ActionListener {
              * Thread.currentThread().getContextClassLoader(); URL aurl =
              * classLoader.getResource("/config/followup.xml"); URL url =
              * getClass().getResource("/config/followup.xml"); File xFile = new
-             * File(url.toURI()); System.out.println("---");
-             * System.out.println(xFile.getPath());
-             * System.out.println(xFile.getAbsolutePath());
-             * System.out.println(xFile.getCanonicalPath());
-             * System.out.println("---");
+             * File(url.toURI()); System.sbout.println("---");
+             * System.sbout.println(xFile.getPath());
+             * System.sbout.println(xFile.getAbsolutePath());
+             * System.sbout.println(xFile.getCanonicalPath());
+             * System.sbout.println("---");
              */
 
             createFile(); // Check if the file exists, if not create it.
@@ -430,13 +440,13 @@ public class Utilities implements ActionListener {
                     System.out.println("\n------------------\n");
 
                     /**
-                     * System.out.println("First Name : " +
+                     * System.sbout.println("First Name : " +
                      * getTagValue("firstname", element));
-                     * System.out.println("Last Name : " +
+                     * System.sbout.println("Last Name : " +
                      * getTagValue("lastname", element));
-                     * System.out.println("Nick Name : " +
+                     * System.sbout.println("Nick Name : " +
                      * getTagValue("nickname", element));
-                     * System.out.println("Salary : " + getTagValue("salary",
+                     * System.sbout.println("Salary : " + getTagValue("salary",
                      * element));
                      */
                 }
@@ -536,8 +546,8 @@ public class Utilities implements ActionListener {
             }
             bufRdr.close();
 
-            //  System.out.println(manMap.entrySet());
-            //    System.out.println(womanMap.entrySet());
+            //  System.sbout.println(manMap.entrySet());
+            //    System.sbout.println(womanMap.entrySet());
             // ibmirange = "";
 
             int g = gender;
@@ -556,20 +566,20 @@ public class Utilities implements ActionListener {
                     diff = Math.max(s, arg);
                     dim = Math.min(s, arg);
                     // 0.013 is the maximum difference between two ordered height values
-                    //  System.out.println(" here is FIRST  diff: " + diff);
+                    //  System.sbout.println(" here is FIRST  diff: " + diff);
                     if (diff - arg <= 0.013 && diff != arg) {
                         j = diff;
-                        //  System.out.println("here is diff: " + diff);
+                        //  System.sbout.println("here is diff: " + diff);
                     }
 
                     if (arg - dim <= 0.013 && dim != arg) {
                         e = dim;
-                        //  System.out.println("here is dim: " + dim);
+                        //  System.sbout.println("here is dim: " + dim);
                     }
                 }
             }
 
-            //   System.out.println(manMap.keySet());
+            //   System.sbout.println(manMap.keySet());
 
             // System.err.println(j + " " + (j - arg));
             // System.err.println(e + " " + (arg - e));
@@ -728,7 +738,7 @@ public class Utilities implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         sound.stop();
-        // System.out.println("Inside Action performed UTILITIES");
+        // System.sbout.println("Inside Action performed UTILITIES");
     }
 
     /**
@@ -802,49 +812,54 @@ public class Utilities implements ActionListener {
         System.exit(0);
     }
 
-    /**
-     * Executes a bash command -Applicable only in UNIX
-     *
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public void execBash() throws IOException, InterruptedException {
-        if (System.getProperty("os.name").contains("inux")){
-        java.util.List<String> commands = new ArrayList<String>();
-        commands.add("bash"); // or /bin/cat
-        commands.add("-c");
-        //commands.add("echo Han | grep [^*]");
-//        commands.add("notify-send Bye $USER -i face-laugh -t 600 -u low -a bomico");
-        commands.add("notify-send Bye $USER -i /usr/share/icons/hicolor/48x48/apps/bomico.png -t 600 -u low -a bomico");
-        System.out.println("Executing: " + commands);
+  /**
+   * Executes a bash command -Applicable only in UNIX
+   * @param command
+   * @throws IOException
+   * @throws InterruptedException 
+   */
+    public void execBash(String command) throws IOException, InterruptedException {
+        if (System.getProperty("os.name").contains("inux")) {
+            java.util.List<String> commands = new ArrayList<String>();
+            commands.add("bash"); // or /bin/cat
+            commands.add("-c");
+            // commands.add("echo Han | grep [^*]");
+            // commands.add("notify-send Bye $USER -i face-laugh -t 600 -u low -a bomico");
+            commands.add(command);
+            System.out.println("Executing: " + commands);
 
-        //Run macro on target
-        ProcessBuilder pb = new ProcessBuilder(commands);
-        pb.directory(new File(System.getProperty("user.home")));
-        pb.redirectErrorStream(true);
-        Process process = pb.start();
+            // Run macro on target
+            pb = new ProcessBuilder(commands);
+            pb.directory(new File(System.getProperty("user.home")));
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
 
-        //Read output
-        StringBuilder out = new StringBuilder();
-        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line = null, previous = null;
-        while ((line = br.readLine()) != null) {
-            if (!line.equals(previous)) {
-                previous = line;
-                out.append(line).append('\n');
-                System.out.println(line);
+            // Read output
+            sbout = new StringBuilder();
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = null, previous = null;
+            while ((line = br.readLine()) != null) {
+                if (!line.equals(previous)) {
+                    previous = line;
+                    sbout.append(line).append('\n');
+                    System.out.println(line);
+                }
             }
-        }
-        //Check result
-        if (process.waitFor() == 0) {
-            System.out.println("Success!");
-        }
-        System.exit(0);
+            //Check result
+            if (process.waitFor() == 0) { // Normal value is 0
+                System.out.println("Success!");
+                System.out.println("Here is the Bashreturn: " + sbout.toString());
+            } else {
+                System.err.println(commands);
+                System.err.println(sbout.toString());
+                System.exit(1);
+            }
+            // System.exit(0);
 
-        //Abnormal termination: Log command parameters and output and throw ExecutionException
-        System.err.println(commands);
-        System.err.println(out.toString());
-        System.exit(1);
+            // Abnormal termination: Log command parameters and output and throw ExecutionException
+            // System.err.println(commands);
+            // System.err.println(sbout.toString());
+            // System.exit(1);
         }
     }
 

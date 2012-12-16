@@ -1561,15 +1561,16 @@ public class Bim extends javax.swing.JFrame {
         jTextArea1.append("BMI = " + bmi);
         jTextField3.setText(c.getHealth(jComboBox5.getSelectedIndex()));
         jTextArea1.append("\n" + "(" + c.getHealthText() + " )");
-        // System.out.println(String.valueOf(bimo));
-        // System.out.println(res);
+        // System.sbout.println(String.valueOf(bimo));
+        // System.sbout.println(res);
         System.err.println("BIM is: " + df.format(c.getResult()));
         jTextField2.setText(bmi);
         jButton9.setEnabled(true);
         System.out.println("Health Status - You are: " + c.getHealth(jComboBox5.getSelectedIndex()));
         try {
             if (System.getProperty("os.name").contains("inux")) {
-                Runtime.getRuntime().exec("notify-send " + bmi + " -i /usr/share/icons/hicolor/48x48/apps/bomico.png");
+                String bodys = bmi + ": " + c.getHealth(jComboBox5.getSelectedIndex()).replace(' ', '-');
+                Runtime.getRuntime().exec("notify-send " + bodys + " -i /usr/share/icons/hicolor/scalable/apps/bomico.svg");
             }
         } catch (IOException ex) {
             Logger.getLogger(Bim.class.getName()).log(Level.SEVERE, null, ex);
@@ -1616,8 +1617,8 @@ public class Bim extends javax.swing.JFrame {
         // Play Status Audio sound
         utils.playAudio(c.getHealth(jComboBox5.getSelectedIndex()), jToggleButton2.isSelected());
         //
-        // System.out.println("Working Directory is "+System.getProperty("user.dir"));
-        //System.out.println("System path is "+Utilities.showSystemPath());
+        // System.sbout.println("Working Directory is "+System.getProperty("user.dir"));
+        //System.sbout.println("System path is "+Utilities.showSystemPath());
 
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1636,7 +1637,7 @@ public class Bim extends javax.swing.JFrame {
 
     private void menuExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExit
         if (evt.getSource() == jMenuItem2) {
-                        int delay = 3000;
+            int delay = 3000;
 
             JDialog exitdialog = new JDialog(this, null, Dialog.ModalityType.MODELESS);
             final JLabel exitlabel = new JLabel(java.text.MessageFormat.format(java.util.ResourceBundle.getBundle("bim/Bundle").getString("WILL EXIT IN {0} SECONDS"), new Object[]{delay / 1000}));
@@ -1653,7 +1654,7 @@ public class Bim extends javax.swing.JFrame {
 
             javax.swing.Timer tclock = new javax.swing.Timer(1000, new ActionListener() {
                 int t = 3;
-                int c = 236;
+                int c = 234;
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -1669,13 +1670,16 @@ public class Bim extends javax.swing.JFrame {
             //  JOptionPane.showMessageDialog(jTabbedPane1, "Will exit in "+delay/1000+" seconds");
             javax.swing.Timer timer = new javax.swing.Timer(delay, new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {try {
-                utils.execBash();
-            } catch (IOException | InterruptedException ex) {
-                Logger.getLogger(ExitListener.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                    
-                    System.exit(0);
+                public void actionPerformed(ActionEvent e) {
+                    String desksession = System.getenv("DESKTOP_SESSION").toLowerCase();
+                    if (desksession.contains("ubuntu") || desksession.contains("mint") || desksession.contains("gnome")) {
+                        try {
+                            utils.execBash("notify-send Bye $USER -i /usr/share/icons/hicolor/scalable/apps/bomico.svg -t 600 -u low -a bomico");
+                        } catch (IOException | InterruptedException ex) {
+                            Logger.getLogger(ExitListener.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    System.exit(0); // Exit normally
                 }
             });
             timer.setInitialDelay(delay);
@@ -2341,7 +2345,7 @@ public class Bim extends javax.swing.JFrame {
                 //com.jtattoo.plaf.aluminium.AluminiumLookAndFeel.isWindowDecorationOn();
                 for (Component component : this.getComponents()) {
                     // SwingUtilities.updateComponentTreeUI(component);
-                    ///  System.out.println("Tattoo Aluminium: "+ component);
+                    ///  System.sbout.println("Tattoo Aluminium: "+ component);
                 }
                 Utilities.setLaf(Utilities.aluminiumlaf);
                 SwingUtilities.updateComponentTreeUI(jDialog1);
@@ -2387,7 +2391,7 @@ public class Bim extends javax.swing.JFrame {
                         + System.getProperty("os.name") + ".</b>"
                         + "<br/>The Windows LAF is enabled only under MS Windows. </font>";
                 UIManager.getDefaults().put("OptionPane.font", new Font("Droid Sans", Font.PLAIN, 11)); // Not working
-                // System.out.println(UIManager.getDefaults().getFont("OptionPane.font"));
+                // System.sbout.println(UIManager.getDefaults().getFont("OptionPane.font"));
                 //SwingUtilities.updateComponentTreeUI(this);
                 JOptionPane.showMessageDialog(this, msg, "Windows LAF", JOptionPane.ERROR_MESSAGE, null);
             }
@@ -2498,7 +2502,7 @@ public class Bim extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         Utilities utility = new Utilities();
-        System.out.println("args length is: " + args.length);
+        // System.sbout.println("args length is: " + args.length);
 // args.toString() != null & !args.toString().equals("") &
         if (args.length > 0) {
             if (args[0].toString().trim().equals("--version")) {
@@ -2605,7 +2609,7 @@ public class Bim extends javax.swing.JFrame {
                         Bim bim = new Bim();
 
                         //Loading the location of the image in the variable url.
-                        URL url = URLClassLoader.getSystemResource("resource/pingu.png");
+                        URL url = URLClassLoader.getSystemResource("resource/bomicosvg.png");
                         bim.setIconImage(new ImageIcon(url).getImage()); // seting the icon to the JFrame
 
                         //bim.setIconImage(Toolkit.getDefaultToolkit().getImage("/resource/pingu.png"));
